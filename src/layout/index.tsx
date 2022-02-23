@@ -1,10 +1,10 @@
-import React ,{useState}from 'react';
+import React ,{FC, useState}from 'react';
 import './style.scss';
 
 import {Logo} from '../component/logo';
 import {Category} from '../component/category';
 
-export const Layout = () => {
+export const Layout: FC = ({children}) => {
     const [categoryToggle, setCategoryToggle] = useState(false);
     let onToggle = () => setCategoryToggle(!categoryToggle);
     return (
@@ -32,7 +32,7 @@ export const Layout = () => {
         </div>
         <div className="panel-content">
             <div>
-
+                {children}
             </div> 
         </div>
     </div>

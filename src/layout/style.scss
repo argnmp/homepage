@@ -3,9 +3,9 @@
 
 .panel-wrapper {
     box-sizing: border-box;
-    width: 100%;
-    height: 100%;
     display: grid;
+    min-width: 0;
+    min-height: 0;
     @include smmd {
         .panel-smmd-category-off{
             display: none;
@@ -23,6 +23,7 @@
         }
     }
 }
+
 .category-on {
     @include smmd {
         grid-template-rows: 60px auto 1fr;
@@ -63,8 +64,7 @@
     >div {
         @include panel-common;
         @include smmd {
-            grid-template-columns: 1fr 2fr 1fr;
-            grid-template-rows: 1fr 1fr;
+            grid-template-columns: 1fr 5fr 1fr;
         }
         @include lgxl {
             grid-template-rows: 46px 1fr;
@@ -155,6 +155,8 @@
     }
     >div{
         @include panel-common;
+        display: block;
+        width: 100%;
     }
 }
 

@@ -1,12 +1,17 @@
 import React from 'react';
 import './style.scss';
 
-import { Layout } from './layout';
+import {Profile} from './page/profile';
 
-const App = () => {
+interface props {
+    page: string,
+    data: string
+}
+
+const App : React.FC<props>  = ({page, data}) => {
     return (
     <>
-        <Layout/>
+        <Profile data={data}/>
     </>
            )
 }
