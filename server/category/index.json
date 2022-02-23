@@ -1,0 +1,10 @@
+{
+    "profile":true,
+    "documents": {
+        "cpp": true,
+        "javascript": true,
+        "nodejs": true,
+        "reactjs": true
+    },
+    "daily": true
+}

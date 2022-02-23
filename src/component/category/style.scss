@@ -1,0 +1,40 @@
+@use '../../styles/variables' as *;
+
+.header {
+    padding: 10px 20px;
+    color: $polar-df;
+    font-weight: 700;
+}
+.upper-category-list {
+    padding: 0px 20px;
+    
+    cursor: pointer;
+    >li {
+        padding: 5px 10px;    
+        border-left: 2px solid $polar-sh;
+        &:hover {
+            background-color: $polar-bg;
+        }
+        >span {
+            display: block;
+            font-size: 16px;
+            color: $polar-df;
+        }
+    }
+    .lower-category-list {
+        li {
+            padding: 5px 10px;
+            border-left: 2px solid $polar-sh;
+            &:hover {
+                background-color: #173652;
+            }
+        }
+        span {
+            display: block;
+            font-size: 16px;
+            color: $polar-df;
+        }
+    }
+      
+}
+

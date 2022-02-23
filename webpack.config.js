@@ -14,13 +14,14 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: ['babel-loader','ts-loader']
+                use: ['babel-loader','ts-loader'],
+                exclude: /node_modules/
             },
             {
                 test: /\.s[ac]ss$/i,
                 use:['style-loader','css-loader','sass-loader'],
                 exclude: /node_modules/
-            }
+            },
         ],
     },
     output: {
