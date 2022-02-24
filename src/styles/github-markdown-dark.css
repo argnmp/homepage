@@ -4,13 +4,13 @@
   -webkit-text-size-adjust: 100%;
   margin: 0;
   color: #c9d1d9;
-  background-color: #0d1117;
   font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
   font-size: 16px;
   line-height: 1.5;
   word-wrap: break-word;
   width: 100%;
 }
+
 
 .markdown-body .octicon {
   display: inline-block;
@@ -837,12 +837,11 @@
 .markdown-body pre code,
 .markdown-body pre tt {
   display: inline;
-  max-width: auto;
   padding: 0;
   margin: 0;
   overflow: visible;
   line-height: inherit;
-  word-wrap: normal;
+  word-wrap: break-all;
   background-color: transparent;
   border: 0;
 }
@@ -940,3 +939,6 @@
 .markdown-body ::-webkit-calendar-picker-indicator {
   filter: invert(50%);
 }
+
+
+

@@ -6,10 +6,12 @@ import './style.scss';
 interface props {
     data: string
 }
-export const Profile: React.FC<props> = ({data}) => {
+export const Category: React.FC<props> = ({data}) => {
     return (
         <Layout>
-            <div className="markdown-body" dangerouslySetInnerHTML={{__html:data}}></div>
+            <div className="wrapper">
+                <div className="markdown-body" dangerouslySetInnerHTML={{__html:data}}></div>
+            </div>
         </Layout>
            ) 
 }

@@ -1,0 +1,15 @@
+@use '../../styles/variables' as * ;
+@use '../../styles/mixin' as *;
+@use '../../styles/github-markdown-dark.css' as *;
+
+.wrapper {
+    @include smmd {
+        padding: 20px 20px; 
+    }     
+    @include lgxl {
+        padding: 20px 40px;
+    }
+}
+
+
+

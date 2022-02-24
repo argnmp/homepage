@@ -4,8 +4,6 @@
 .panel-wrapper {
     box-sizing: border-box;
     display: grid;
-    min-width: 0;
-    min-height: 0;
     @include smmd {
         .panel-smmd-category-off{
             display: none;
@@ -27,17 +25,19 @@
 .category-on {
     @include smmd {
         grid-template-rows: 60px auto 1fr;
+        grid-template-columns: minmax(0,1fr);
     }
     @include lgxl {
-        grid-template-columns: 300px 1fr;
+        grid-template-columns: 300px minmax(0,1fr);
     }
 }
 .category-off {
     @include smmd {
         grid-template-rows: 60px 1fr;
+        grid-template-columns: minmax(0,1fr);
     }
     @include lgxl {
-        grid-template-columns: 300px 1fr;
+        grid-template-columns: 300px minmax(0,1fr);
     }
 }
 

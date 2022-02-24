@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-let list = require('../../../server/category/index.json');
+let list = require('../../../server/metadata/category.json');
 
 import './style.scss';
 
@@ -11,9 +11,10 @@ export const Category = () => {
         let returnElement = [];
         for(let i in list){
             if(typeof(list[i])=='object'){
-                returnElement.push(<li key={i}><span className="link-item" onClick={()=>moveHref(i)}>{i}</span>{createCategory(list[i], false)}</li>)        
+                //returnElement.push(<li key={i}><span className="link-item" onClick={()=>moveHref(i)}>{i}</span>{createCategory(list[i], false)}</li>)        
+                returnElement.push(<li key={i} onClick={()=>moveHref(i)}>{i}{createCategory(list[i], false)}</li>)        
             }else{
-                returnElement.push(<li key={i}><span className="link-item" onClick={()=>moveHref(i)}>{i}</span></li>);
+                returnElement.push(<li key={i} onClick={()=>moveHref(i)}>{i}</li>);
             }
         }
         if(isUpper){
