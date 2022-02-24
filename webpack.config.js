@@ -14,7 +14,12 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: ['babel-loader','ts-loader'],
+                use: [{
+                    loader: 'babel-loader',
+                    options: {
+                        configFile: path.resolve(__dirname, './babel.client.js'),
+                    }
+                },'ts-loader'],
                 exclude: /node_modules/
             },
             {
@@ -32,12 +37,23 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, '/dist'),
-        filename: 'bundle.js'
+        filename: '[name].js'
     },
     devServer: {
         historyApiFallback: true,
         port: 3000,
         hot: true,
+    },
+    optimization: {
+        splitChunks: {
+            cacheGroups: {
+                commons: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all',
+                },
+            },
+        },
     },
     plugins: [
         new webpack.ProvidePlugin({
