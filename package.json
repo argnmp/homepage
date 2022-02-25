@@ -5,16 +5,18 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack serve --mode development --open --hot",
+    "build-server": "npx babel server --out-dir ./production/server --config-file ./babel.server.js && npx babel src --out-dir ./production/src --config-file ./babel.server.js --extensions '.tsx'",
     "build": "webpack --mode production",
     "prestart": "npm run build",
-    "start": "npm run dev",
-    "start-server": "nodemon ./server/app.js"
+    "start-server": "npm run build-server && nodemon ./dist-server/app.js",
+    "start": "npm run dev"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@babel/cli": "^7.17.6",
+    "@babel/plugin-transform-modules-commonjs": "^7.16.8",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
