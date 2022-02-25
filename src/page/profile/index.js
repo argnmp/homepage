@@ -1,15 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Layout} from '../../layout/index';
 
 import './style.scss';
 
-export const PNF: React.FC = () => {
+export const Profile = ({data}) => {
     return (
         <Layout>
             <div className="wrapper">
-                <h1>
-                    PAGE NOT FOUND : 404
-                </h1>
+                <div className="markdown-body" dangerouslySetInnerHTML={{__html:data}}></div>
             </div>
         </Layout>
            ) 

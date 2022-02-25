@@ -1,10 +1,9 @@
-import React ,{FC, useState}from 'react';
+import React ,{useState}from 'react';
 import './style.scss';
 
 import {Logo} from '../component/logo';
 import {Category} from '../component/category';
-
-export const Layout: FC = ({children}) => {
+export const Layout = ({children}) => {
     const [categoryToggle, setCategoryToggle] = useState(false);
     let onToggle = () => setCategoryToggle(!categoryToggle);
     return (

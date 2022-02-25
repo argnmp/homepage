@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack serve --mode development --open --hot",
-    "build-server": "npx babel server --out-dir ./production/server --config-file ./babel.server.js && npx babel src --out-dir ./production/src --config-file ./babel.server.js --extensions '.tsx'",
+    "build-server": "npx babel src --out-dir ./dist-server --config-file ./babel.server.js",
     "build": "webpack --mode production",
     "prestart": "npm run build",
     "start-server": "npm run build-server && nodemon ./dist-server/app.js",

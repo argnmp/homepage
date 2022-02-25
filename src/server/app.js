@@ -10,10 +10,6 @@ const indexRouter = require('./routes/index.js');
 const profileRouter = require('./routes/profile.js');
 
 const app = express();
-const html = fs.readFileSync(
-    path.resolve(__dirname, '../dist/index.html'),
-    'utf8'
-)
 
 const sessionMiddleware = session({
     resave: false,

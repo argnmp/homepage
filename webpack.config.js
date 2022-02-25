@@ -6,12 +6,23 @@ const prod = process.env.NODE_ENV === 'production';
 module.exports = {
     mode: prod ? 'production' : 'development',
     devtool: prod ? 'hidden-source-map' : 'eval',
-    entry: './src/index.tsx',
+    entry: './src/index.js',
     resolve: {
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
     },
     module: {
         rules: [
+            {
+                test: /\.jsx?$/,
+                use: [{
+                    loader: 'babel-loader',
+                    options: {
+                        configFile: path.resolve(__dirname, './babel.client.js'),
+                    }
+                }],
+                exclude: /node_modules/
+            },
+            /*
             {
                 test: /\.tsx?$/,
                 use: [{
@@ -22,6 +33,7 @@ module.exports = {
                 },'ts-loader'],
                 exclude: /node_modules/
             },
+            */
             {
                 test: /\.s[ac]ss$/i,
                 use:['style-loader',{

@@ -3,10 +3,7 @@ import {Layout} from '../../layout/index';
 
 import './style.scss';
 
-interface props {
-    data: string
-}
-export const Category: React.FC<props> = ({data}) => {
+export const Category = ({data}) => {
     return (
         <Layout>
             <div className="wrapper">

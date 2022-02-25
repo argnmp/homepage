@@ -6,13 +6,8 @@ import {Category} from './page/category';
 import {PNF} from './page/404';
 
 
-interface props {
-    page: string,
-    data: string
-}
-
-const App : React.FC<props>  = ({page, data}) => {
-    let pageRenderer = (page: any) => {
+const App = ({page, data}) => {
+    let pageRenderer = (page) => {
         switch(page){
             case 'profile':
                 return <Profile data={data}/>

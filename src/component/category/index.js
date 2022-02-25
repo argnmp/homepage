@@ -1,13 +1,13 @@
 import React, {useEffect} from 'react';
-let list = require('../../../server/metadata/category.json');
+let list = require('../../server/metadata/category.json');
 
 import './style.scss';
 
 export const Category = () => {
-    const moveHref = (page : any) => {
+    const moveHref = (page) => {
         document.location.href = `/${page}`;
     }
-    let createCategory = (list : any, isUpper : boolean) => {
+    let createCategory = (list, isUpper) => {
         let returnElement = [];
         for(let i in list){
             if(typeof(list[i])=='object'){
