@@ -1,17 +1,18 @@
 import React, {useEffect} from 'react';
-let list = require('../../../server/metadata/category.json');
+import {useSelector} from 'react-redux';
+//let list = require('../../../server/metadata/category.json');
 
 import './style.scss';
 
 export const Category = () => {
+    const list = useSelector(state => state.category.categoryData);
     const moveHref = (page) => {
         document.location.href = `/${page}`;
     }
     let createCategory = (list, isUpper) => {
         let returnElement = [];
         for(let i in list){
-            if(typeof(list[i])=='object'){
-                //returnElement.push(<li key={i}><span className="link-item" onClick={()=>moveHref(i)}>{i}</span>{createCategory(list[i], false)}</li>)        
+            if(typeof(list[i])=='object'){        
                 returnElement.push(<li key={i} onClick={()=>moveHref(i)}>{i}{createCategory(list[i], false)}</li>)        
             }else{
                 returnElement.push(<li key={i} onClick={()=>moveHref(i)}>{i}</li>);

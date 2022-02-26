@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npm run clean && webpack serve --mode development --open --hot",
+    "dev": "npm run clean-client && webpack serve --mode development --open --hot",
     "build-server": "npm run clean-server && npx babel server --out-dir ./dist-server/server --config-file ./babel.server.js --copy-files && npx babel src --out-dir ./dist-server/src --config-file ./babel.server.js --copy-files && npm run build",
     "build": "npm run clean-client && webpack --mode production",
     "start-server": "npm run build-server && nodemon ./dist-server/server/app.js",
@@ -28,6 +28,9 @@
     "raw-loader": "^4.0.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-redux": "^7.2.6",
+    "redux": "^4.1.2",
+    "redux-saga": "^1.1.3",
     "rimraf": "^3.0.2",
     "sass": "^1.49.8"
   },
