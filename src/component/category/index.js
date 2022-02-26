@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-let list = require('../../server/metadata/category.json');
+let list = require('../../../server/metadata/category.json');
 
 import './style.scss';
 

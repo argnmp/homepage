@@ -3,7 +3,7 @@ import {Layout} from '../../layout/index';
 
 import './style.scss';
 
-export const Category = ({data}) => {
+export const Post = ({data}) => {
     return (
         <Layout>
             <div className="wrapper">

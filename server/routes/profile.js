@@ -3,11 +3,11 @@ import fs from 'fs';
 import path from 'path';
 import {renderToString} from 'react-dom/server';
 import React from 'react';
-import App from '../../App.js';
+import App from '../../src/App';
 const router = express.Router();
 
 const html = fs.readFileSync(
-    path.resolve(__dirname, '../../index.html'),
+    path.resolve(__dirname, '../../../dist/index.html'),
     'utf8'
 )
 const data = fs.readFileSync(
@@ -16,12 +16,13 @@ const data = fs.readFileSync(
 )
 
 router.get('/', (req,res)=>{
-    let renderString = renderToString(<App page="home" data={data}/>);
+    let renderString = renderToString(<App page="profile" data={data}/>);
     const result = html.replace(
         '<div id="root"></div>',
         `<div id="root">${renderString}</div>`
     );
     res.send(result);
 })
+
 
 module.exports = router;

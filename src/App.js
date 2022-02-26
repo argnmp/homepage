@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import './style.scss';
 
 import {Profile} from './page/profile';
-import {Category} from './page/category';
+import {Post} from './page/post';
 import {PNF} from './page/404';
 
 
@@ -11,8 +11,8 @@ const App = ({page, data}) => {
         switch(page){
             case 'profile':
                 return <Profile data={data}/>
-            case 'category' :
-                return <Category data={data}/>
+            case 'post' :
+                return <Post data={data}/>
             default :
                 return <PNF />
         } 

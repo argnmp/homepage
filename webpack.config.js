@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const webpack = require('webpack');
 const prod = process.env.NODE_ENV === 'production';
@@ -13,7 +14,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.jsx?$/,
+                test: /\.js?$/,
                 use: [{
                     loader: 'babel-loader',
                     options: {
@@ -36,7 +37,7 @@ module.exports = {
             */
             {
                 test: /\.s[ac]ss$/i,
-                use:['style-loader',{
+                use:[prod==='development' ? style-loader : MiniCssExtractPlugin.loader,{
                     loader: 'css-loader',
                 },'sass-loader'],
                 exclude: /node_modules/
@@ -49,6 +50,7 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, '/dist'),
+        publicPath: '/dist/',
         filename: '[name].js'
     },
     devServer: {
@@ -74,6 +76,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/index.html',
         }),
+        new MiniCssExtractPlugin(),
         new webpack.HotModuleReplacementPlugin(),
     ],
 }
