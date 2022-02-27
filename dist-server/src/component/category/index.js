@@ -16,23 +16,39 @@ function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && 
 const Category = () => {
   const list = (0, _reactRedux.useSelector)(state => state.category.categoryData);
 
-  const moveHref = page => {
-    document.location.href = `/${page}`;
+  let getUrl = (page, isPost, upperPage) => {
+    let targetUrl;
+
+    if (isPost) {
+      if (upperPage == null) targetUrl = `/post/${page}`;else targetUrl = `/post/${upperPage}/${page}`;
+    } else {
+      targetUrl = `/${page}`;
+    }
+
+    return targetUrl;
   };
 
-  let createCategory = (list, isUpper) => {
+  let createCategory = (list, isUpper, upperPage) => {
     let returnElement = [];
 
     for (let i in list) {
       if (typeof list[i] == 'object') {
+        const targetUrl = getUrl(i, true, upperPage);
         returnElement.push( /*#__PURE__*/_react.default.createElement("li", {
           key: i,
-          onClick: () => moveHref(i)
-        }, i, createCategory(list[i], false)));
+          onClick: e => {
+            e.stopPropagation();
+            document.location.href = targetUrl;
+          }
+        }, i, createCategory(list[i], false, i))); //stopPropagation이 없다면 onclick 이벤트가 버블링 되어서 상위의 카테고리가 마지막으로 눌리게 됨. 이것때문에 많이 고생함..
       } else {
+        const targetUrl = getUrl(i, list[i], upperPage);
         returnElement.push( /*#__PURE__*/_react.default.createElement("li", {
           key: i,
-          onClick: () => moveHref(i)
+          onClick: e => {
+            e.stopPropagation();
+            document.location.href = targetUrl;
+          }
         }, i));
       }
     }
@@ -48,9 +64,12 @@ const Category = () => {
     }
   };
 
+  (0, _react.useEffect)(() => {
+    createCategory(list, true, null);
+  }, []);
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
     className: "header"
-  }, /*#__PURE__*/_react.default.createElement("span", null, "Category")), createCategory(list, true), /*#__PURE__*/_react.default.createElement("div", {
+  }, /*#__PURE__*/_react.default.createElement("span", null, "Category")), createCategory(list, true, null), /*#__PURE__*/_react.default.createElement("div", {
     className: "header"
   }));
 };

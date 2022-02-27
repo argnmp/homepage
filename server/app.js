@@ -36,6 +36,7 @@ app.use(sessionMiddleware);
 
 app.use('/dist',express.static(path.join(__dirname , '../../dist')));
 //__dirname으로 해주어야함. 그렇지 않으면 node로 실행할때 다른 위치에서 실행할 경우 경로가 이상하게 됨.
+
 app.use('/', indexRouter);
 app.use('/profile', profileRouter);
 

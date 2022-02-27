@@ -50,11 +50,10 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, '/dist'),
-        publicPath: '/dist/',
+        publicPath: '/dist', //for devleoping server+client /for webpack server delete this line
         filename: '[name].js'
     },
     devServer: {
-        historyApiFallback: true,
         port: 3000,
         hot: true,
     },

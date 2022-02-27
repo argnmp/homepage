@@ -12,15 +12,18 @@ import rootReducer from '../../src/reducers/index';
 import App from '../../src/App.js';
 const router = express.Router();
 
+//this should not be changed. dependent to 'dist'
 const html = fs.readFileSync(
     path.resolve(__dirname, '../../../dist/index.html'),
     'utf8'
 )
 
 const pageData = fs.readFileSync(
-    path.resolve(__dirname, '../static/profile/index.html'),
+    path.resolve(__dirname, '../static/index/index.html'),
     'utf8'
 )
+
+//category metadata -> change to automatically change metadata
 const categoryData = fs.readFileSync(
     path.resolve(__dirname, '../metadata/category.json')
 )
@@ -31,7 +34,7 @@ router.get('/', (req,res)=>{
     //push page data into redux state
     const store = createStore(rootReducer);
     let preloadedState = store.getState();
-    preloadedState.page.currentPage = 'profile';
+    preloadedState.page.currentPage = 'index';
     preloadedState.page.currentPageData = pageData;
     preloadedState.category.categoryData = JSON.parse(categoryData);
 

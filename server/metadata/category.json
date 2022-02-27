@@ -1,5 +1,5 @@
 {
-    "profile":true,
+    "profile":false,
     "documents": {
         "cpp": true,
         "javascript": true,
