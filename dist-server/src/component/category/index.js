@@ -20,7 +20,7 @@ const Category = () => {
     let targetUrl;
 
     if (isPost) {
-      if (upperPage == null) targetUrl = `/post/${page}`;else targetUrl = `/post/${upperPage}/${page}`;
+      if (upperPage == null) targetUrl = `/category/${page}`;else targetUrl = `/category/${upperPage}/${page}`;
     } else {
       targetUrl = `/${page}`;
     }

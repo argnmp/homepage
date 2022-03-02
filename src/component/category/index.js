@@ -10,9 +10,9 @@ export const Category = () => {
         let targetUrl;
         if(isPost){
             if(upperPage == null)
-                targetUrl = `/post/${page}`
+                targetUrl = `/category/${page}`
             else 
-                targetUrl = `/post/${upperPage}/${page}`
+                targetUrl = `/category/${upperPage}/${page}`
         }
         else{
             targetUrl = `/${page}`;
