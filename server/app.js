@@ -2,7 +2,9 @@ const express = require('express');
 const path = require('path');
 const logger = require('morgan');const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const fileStore = require('session-file-store')(session);
 const fs = require('fs');
+const flash = require('connect-flash');
 require("dotenv").config();
 
 //mongodb;
@@ -18,15 +20,19 @@ const apiRouter = require('./routes/api.js');
 
 const app = express();
 
+app.use(express.json());
+app.use(express.urlencoded({extended: false}));
+app.use(cookieParser(process.env.COOKIE_SECRET));
+
 //authentication
-let fileStore = require('session-file-store')(session);
-const sessionMiddleware = session({
+app.use(session({
     resave: false,
     saveUninitialized: false,
     secret: `${process.env.COOKIE_SECRET}`,
-    store: new fileStore(),
-})
-app.use(sessionMiddleware);
+    //store: new fileStore(),
+}));
+
+
 let passport = require('passport');
 require('./passport/index.js').config(passport);
 app.use(passport.initialize());
@@ -38,11 +44,8 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
 
 app.use(logger('dev'));
+app.use(flash());
 
-app.use(express.json());
-app.use(express.urlencoded({extended: false}));
-
-app.use(cookieParser(process.env.COOKIE_SECRET));
 
 
 app.use('/dist',express.static(path.join(__dirname , '../../dist')));

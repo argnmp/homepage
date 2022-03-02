@@ -50,7 +50,9 @@ router.get('/:title', wrapAsync(async (req, res, next) => {
   if (query) {
     currentPageData = query.data;
   } else {
-    throw new Error('page not found');
+    let err = new Error('not found');
+    err.status = 404;
+    throw err;
   } //using redux to send data from server to client
   //push page data into redux state
 

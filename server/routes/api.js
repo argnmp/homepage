@@ -11,9 +11,47 @@ const router = express.Router();
 const mongoose = require('mongoose');
 import Post from '../models/postModel.js';
 
+//비동기 함수에 대한 에러처리 
+function wrapAsync(fn) {
+    return function(req, res, next) {
+      // Make sure to `.catch()` any errors and pass them along to the `next()`
+      // middleware in the chain, in this case the error handler.
+      fn(req, res, next).catch(next);
+    };
+  }
+//upload
+router.get('/post', (req,res)=>{
+    res.sendFile(path.join(__dirname, './upload.html'));
+})
+router.post('/post', wrapAsync(async(req,res)=>{
+    if(!req.user){
+        let err = new Error('Unauthorized');
+        err.status = 401;
+        throw err;
+    }
+    else{
+        let title = req.body.title;
+        let author = req.user.name;
+        let data = req.body.data;
+        let payload = new Post({
+            title,
+            author,
+            data,
+            uploadDate: new Date()
+        })  
+        await payload.save();
+        res.status(201).redirect(`/post/${title}`);
+    }
+}));
+router.post('/image/:filename',(req,res)=>{
+
+});
+
+
+// login example ---start
 //로그인 로그아웃 여부
 const authInfo = (req)=>{
-    if(req.user) return `${req.user.name} | <a href="/logout">로그아웃</a>`;
+    if(req.user) return `${req.user.name} | <a href="/api/logout">로그아웃</a>`;
     return `<a href="/api/login">login</a>`;
 }
 
@@ -39,6 +77,7 @@ const getPage = (title, content, auth) =>{
 //login
 router.get('/',(req,res)=>{
     let page = getPage('Passport','This is Passport Example Page',authInfo(req));
+    console.log(req.user);
     res.send(page);
 });
 router.get('/login',(req,res)=>{
@@ -55,18 +94,17 @@ router.get('/login',(req,res)=>{
     res.send(page);
 });
 router.post('/login', passport.authenticate('local',{
-    successRedirect: '/',
-    failureRedirect: '/login',
+    successRedirect: '/api',
+    failureRedirect: '/api/login',
     failureFlash: true,
 }))
-
-//upload
-router.post('/post/:filename', async(req,res)=>{
-    
-});
-router.post('/image/:filename',(req,res)=>{
-
-});
+router.get('/logout',(req,res)=>{
+    req.logout();
+    req.session.save(()=>{
+        res.redirect('/');
+    })
+})
+//login-example ----fin
 
 
 
