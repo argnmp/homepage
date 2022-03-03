@@ -5,6 +5,7 @@ import {Layout} from '../../layout/index';
 
 import './style.scss';
 
+
 export const Index = () => {
     const pageData = useSelector(state => state.page.currentPageData);
     return (

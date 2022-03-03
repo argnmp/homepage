@@ -1,6 +1,7 @@
 const express = require('express');
 import fs from 'fs';
 import path from 'path';
+import moment from 'moment';
 import {renderToString} from 'react-dom/server';
 import React from 'react';
 
@@ -36,10 +37,10 @@ function wrapAsync(fn) {
 import paging from '../modules/paging';
 
 
-router.get('/:upperdirectory/:lowerdirectory', wrapAsync(async (req,res)=>{
+router.get('/:lowerdirectory', wrapAsync(async (req,res)=>{
     let category = req.params.lowerdirectory;
     let page = req.query.page;
-    const totalPost = await Post.countDocuments({});
+    const totalPost = await Post.countDocuments({category: `${category}`});
     let {
         startPage,
         endPage,
@@ -48,6 +49,9 @@ router.get('/:upperdirectory/:lowerdirectory', wrapAsync(async (req,res)=>{
         totalPage,
         currentPage
     } = paging(page, totalPost);
+    console.log(totalPost);
+    console.log(startPage, endPage, hidePost, maxPost, totalPage, currentPage);
+    
     
     let currentPageData = await Post.find({category: `${category}`}).sort({uploadDate: -1})
         .skip(hidePost)
@@ -57,9 +61,48 @@ router.get('/:upperdirectory/:lowerdirectory', wrapAsync(async (req,res)=>{
     //push page data into redux state
     const store = createStore(rootReducer);
     let preloadedState = store.getState();
-    preloadedState.page.currentPage = 'post';
+    preloadedState.page.currentPage = 'list';
     preloadedState.page.currentPageData = currentPageData;
-    preloadedState.page.currentPageMetadata = {startPage, endPage, totalPage, currentPage}
+    preloadedState.page.currentPageMetadata = {startPage, endPage, totalPage, currentPage, currentUri: `/${req.params.lowerdirectory}`};
+    preloadedState.category.categoryData = JSON.parse(categoryData);
+
+    let renderString = renderToString(<Provider store={store}><App/></Provider>);
+
+    const result = html
+    .replace('__REDUX_STATE_FROM_SERVER__', JSON.stringify(preloadedState))
+    .replace(
+        '<div id="root"></div>',
+        `<div id="root">${renderString}</div>`
+    )
+    res.send(result);
+}));
+router.get('/:upperdirectory/:lowerdirectory', wrapAsync(async (req,res)=>{
+    let category = req.params.lowerdirectory;
+    let page = req.query.page | 1;
+    const totalPost = await Post.countDocuments({category: `${category}`});
+    let {
+        startPage,
+        endPage,
+        hidePost,
+        maxPost,
+        totalPage,
+        currentPage
+    } = paging(page, totalPost);
+    console.log('totalpost:',totalPost);
+    console.log('page:', page);
+    console.log(startPage, endPage, hidePost, maxPost, totalPage, currentPage);
+    
+    let currentPageData = await Post.find({category: `${category}`}).sort({uploadDate: -1})
+        .skip(hidePost)
+        .limit(maxPost);
+
+    //using redux to send data from server to client
+    //push page data into redux state
+    const store = createStore(rootReducer);
+    let preloadedState = store.getState();
+    preloadedState.page.currentPage = 'list';
+    preloadedState.page.currentPageData = currentPageData;
+    preloadedState.page.currentPageMetadata = {startPage, endPage, totalPage, currentPage, currentUri: `/${req.params.upperdirectory}/${req.params.lowerdirectory}`};
     preloadedState.category.categoryData = JSON.parse(categoryData);
 
     let renderString = renderToString(<Provider store={store}><App/></Provider>);

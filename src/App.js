@@ -5,6 +5,7 @@ import './style.scss';
 import {Index} from './page/index';
 import {Profile} from './page/profile';
 import {Post} from './page/post';
+import {List} from './page/list';
 import {PNF} from './page/404';
 
 
@@ -18,6 +19,8 @@ const App = () => {
                 return <Profile/>
             case 'post' :
                 return <Post/>
+            case 'list' :
+                return <List/>
             default :
                 return <PNF />
         } 

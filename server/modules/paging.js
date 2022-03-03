@@ -4,7 +4,8 @@ const paging = (page, totalPost) => {
     let currentPage = page ? parseInt(page) : 1;
     const totalPage = Math.ceil(totalPost/maxPost);
     if(currentPage > totalPage){
-        currentPage = totalPage;
+        
+        currentPage = totalPage === 0 ? currentPage : totalPage;
     }
     const hidePost = (currentPage-1)*maxPost;
     const startPage = Math.floor(((currentPage - 1)/maxPage)) * maxPage + 1;
