@@ -9,7 +9,7 @@ require("dotenv").config();
 
 //mongodb;
 const connect = require('./db/index.js');
-connect();
+const db = connect();
 
 //routes
 const indexRouter = require('./routes/index.js');
@@ -55,7 +55,7 @@ app.use('/', indexRouter);
 app.use('/profile', profileRouter);
 app.use('/category', categoryRouter);
 app.use('/post', postRouter);
-app.use('/api',apiRouter)
+app.use('/api',apiRouter);
 
 // 위의 routing 이외의 것에 대해 동작함.
 app.use((req,res,next)=>{

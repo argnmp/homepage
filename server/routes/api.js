@@ -1,3 +1,6 @@
+//markdown parser
+import {marked} from 'marked';
+
 //express
 const express = require('express');
 import fs from 'fs';
@@ -32,10 +35,13 @@ router.post('/post', wrapAsync(async(req,res)=>{
     else{
         let title = req.body.title;
         let author = req.user.name;
-        let data = req.body.data;
+        let data = marked.parse(req.body.data);
+        let category = req.body.category;
+
         let payload = new Post({
             title,
             author,
+            category,
             data,
             uploadDate: new Date()
         })  

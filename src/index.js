@@ -40,9 +40,11 @@ const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, preloadedState, compose(applyMiddleware(sagaMiddleware)));
 
 const rootElement = document.getElementById('root');
-/*ReactDom.render(
+/*
+ReactDom.render(
     <Provider store={store}><App/></Provider>
     ,rootElement);*/
 ReactDom.hydrate(
     <Provider store={store}><App/></Provider>
     ,rootElement);
+    

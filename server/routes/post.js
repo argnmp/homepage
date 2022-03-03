@@ -39,6 +39,7 @@ function wrapAsync(fn) {
 router.get('/:title', wrapAsync(async (req,res,next)=>{
     let currentPageData;
     const query = await Post.findOne({title: req.params.title});
+
     //if not found, query will be null;
     if(query){
         currentPageData = query.data;
