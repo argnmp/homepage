@@ -33,20 +33,33 @@ router.post('/post', wrapAsync(async(req,res)=>{
         throw err;
     }
     else{
-        let title = req.body.title;
-        let author = req.user.name;
-        let data = marked.parse(req.body.data);
-        let category = req.body.category;
+        try{
+            let title = req.body.title;
+            let uri = req.body.title;
+            uri = uri.replace(/ /gi,"-");
+            const sameTitleNum = await Post.countDocuments({title: title});
+            if(sameTitleNum!==0) uri += `-${sameTitleNum}`;
+            let author = req.user.name;
+            let data = marked.parse(req.body.data);
+            let category = req.body.category;
 
-        let payload = new Post({
-            title,
-            author,
-            category,
-            data,
-            uploadDate: new Date()
-        })  
-        await payload.save();
-        res.status(201).redirect(`/post/${title}`);
+            let payload = new Post({
+                uri,
+                title,
+                author,
+                category,
+                data,
+                uploadDate: new Date()
+            })  
+            await payload.save();
+            res.status(201).redirect(`/post/${uri}`);
+
+        }catch(e){
+            let err = new Error('internal serverError');
+            err.status = 500;
+            throw err
+            
+        }
     }
 }));
 router.post('/image/:filename',(req,res)=>{

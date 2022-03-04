@@ -39,7 +39,7 @@ import paging from '../modules/paging';
 
 router.get('/:lowerdirectory', wrapAsync(async (req,res)=>{
     let category = req.params.lowerdirectory;
-    let page = req.query.page;
+    let page = req.query.page | 1;
     const totalPost = await Post.countDocuments({category: `${category}`});
     let {
         startPage,
@@ -49,9 +49,9 @@ router.get('/:lowerdirectory', wrapAsync(async (req,res)=>{
         totalPage,
         currentPage
     } = paging(page, totalPost);
-    console.log(totalPost);
+    console.log('totalpost:',totalPost);
+    console.log('page:', page);
     console.log(startPage, endPage, hidePost, maxPost, totalPage, currentPage);
-    
     
     let currentPageData = await Post.find({category: `${category}`}).sort({uploadDate: -1})
         .skip(hidePost)

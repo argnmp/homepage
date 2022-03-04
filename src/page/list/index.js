@@ -18,11 +18,11 @@ const Pagination = ({startPage, endPage, currentPage, currentUri}) => {
         </ul>
     )
 }
-const Item = ({title, author, date}) => {
+const Item = ({uri,title, author, date}) => {
     return (
         <div className="item-wrapper">
             <div className="title-wrapper">
-                <a href={`/post/${title}`}><span className="title">{title}</span></a>
+                <a href={`/post/${uri}`}><span className="title">{title}</span></a>
             </div>
             <div className="info-wrapper">
                 <span className="author">{author}</span>
@@ -38,7 +38,7 @@ export const List = () => {
     const listRenderer = (list) => {
         let result = [];
         for(let i of list){
-            result.push(<li><Item title={i.title} author={i.author} date={moment(i.uploadDate).format('YYYY-MM-DD hh:mm:ss')}/></li>);
+            result.push(<li><Item uri={i.uri} title={i.title} author={i.author} date={moment(i.uploadDate).format('YYYY-MM-DD hh:mm:ss')}/></li>);
         }
         return <ul>{result}</ul>;
     }

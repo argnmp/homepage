@@ -36,13 +36,15 @@ function wrapAsync(fn) {
       fn(req, res, next).catch(next);
     };
   }
-router.get('/:title', wrapAsync(async (req,res,next)=>{
+router.get('/:uri', wrapAsync(async (req,res,next)=>{
     let currentPageData;
-    const query = await Post.findOne({title: req.params.title});
+    let currentPageMetadata;
+    const query = await Post.findOne({uri: req.params.uri});
 
     //if not found, query will be null;
     if(query){
         currentPageData = query.data;
+        currentPageMetadata = {title: query.title, author: query.author, uploadDate: query.uploadDate};
     }
     else{
         let err = new Error('not found');
@@ -56,6 +58,7 @@ router.get('/:title', wrapAsync(async (req,res,next)=>{
     let preloadedState = store.getState();
     preloadedState.page.currentPage = 'post';
     preloadedState.page.currentPageData = currentPageData;
+    preloadedState.page.currentPageMetadata = currentPageMetadata;
     preloadedState.category.categoryData = JSON.parse(categoryData);
 
     let renderString = renderToString(<Provider store={store}><App/></Provider>);
