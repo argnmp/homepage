@@ -1,5 +1,8 @@
 //markdown parser
 import {marked} from 'marked';
+marked.setOptions({
+    headerPrefix: 'hid'
+})
 
 //express
 const express = require('express');

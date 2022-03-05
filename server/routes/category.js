@@ -21,9 +21,10 @@ const html = fs.readFileSync(
     'utf8'
 )
 
-const categoryData = fs.readFileSync(
+let categoryData = fs.readFileSync(
     path.resolve(__dirname, '../metadata/category.json')
 )
+categoryData = JSON.parse(categoryData);
 
 function wrapAsync(fn) {
     return function(req, res, next) {
@@ -49,11 +50,22 @@ router.get('/:lowerdirectory', wrapAsync(async (req,res)=>{
         totalPage,
         currentPage
     } = paging(page, totalPost);
-    console.log('totalpost:',totalPost);
-    console.log('page:', page);
-    console.log(startPage, endPage, hidePost, maxPost, totalPage, currentPage);
-    
-    let currentPageData = await Post.find({category: `${category}`}).sort({uploadDate: -1})
+
+    let targetCategory;
+    if(typeof(categoryData[`${category}`])==='object'){
+        targetCategory = Object.keys(categoryData[`${category}`]).map(item=>{
+            if(categoryData[`${category}`][item]){
+                return item;
+            }
+        });
+    }
+    else {
+        targetCategory = [category];
+    }
+    console.log(categoryData);
+    console.log(targetCategory)
+   
+    let currentPageData = await Post.find({category: { $in: [...targetCategory] }}).sort({uploadDate: -1})
         .skip(hidePost)
         .limit(maxPost);
 
@@ -63,8 +75,8 @@ router.get('/:lowerdirectory', wrapAsync(async (req,res)=>{
     let preloadedState = store.getState();
     preloadedState.page.currentPage = 'list';
     preloadedState.page.currentPageData = currentPageData;
-    preloadedState.page.currentPageMetadata = {startPage, endPage, totalPage, currentPage, currentUri: `/${req.params.lowerdirectory}`};
-    preloadedState.category.categoryData = JSON.parse(categoryData);
+    preloadedState.page.currentPageMetadata = {currentCategory: category, totalPost,startPage, endPage, totalPage, currentPage, currentUri: `/${req.params.lowerdirectory}`};
+    preloadedState.category.categoryData = categoryData;
 
     let renderString = renderToString(<Provider store={store}><App/></Provider>);
 
@@ -88,9 +100,6 @@ router.get('/:upperdirectory/:lowerdirectory', wrapAsync(async (req,res)=>{
         totalPage,
         currentPage
     } = paging(page, totalPost);
-    console.log('totalpost:',totalPost);
-    console.log('page:', page);
-    console.log(startPage, endPage, hidePost, maxPost, totalPage, currentPage);
     
     let currentPageData = await Post.find({category: `${category}`}).sort({uploadDate: -1})
         .skip(hidePost)
@@ -102,8 +111,8 @@ router.get('/:upperdirectory/:lowerdirectory', wrapAsync(async (req,res)=>{
     let preloadedState = store.getState();
     preloadedState.page.currentPage = 'list';
     preloadedState.page.currentPageData = currentPageData;
-    preloadedState.page.currentPageMetadata = {startPage, endPage, totalPage, currentPage, currentUri: `/${req.params.upperdirectory}/${req.params.lowerdirectory}`};
-    preloadedState.category.categoryData = JSON.parse(categoryData);
+    preloadedState.page.currentPageMetadata = {currentCategory: category, totalPost, startPage, endPage, totalPage, currentPage, currentUri: `/${req.params.upperdirectory}/${req.params.lowerdirectory}`};
+    preloadedState.category.categoryData = categoryData;
 
     let renderString = renderToString(<Provider store={store}><App/></Provider>);
 

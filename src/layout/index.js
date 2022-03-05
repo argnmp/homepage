@@ -3,7 +3,9 @@ import './style.scss';
 
 import {Logo} from '../component/logo';
 import {Category} from '../component/category';
-export const Layout = ({children}) => {
+import {Toc} from '../component/toc';
+
+export const Layout = ({children, isToc = false}) => {
     const [categoryToggle, setCategoryToggle] = useState(false);
     let onToggle = () => setCategoryToggle(!categoryToggle);
     return (
@@ -23,7 +25,9 @@ export const Layout = ({children}) => {
                     <div className="category-wrapper">
                         <Category/>
                     </div>
+                    {isToc ? <Toc/> : ''}
                 </div>
+                
             </div>
         </div>
         <div className={`panel-smmd-category-${categoryToggle ? 'on' : 'off'} `}>

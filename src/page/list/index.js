@@ -10,8 +10,8 @@ const Pagination = ({startPage, endPage, currentPage, currentUri}) => {
     for(let i = startPage; i<=endPage; i++) pageNumbers.push(i);
     return (
         <ul>
-        {pageNumbers.map((number)=>(
-            <li key={number}>
+        {pageNumbers.map((number,index)=>(
+            <li key={index}>
                 <span><a href={`/category${currentUri}?page=${number}`}>{number}</a></span>
             </li>
         ))} 
@@ -34,7 +34,7 @@ const Item = ({uri,title, author, date}) => {
 }
 export const List = () => {
     const list = useSelector(state => state.page.currentPageData);
-    const {startPage, endPage, currentPage, currentUri} = useSelector(state => state.page.currentPageMetadata);
+    const {currentCategory, totalPost, startPage, endPage, currentPage, currentUri} = useSelector(state => state.page.currentPageMetadata);
     const listRenderer = (list) => {
         let result = [];
         for(let i of list){
@@ -45,6 +45,10 @@ export const List = () => {
     return (
         <Layout>
             <div className="wrapper">
+                <div className="index-wrapper">
+                    <span className="category">{currentCategory}</span>
+                    <span className="post">{totalPost} posts</span>
+                </div>
                 <div className="list-wrapper">
                     {listRenderer(list)} 
                 </div>

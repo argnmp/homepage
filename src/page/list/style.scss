@@ -9,6 +9,23 @@
     @include lgxl {
         padding: 20px 40px;
     }
+    
+}
+.index-wrapper{
+    display: flex;
+    justify-content: right;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+    color: $polar-hi;
+    border-bottom: 2px solid $polar-hi;
+    font-weight: 700;
+    .category{
+        margin-right: 10px;
+        font-size: 30px;
+    }
+    .post{
+
+    }
 }
 .item-wrapper{
     padding-bottom: 20px;
