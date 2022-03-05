@@ -1,7 +1,6 @@
 const express = require('express');
 import fs from 'fs';
 import path from 'path';
-import moment from 'moment';
 import {renderToString} from 'react-dom/server';
 import React from 'react';
 
@@ -41,16 +40,6 @@ import paging from '../modules/paging';
 router.get('/:lowerdirectory', wrapAsync(async (req,res)=>{
     let category = req.params.lowerdirectory;
     let page = req.query.page | 1;
-    const totalPost = await Post.countDocuments({category: `${category}`});
-    let {
-        startPage,
-        endPage,
-        hidePost,
-        maxPost,
-        totalPage,
-        currentPage
-    } = paging(page, totalPost);
-
     let targetCategory;
     if(typeof(categoryData[`${category}`])==='object'){
         targetCategory = Object.keys(categoryData[`${category}`]).map(item=>{
@@ -62,8 +51,16 @@ router.get('/:lowerdirectory', wrapAsync(async (req,res)=>{
     else {
         targetCategory = [category];
     }
-    console.log(categoryData);
-    console.log(targetCategory)
+    const totalPost = await Post.countDocuments({category: { $in: [...targetCategory] }});
+    let {
+        startPage,
+        endPage,
+        hidePost,
+        maxPost,
+        totalPage,
+        currentPage
+    } = paging(page, totalPost);
+
    
     let currentPageData = await Post.find({category: { $in: [...targetCategory] }}).sort({uploadDate: -1})
         .skip(hidePost)
