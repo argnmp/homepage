@@ -1,6 +1,7 @@
 const initialState = {
     currentPage: null,
     currentPageData: null,
+    currentPageMetadata: null
 }
 const categoryReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -8,6 +9,7 @@ const categoryReducer = (state = initialState, action) => {
             return {
                 ...state,
                 currentPage: action.payload.currentPage,
+                currentPageMetadata: action.payload.currentPageMetadata,
                 currentPageData: action.payload.currentPageData
             }
         }

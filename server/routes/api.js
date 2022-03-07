@@ -9,15 +9,36 @@ const express = require('express');
 import fs from 'fs';
 const passport = require('passport');
 import path from 'path';
+
+import {renderToString} from 'react-dom/server';
+import React from 'react';
+
+//redux
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import rootReducer from '../../src/reducers/index';
+
+import App from '../../src/App.js';
 const router = express.Router();
 
+const html = fs.readFileSync(
+    path.resolve(__dirname, '../../../dist/index.html'),
+    'utf8'
+)
+const categoryData = fs.readFileSync(
+    path.resolve(__dirname, '../metadata/category.json')
+)
+
+//multer
+import upload from '../controllers/multer.js';
 
 
 //mongodb
 const mongoose = require('mongoose');
 import Post from '../models/postModel.js';
+import Image from '../models/imageModel.js';
 
-//비동기 함수에 대한 에러처리 
+//비동기 함수에 대한 에러처리
 function wrapAsync(fn) {
     return function(req, res, next) {
       // Make sure to `.catch()` any errors and pass them along to the `next()`
@@ -25,6 +46,7 @@ function wrapAsync(fn) {
       fn(req, res, next).catch(next);
     };
   }
+
 //upload
 router.get('/post', (req,res)=>{
     res.sendFile(path.join(__dirname, './upload.html'));
@@ -65,58 +87,142 @@ router.post('/post', wrapAsync(async(req,res)=>{
         }
     }
 }));
-router.post('/image/:filename',(req,res)=>{
 
-});
+router.get('/imagetest', (req,res)=>{
+    res.sendFile(path.join(__dirname, './image.html'));
+})
+router.get('/image/:uri', wrapAsync(async (req, res)=>{
+    try{
+        const query = await Image.findOne({uri: req.params.uri});
+        if(query){
+            res.contentType(query.img.contentType);
+            res.end(query.img.data);
+        }else {
+            let err = new Error('not found');
+            err.status = 404;
+            throw err;
+        }
+    }catch (e){
+        if(!e){
+            let err = new Error('Internal Server Error');
+            err.status = 500;
+            throw err;
+        }
+        else {
+            throw e;
+        }
+    }
 
+}));
+router.post('/image',upload.array('image'), wrapAsync(async (req,res)=>{
+    if(!req.user){
+        let err = new Error('Unauthorized');
+        err.status = 401;
+        throw err;
+    }
+    else {
+        try{
+            let payloads = [];
+            for(let i = 0; i < req.files.length; i++){
+                let payload = new Image({
+                    uri: `${Date.now()}_${req.files[i].originalname}`,
+                    originalname: req.files[i].originalname,
+                    img: {
+                        data: req.files[i].buffer,
+                        contentType: req.files[i].mimetype,  
+                    },
+                });
+                payloads.push(payload);
+            }
+            await Promise.all(payloads.map(payload=>payload.save()));
+            res.status(201).json(payloads.map(payload=>({url: `/api/image/${payload.uri}`})));
+        }
+        catch {
+            let err = new Error('internal serverError');
+            err.status = 500;
+            throw err
+        }
+    }
 
-// login example ---start
-//로그인 로그아웃 여부
-const authInfo = (req)=>{
-    if(req.user) return `${req.user.name} | <a href="/api/logout">로그아웃</a>`;
-    return `<a href="/api/login">login</a>`;
-}
+}));
+router.delete('/image/:uri', wrapAsync(async (req, res)=>{
+    if(!req.user){
+        let err = new Error('Unauthorized');
+        err.status = 401;
+        throw err;
+    }
+    else {
+        try{
+            const query = await Image.deleteOne({uri: req.params.uri});
+            if(query.deletedCount >= 0){
+                res.status(200).end();
+            }else {
+                let err = new Error('not found');
+                err.status = 404;
+                throw err;
+            }
+        }catch (e){
+            if(!e){
+                let err = new Error('Internal Server Error');
+                err.status = 500;
+                throw err;
+            }
+            else {
+                throw e;
+            }
+        }
 
-//페이지 템플릿
-const getPage = (title, content, auth) =>{
-    return `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Passport Example</title>
-    </head>
-    <body>
-    ${auth}
-        <h1>${title}</h1>
-        <p>${content}</p>
-    </body>
-    </html>
-    `;
-}
+    }
+
+}));
+
 //login
 router.get('/',(req,res)=>{
     let page = getPage('Passport','This is Passport Example Page',authInfo(req));
     console.log(req.user);
     res.send(page);
 });
-router.get('/login',(req,res)=>{
-    let page =  getPage('로그인',`
-    <form action="/api/login" method="post">
-        <input type="text" name="id" placeholder="id"><br>
-        <input type="password" name="pw" placeholder="****"><br>
-        <div style="display : flex;justify-content:space-between;width: 153px;">
-            <input type="submit" value="로그인" style="display:inline-block;">
-            <a href="/join" style="background : #E5E5E5;padding : 2px; border: 0.5px solid black;cursor:pointer;border-radius:3px;font-size:13px;color:black;text-decoration:none;">회원가입</a>
-        </div>
-    </form>
-    `,`<a href="/api/login">뒤로가기</a>`);
-    res.send(page);
-});
+router.get('/login', wrapAsync(async (req,res)=>{
+    try{
+        //using redux to send data from server to client
+        //push page data into redux state
+        const store = createStore(rootReducer);
+        let preloadedState = store.getState();
+        preloadedState.page.currentPage = 'login';
+        preloadedState.page.currentPageData = '';
+        preloadedState.category.categoryData = JSON.parse(categoryData);
+        if(!req.user){
+            preloadedState.user.isLogined = false;
+            preloadedState.user.name = "";
+        }
+        else{
+            preloadedState.user.isLogined = true;
+            preloadedState.user.name = req.user.name;
+        }
+
+
+        let renderString = renderToString(<Provider store={store}><App/></Provider>);
+
+        const result = html
+            .replace('__REDUX_STATE_FROM_SERVER__', JSON.stringify(preloadedState))
+            .replace(
+                '<div id="root"></div>',
+                `<div id="root">${renderString}</div>`
+            )
+        res.send(result);
+
+    }catch(e){
+        console.log(e);
+        let err = new Error('Internal Server Error');
+        err.status = 500;
+        throw err;
+
+    }
+
+}));
+
 router.post('/login', passport.authenticate('local',{
-    successRedirect: '/api',
+    successRedirect: '/',
     failureRedirect: '/api/login',
     failureFlash: true,
 }))
@@ -126,7 +232,6 @@ router.get('/logout',(req,res)=>{
         res.redirect('/');
     })
 })
-//login-example ----fin
 
 
 

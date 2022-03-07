@@ -25,26 +25,51 @@ const categoryData = fs.readFileSync(
     path.resolve(__dirname, '../metadata/category.json')
 )
 
-router.get('/', (req,res)=>{
+//비동기 함수에 대한 에러처리 
+function wrapAsync(fn) {
+    return function(req, res, next) {
+      // Make sure to `.catch()` any errors and pass them along to the `next()`
+      // middleware in the chain, in this case the error handler.
+      fn(req, res, next).catch(next);
+    };
+  }
 
-    //using redux to send data from server to client
-    //push page data into redux state
-    const store = createStore(rootReducer);
-    let preloadedState = store.getState();
-    preloadedState.page.currentPage = 'profile';
-    preloadedState.page.currentPageData = pageData;
-    preloadedState.category.categoryData = JSON.parse(categoryData);
+router.get('/', wrapAsync(async (req,res)=>{
+    try{
+        //using redux to send data from server to client
+        //push page data into redux state
+        const store = createStore(rootReducer);
+        let preloadedState = store.getState();
+        preloadedState.page.currentPage = 'profile';
+        preloadedState.page.currentPageData = pageData;
+        preloadedState.category.categoryData = JSON.parse(categoryData);
+        if(!req.user){
+            preloadedState.user.isLogined = false;
+            preloadedState.user.name = "";
+        }
+        else{
+            preloadedState.user.isLogined = true;
+            preloadedState.user.name = req.user.name;
+        }
 
-    let renderString = renderToString(<Provider store={store}><App/></Provider>);
+        let renderString = renderToString(<Provider store={store}><App/></Provider>);
 
-    const result = html
-    .replace('__REDUX_STATE_FROM_SERVER__', JSON.stringify(preloadedState))
-    .replace(
-        '<div id="root"></div>',
-        `<div id="root">${renderString}</div>`
-    )
-    res.send(result);
-});
+        const result = html
+            .replace('__REDUX_STATE_FROM_SERVER__', JSON.stringify(preloadedState))
+            .replace(
+                '<div id="root"></div>',
+                `<div id="root">${renderString}</div>`
+            )
+        res.send(result);
+
+    }catch{
+        let err = new Error('Internal Server Error');
+        err.status = 500;
+        throw err;
+
+    }
+
+}));
 
 
 module.exports = router;

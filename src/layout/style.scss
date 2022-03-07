@@ -160,4 +160,30 @@
     }
 }
 
-
+.user-wrapper{
+    display: flex;
+    width: 100%;
+    color: $polar-lf;
+    transition: 0.3s ease 0s;
+    @include smmd{
+        justify-content: center;
+        line-height: 46px;
+        height: 100%;
+        font-size: 14px;
+        .greeting {
+            display: none;
+        }
+    }
+    @include lgxl{
+        border-bottom: 1px solid $polar-df;
+        justify-content: space-evenly;
+        line-height: 46px;
+        font-size: 14px;
+        .greeting{
+            > i{
+                margin-left: 5px;
+                font-size: 12px;
+            }
+        }
+    }
+}

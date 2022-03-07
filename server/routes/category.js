@@ -38,88 +38,119 @@ import paging from '../modules/paging';
 
 
 router.get('/:lowerdirectory', wrapAsync(async (req,res)=>{
-    let category = req.params.lowerdirectory;
-    let page = req.query.page | 1;
-    let targetCategory;
-    if(typeof(categoryData[`${category}`])==='object'){
-        targetCategory = Object.keys(categoryData[`${category}`]).map(item=>{
-            if(categoryData[`${category}`][item]){
-                return item;
-            }
-        });
+    try{
+        let category = req.params.lowerdirectory;
+        let page = req.query.page | 1;
+        let targetCategory;
+        if(typeof(categoryData[`${category}`])==='object'){
+            targetCategory = Object.keys(categoryData[`${category}`]).map(item=>{
+                if(categoryData[`${category}`][item]){
+                    return item;
+                }
+            });
+        }
+        else {
+            targetCategory = [category];
+        }
+        const totalPost = await Post.countDocuments({category: { $in: [...targetCategory] }});
+        let {
+            startPage,
+            endPage,
+            hidePost,
+            maxPost,
+            totalPage,
+            currentPage
+        } = paging(page, totalPost);
+
+
+        let currentPageData = await Post.find({category: { $in: [...targetCategory] }}).sort({uploadDate: -1})
+            .skip(hidePost)
+            .limit(maxPost);
+
+        //using redux to send data from server to client
+        //push page data into redux state
+        const store = createStore(rootReducer);
+        let preloadedState = store.getState();
+        preloadedState.page.currentPage = 'list';
+        preloadedState.page.currentPageData = currentPageData;
+        preloadedState.page.currentPageMetadata = {currentCategory: category, totalPost,startPage, endPage, totalPage, currentPage, currentUri: `/${req.params.lowerdirectory}`};
+        preloadedState.category.categoryData = categoryData;
+        if(!req.user){
+            preloadedState.user.isLogined = false;
+            preloadedState.user.name = "";
+        }
+        else{
+            preloadedState.user.isLogined = true;
+            preloadedState.user.name = req.user.name;
+        }
+
+        let renderString = renderToString(<Provider store={store}><App/></Provider>);
+
+        const result = html
+            .replace('__REDUX_STATE_FROM_SERVER__', JSON.stringify(preloadedState))
+            .replace(
+                '<div id="root"></div>',
+                `<div id="root">${renderString}</div>`
+            )
+        res.send(result);
+
+    }catch{
+        let err = new Error('Internal Server Error');
+        err.status = 500;
+        throw err;
     }
-    else {
-        targetCategory = [category];
-    }
-    const totalPost = await Post.countDocuments({category: { $in: [...targetCategory] }});
-    let {
-        startPage,
-        endPage,
-        hidePost,
-        maxPost,
-        totalPage,
-        currentPage
-    } = paging(page, totalPost);
 
-   
-    let currentPageData = await Post.find({category: { $in: [...targetCategory] }}).sort({uploadDate: -1})
-        .skip(hidePost)
-        .limit(maxPost);
-
-    //using redux to send data from server to client
-    //push page data into redux state
-    const store = createStore(rootReducer);
-    let preloadedState = store.getState();
-    preloadedState.page.currentPage = 'list';
-    preloadedState.page.currentPageData = currentPageData;
-    preloadedState.page.currentPageMetadata = {currentCategory: category, totalPost,startPage, endPage, totalPage, currentPage, currentUri: `/${req.params.lowerdirectory}`};
-    preloadedState.category.categoryData = categoryData;
-
-    let renderString = renderToString(<Provider store={store}><App/></Provider>);
-
-    const result = html
-    .replace('__REDUX_STATE_FROM_SERVER__', JSON.stringify(preloadedState))
-    .replace(
-        '<div id="root"></div>',
-        `<div id="root">${renderString}</div>`
-    )
-    res.send(result);
 }));
 router.get('/:upperdirectory/:lowerdirectory', wrapAsync(async (req,res)=>{
-    let category = req.params.lowerdirectory;
-    let page = req.query.page | 1;
-    const totalPost = await Post.countDocuments({category: `${category}`});
-    let {
-        startPage,
-        endPage,
-        hidePost,
-        maxPost,
-        totalPage,
-        currentPage
-    } = paging(page, totalPost);
-    
-    let currentPageData = await Post.find({category: `${category}`}).sort({uploadDate: -1})
-        .skip(hidePost)
-        .limit(maxPost);
+    try{
+        let category = req.params.lowerdirectory;
+        let page = req.query.page | 1;
+        const totalPost = await Post.countDocuments({category: `${category}`});
+        let {
+            startPage,
+            endPage,
+            hidePost,
+            maxPost,
+            totalPage,
+            currentPage
+        } = paging(page, totalPost);
 
-    //using redux to send data from server to client
-    //push page data into redux state
-    const store = createStore(rootReducer);
-    let preloadedState = store.getState();
-    preloadedState.page.currentPage = 'list';
-    preloadedState.page.currentPageData = currentPageData;
-    preloadedState.page.currentPageMetadata = {currentCategory: category, totalPost, startPage, endPage, totalPage, currentPage, currentUri: `/${req.params.upperdirectory}/${req.params.lowerdirectory}`};
-    preloadedState.category.categoryData = categoryData;
+        let currentPageData = await Post.find({category: `${category}`}).sort({uploadDate: -1})
+            .skip(hidePost)
+            .limit(maxPost);
 
-    let renderString = renderToString(<Provider store={store}><App/></Provider>);
+        //using redux to send data from server to client
+        //push page data into redux state
+        const store = createStore(rootReducer);
+        let preloadedState = store.getState();
+        preloadedState.page.currentPage = 'list';
+        preloadedState.page.currentPageData = currentPageData;
+        preloadedState.page.currentPageMetadata = {currentCategory: category, totalPost, startPage, endPage, totalPage, currentPage, currentUri: `/${req.params.upperdirectory}/${req.params.lowerdirectory}`};
+        preloadedState.category.categoryData = categoryData;
+        if(!req.user){
+            preloadedState.user.isLogined = false;
+            preloadedState.user.name = "";
+        }
+        else{
+            preloadedState.user.isLogined = true;
+            preloadedState.user.name = req.user.name;
+        }
 
-    const result = html
-    .replace('__REDUX_STATE_FROM_SERVER__', JSON.stringify(preloadedState))
-    .replace(
-        '<div id="root"></div>',
-        `<div id="root">${renderString}</div>`
-    )
-    res.send(result);
+        let renderString = renderToString(<Provider store={store}><App/></Provider>);
+
+        const result = html
+            .replace('__REDUX_STATE_FROM_SERVER__', JSON.stringify(preloadedState))
+            .replace(
+                '<div id="root"></div>',
+                `<div id="root">${renderString}</div>`
+            )
+        res.send(result);
+        
+    }catch{
+        let err = new Error('Internal Server Error');
+        err.status = 500;
+        throw err;
+    }
 }));
 
 

@@ -1,10 +1,23 @@
-import React ,{useState}from 'react';
+import React ,{useState} from 'react';
+import { useSelector } from 'react-redux';
 import './style.scss';
 
 import {Logo} from '../component/logo';
 import {Category} from '../component/category';
 import {Toc} from '../component/toc';
 
+const User = ()=>{
+    const user = useSelector(state => state.user);
+    return (
+        <div className="user-wrapper">
+            {user.isLogined ?
+                [<div className="greeting">{user.name}<i>님 환영합니다</i></div>,
+                    <div className="logout-wrapper"><a href="/api/logout">로그아웃</a></div>] :
+                <a href="/api/login">로그인</a>
+            }
+        </div>
+    )
+}
 export const Layout = ({children, isToc = false}) => {
     const [categoryToggle, setCategoryToggle] = useState(false);
     let onToggle = () => setCategoryToggle(!categoryToggle);
@@ -22,6 +35,7 @@ export const Layout = ({children, isToc = false}) => {
                     <Logo/>
                 </div>
                 <div className="c">
+                    <User/>
                     <div className="category-wrapper">
                         <Category/>
                     </div>
