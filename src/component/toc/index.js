@@ -124,7 +124,7 @@ export const Toc = () => {
     const {nestedHeadings} = useHeadingsData();
     useIntersectionObserver(setActiveId);
     return (
-        <nav class="toc-wrapper">
+        <nav className="toc-wrapper">
             <Headings headings={nestedHeadings} activeId={activeId}/>
         </nav>
     ) 

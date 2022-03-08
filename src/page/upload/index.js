@@ -1,7 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import {imgUpload} from '../../modules/upload';
-import axios from 'axios';
+import {imgUpload, postUpload} from '../../modules/upload';
 
 import {marked} from 'marked';
 marked.setOptions({
@@ -16,6 +15,7 @@ export const Upload = () => {
     const inputPanelRef = useRef();
     const outputPanelRef = useRef();
 
+    //scroll syncronization
     useEffect(()=>{
         inputPanelRef.current.addEventListener('scroll',()=>{onScroll(inputPanelRef, outputPanelRef)});
         return ()=>inputPanelRef.current.removeEventListener('scroll',()=>{onScroll(inputPanelRef, outputPanelRef)});
@@ -46,12 +46,12 @@ export const Upload = () => {
                     taker(list[i]);
                 }
                 else if(list[i]===true){
-                    options.push(<option>{i}</option>);
+                    options.push(<option key={i}>{i}</option>);
                 }
             }
         }
         taker(categoryData);
-        return <select>{options}</select>
+        return <select ref={categoryRef}>{options}</select>
     }
     
     //image upload button
@@ -65,23 +65,36 @@ export const Upload = () => {
             }
             inputPanelRef.current.value = currentData;
             setPostData(currentData);
-            
         }
-    },[upload])
+    },[upload.imgUris])
     const imageHandler = (e)=>{
+        e.preventDefault();
         dispatch(imgUpload(e.target.files));     
     }
 
+    //final upload sequence
+    let titleRef = useRef();
+    let categoryRef = useRef();
+    const uploadHander = (e)=>{
+        e.preventDefault();
+        let payload = {
+            title: titleRef.current.value,
+            category: categoryRef.current.value,
+            data: inputPanelRef.current.value
+        }
+        dispatch(postUpload(payload));
+    }
+    
     
     return (
         <div className="upload-wrapper">
             <div className="menu-panel">
                 <div className="inner">
                     {categoryRenderer(categoryData)}
-                    <input type="text" /> 
-                    <input type="button" value="IMG" onClick={()=>{hiddenImgInput.current.click()}}/>
+                    <input type="text" ref={titleRef} /> 
+                    <input type="button" value="img" onClick={()=>{hiddenImgInput.current.click()}}/>
                     <input type="file" ref={hiddenImgInput} name="image" multiple accept="image/*" onChange={(e)=>{imageHandler(e)}} />
-                    <input type="button" value="UPLOAD"/>
+                    <input type="button" value="upload" onClick={(e)=>{uploadHander(e)}}/>
                 </div>
             </div>
             <div className="input-panel">

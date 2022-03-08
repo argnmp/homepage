@@ -4,6 +4,12 @@ import fs from 'fs';
 import path from 'path';
 const router = express.Router();
 
+//markdown parser
+import {marked} from 'marked';
+marked.setOptions({
+    headerPrefix: 'hid'
+})
+
 //react
 import {renderToString} from 'react-dom/server';
 import React from 'react';
@@ -15,7 +21,6 @@ import { Provider } from 'react-redux';
 import rootReducer from '../../src/modules/index';
 
 //mongodb
-const mongoose = require('mongoose');
 import Post from '../models/postModel.js';
 
 
@@ -36,6 +41,42 @@ function wrapAsync(fn) {
       fn(req, res, next).catch(next);
     };
   }
+router.post('/', wrapAsync(async(req,res)=>{
+    if(!req.user){
+        let err = new Error('Unauthorized');
+        err.status = 401;
+        throw err;
+    }
+    else{
+        try{
+            let title = req.body.title;
+            let uri = req.body.title;
+            uri = uri.replace(/ /gi,"-");
+            const sameTitleNum = await Post.countDocuments({title: title});
+            if(sameTitleNum!==0) uri += `-${sameTitleNum}`;
+            let author = req.user.name;
+            let data = marked.parse(req.body.data);
+            let category = req.body.category;
+
+            let payload = new Post({
+                uri,
+                title,
+                author,
+                category,
+                data,
+                uploadDate: new Date()
+            })  
+            await payload.save();
+            res.status(201).redirect(`/post/${uri}`);
+
+        }catch(e){
+            let err = new Error('internal serverError');
+            err.status = 500;
+            throw err
+            
+        }
+    }
+}));
 router.get('/:uri', wrapAsync(async (req,res,next)=>{
     try {
         let currentPageData;
