@@ -1,0 +1,111 @@
+@use '../../styles/variables' as * ;
+@use '../../styles/mixin' as *;
+@use '../../styles/github-markdown-dark.css' as *;
+
+.upload-wrapper {
+    display: grid; 
+    width: 100%;
+    height: 100%;
+    @include smmd{
+        grid-template-rows: 60px minmax(0,1fr);
+        grid-template-columns: minmax(0,1fr);
+        .menu-panel {
+            padding: 8px;
+            padding-bottom: 4px;
+        }
+        .input-panel {
+            padding: 8px;
+            padding-top: 4px;
+        }
+        .output-panel {
+            display: none;
+        }
+        
+    }
+    @include lgxl{
+        grid-template-rows: 60px minmax(0,1fr);
+        grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+
+        .menu-panel {
+            padding: 8px;
+            grid-column: 1 / span 2;
+            padding-bottom: 4px;
+        }
+        .input-panel {
+            padding: 8px;
+            padding-right: 4px;
+            padding-top: 4px;
+        }
+        .output-panel {
+            padding: 8px;
+            padding-left: 4px;
+            padding-top: 4px;
+        }
+        
+    }
+}
+.menu-panel {
+    .inner {
+        padding: 5px;
+        display: flex;
+        select {
+            border: none;
+            background-color: $polar-df;
+            &:hover {
+                background-color: $polar-hi;
+            }
+            &:focus {
+                outline: none;
+            }
+
+        }
+        input[type="text"] {
+            display: inline-block;
+            width:100%;
+            height: 100%;
+            margin: 0px 5px;
+            border: none;
+            background-color: rgb(233, 233, 233);
+            &:focus {
+                outline: none;
+            }
+        }
+        input[type="file"]{
+            display: none;
+        }
+        input[type="button"]{
+            cursor: pointer;
+            border: none;
+            background-color: $polar-df;
+            &:hover {
+                background-color: $polar-hi; 
+            }
+        }
+    }
+}
+
+.inner {
+    border: 1px solid $polar-df;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+}
+.postInput {
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    resize: none;
+    border-radius: 5px;
+    &:focus {
+        outline: none;
+        border: none;
+    }
+}
+
+.markdown-wrapper {
+    padding: 5px 8px;
+    overflow-y: scroll;
+}
+

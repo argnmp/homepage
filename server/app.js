@@ -17,6 +17,7 @@ const profileRouter = require('./routes/profile.js');
 const categoryRouter = require('./routes/category.js')
 const postRouter = require('./routes/post.js');
 const apiRouter = require('./routes/api.js');
+const uploadRouter = require('./routes/upload.js');
 
 const app = express();
 
@@ -56,6 +57,7 @@ app.use('/profile', profileRouter);
 app.use('/category', categoryRouter);
 app.use('/post', postRouter);
 app.use('/api',apiRouter);
+app.use('/upload',uploadRouter);
 
 // 위의 routing 이외의 것에 대해 동작함.
 app.use((req,res,next)=>{

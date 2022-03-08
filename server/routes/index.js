@@ -7,7 +7,7 @@ import React from 'react';
 //redux
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import rootReducer from '../../src/reducers/index';
+import rootReducer from '../../src/modules/index';
 
 import App from '../../src/App.js';
 const router = express.Router();

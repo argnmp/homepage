@@ -7,6 +7,7 @@ import {Profile} from './page/profile';
 import {Post} from './page/post';
 import {List} from './page/list';
 import {Login} from './page/login';
+import {Upload} from './page/upload';
 import {PNF} from './page/404';
 
 
@@ -22,8 +23,10 @@ const App = () => {
                 return <Post/>
             case 'list' :
                 return <List/>
-            case 'login':
+            case 'login' :
                 return <Login/>
+            case 'upload' :
+                return <Upload/>
             default : 
                 return <PNF />
         } 

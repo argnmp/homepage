@@ -1,11 +1,16 @@
+const PAGE_LOAD = 'PAGE_LOAD';
+
+export const pageLoad = () => ({type: PAGE_LOAD});
+
 const initialState = {
     currentPage: null,
     currentPageData: null,
     currentPageMetadata: null
 }
+
 const categoryReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'PAGE_LOAD': {
+        case PAGE_LOAD: {
             return {
                 ...state,
                 currentPage: action.payload.currentPage,

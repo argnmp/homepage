@@ -5,14 +5,15 @@ import App from './App';
 //redux | redux-saga
 import {createStore, applyMiddleware, compose} from 'redux';
 import {Provider} from 'react-redux';
-import rootReducer from './reducers';
+import rootReducer, {rootSaga} from './modules';
 import createSagaMiddleware from 'redux-saga';
 
 
 //for developing server + client
-
+///*
 const preloadedState = window.__PRELOADED_STATE__;
 delete window.__PRELOADED_STATE__;
+//*/
 
 //for developing client
 
@@ -37,9 +38,8 @@ let preloadedState = {
         name: "김태현",
     },
     page: {
-        currentPage: 'index',
+        currentPage: 'upload',
         currentPageData: '',
-        
         currentPageMetadata: {
             currentCategory : 'nodejs',
             totalPost: 10,
@@ -47,7 +47,7 @@ let preloadedState = {
             endPage : 2,
             totalPage : 2,
             currentPage : 1,
-        }
+        },
         
         
         currentPageMetadata: {
@@ -63,6 +63,7 @@ let preloadedState = {
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, preloadedState, compose(applyMiddleware(sagaMiddleware)));
+sagaMiddleware.run(rootSaga);
 
 const rootElement = document.getElementById('root');
 /*
@@ -76,5 +77,5 @@ ReactDom.render(
 ReactDom.hydrate(
     <Provider store={store}><App/></Provider>
     ,rootElement);
-//  */
+ // */
     

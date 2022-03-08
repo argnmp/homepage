@@ -12,7 +12,7 @@ import App from '../../src/App.js';
 //redux
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import rootReducer from '../../src/reducers/index';
+import rootReducer from '../../src/modules/index';
 
 //mongodb
 const mongoose = require('mongoose');
