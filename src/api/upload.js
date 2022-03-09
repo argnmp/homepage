@@ -14,13 +14,18 @@ export let uploadImage = (images) => {
 }
 
 export let uploadPost = (payload) => {
-    return axios({
-        method: 'post',
-        url: "/post",
-        data: {
-            title: payload.title,
-            category: payload.category,
-            data: payload.data,
-        }
-    })
+    console.log('api',payload)
+    
+        return axios({
+            method: 'post',
+            url: "/post",
+            data: {
+                isNew: payload.orgUri === '' ? true : false,
+                orgUri: payload.orgUri,
+                title: payload.title,
+                category: payload.category,
+                data: payload.data,
+            }
+        })
+    
 }

@@ -8,6 +8,7 @@ const postSchema = new mongoose.Schema({
     author: {type: String, required: true},
     uploadDate: {type: Date, required: true, default: new Date()},
     category: {type:String, required: true},
+    mdData: {type: String},
     data: {type: String}
 });
 const model = mongoose.model(`post`,postSchema, `post`);

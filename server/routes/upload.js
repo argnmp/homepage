@@ -12,6 +12,9 @@ import rootReducer from '../../src/modules/index';
 import App from '../../src/App.js';
 const router = express.Router();
 
+// mongoose
+import Post from '../models/postModel';
+
 //this should not be changed. dependent to 'dist'
 const html = fs.readFileSync(
     path.resolve(__dirname, '../../../dist/index.html'),
@@ -46,6 +49,9 @@ router.get('/', wrapAsync(async (req,res)=>{
             let preloadedState = store.getState();
             preloadedState.page.currentPage = 'upload';
             preloadedState.page.currentPageData = '';
+            preloadedState.page.currentPageMetadata = {
+                orgUri: '',
+            }
             preloadedState.category.categoryData = JSON.parse(categoryData);
             if(!req.user){
                 preloadedState.user.isLogined = false;
@@ -72,6 +78,66 @@ router.get('/', wrapAsync(async (req,res)=>{
             err.status = 500;
             throw err
             
+        }
+    }
+
+}));
+
+//edit upload page
+router.get('/:uri', wrapAsync(async (req,res)=>{
+    if(!req.user){
+        let err = new Error('Unauthorized');
+        err.status = 401;
+        throw err;
+    }
+    else{
+        try{
+            const query = await Post.findOne({uri: req.params.uri});
+            if(!query){
+                let err = new Error('not found');
+                err.status = 404;
+                throw err;
+            }
+            //using redux to send data from server to client
+            //push page data into redux state
+            const store = createStore(rootReducer);
+            let preloadedState = store.getState();
+            preloadedState.page.currentPage = 'upload';
+            preloadedState.page.currentPageData = query.mdData;
+            preloadedState.page.currentPageMetadata = {
+                orgTitle: query.title,
+                orgCategory: query.category,
+                orgUri: query.uri
+            }
+            preloadedState.category.categoryData = JSON.parse(categoryData);
+            if(!req.user){
+                preloadedState.user.isLogined = false;
+                preloadedState.user.name = "";
+            }
+            else{
+                preloadedState.user.isLogined = true;
+                preloadedState.user.name = req.user.name;
+            }
+
+            let renderString = renderToString(<Provider store={store}><App/></Provider>);
+
+            const result = html
+                .replace('__REDUX_STATE_FROM_SERVER__', JSON.stringify(preloadedState))
+                .replace(
+                    '<div id="root"></div>',
+                    `<div id="root">${renderString}</div>`
+                )
+            res.send(result);
+
+        }catch(e){
+            if(!e){
+                let err = new Error('Internal Server Error');
+                err.status = 500;
+                throw err;
+            }
+            else {
+                throw e;
+            }
         }
     }
 

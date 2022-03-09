@@ -10,15 +10,19 @@ marked.setOptions({
 import './style.scss';
 
 export const Upload = () => {
+    const page = useSelector(state=>state.page);
     const dispatch = useDispatch();
-    const [postData, setPostData] = useState("");
+    const [postData, setPostData] = useState(page.currentPageData);
     const inputPanelRef = useRef();
     const outputPanelRef = useRef();
+    
+
 
     //scroll syncronization
     useEffect(()=>{
         inputPanelRef.current.addEventListener('scroll',()=>{onScroll(inputPanelRef, outputPanelRef)});
         return ()=>inputPanelRef.current.removeEventListener('scroll',()=>{onScroll(inputPanelRef, outputPanelRef)});
+        
     },[]);
 
     const onScroll = (from, to) => {
@@ -51,7 +55,7 @@ export const Upload = () => {
             }
         }
         taker(categoryData);
-        return <select ref={categoryRef}>{options}</select>
+        return <select ref={categoryRef} defaultValue={page.currentPageMetadata.orgCategory}>{options}</select>
     }
     
     //image upload button
@@ -78,6 +82,7 @@ export const Upload = () => {
     const uploadHander = (e)=>{
         e.preventDefault();
         let payload = {
+            orgUri: page.currentPageMetadata.orgUri,
             title: titleRef.current.value,
             category: categoryRef.current.value,
             data: inputPanelRef.current.value
@@ -96,7 +101,7 @@ export const Upload = () => {
             <div className="menu-panel">
                 <div className="inner">
                     {categoryRenderer(categoryData)}
-                    <input type="text" ref={titleRef} /> 
+                    <input type="text" ref={titleRef} defaultValue={page.currentPageMetadata.orgTitle} /> 
                     <input type="button" value="img" onClick={()=>{hiddenImgInput.current.click()}}/>
                     <input type="file" ref={hiddenImgInput} name="image" multiple accept="image/*" onChange={(e)=>{imageHandler(e)}} />
                     <input type="button" value="upload" onClick={(e)=>{uploadHander(e)}}/>
@@ -104,7 +109,7 @@ export const Upload = () => {
             </div>
             <div className="input-panel">
                 <div className="inner">
-                    <textarea className="postInput" onChange={(e)=>{setPostData(e.target.value); bottomAnchor(outputPanelRef)}} ref={inputPanelRef} ></textarea>
+                    <textarea className="postInput" onChange={(e)=>{setPostData(e.target.value); bottomAnchor(outputPanelRef)}} ref={inputPanelRef} defaultValue={page.currentPageData} ></textarea>
                 </div>
             </div>
             <div className="output-panel">
