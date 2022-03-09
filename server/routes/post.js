@@ -67,7 +67,9 @@ router.post('/', wrapAsync(async(req,res)=>{
                 uploadDate: new Date()
             })  
             await payload.save();
-            res.status(201).redirect(`/post/${uri}`);
+            res.status(201).json({
+                redirectUrl:`/post/${uri}` 
+            });
 
         }catch(e){
             let err = new Error('internal serverError');

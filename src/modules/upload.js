@@ -14,7 +14,7 @@ export const imgUploadSuccess = (uris)=>({type: IMG_UPLOAD_SUCCESS, payload: uri
 export const imgUploadFail = ()=>({type: IMG_UPLOAD_FAIL});
 
 export const postUpload = (d) => ({type: POST_UPLOAD, payload: d});
-export const postUploadSuccess = ()=>({type: POST_UPLOAD_SUCCESS});
+export const postUploadSuccess = (redirectUrl)=>({type: POST_UPLOAD_SUCCESS, payload: redirectUrl});
 export const postUploadFail = ()=>({type: POST_UPLOAD_FAIL});
 
 function* imgUploadSaga(action){
@@ -28,8 +28,9 @@ function* imgUploadSaga(action){
 
 function* postUploadSaga(action){
     try {
-        yield call(uploadPost, action.payload);
-        yield put(postUploadSuccess());
+        const res = yield call(uploadPost, action.payload);
+        console.log(res);
+        yield put(postUploadSuccess(res.data.redirectUrl));
     }catch(e){
         yield put(postUploadFail());
     }
@@ -43,16 +44,17 @@ export function* uploadSaga(){
 
 const initialState = {
     isLastPostUploadSuccess: null,
+    redirectUrl: null,
     isLastImgUploadSuccess: null, 
     imgUris: null, 
 }
 const uploadReducer = (state = initialState, action) => {
-    console.log(action.type);
     switch (action.type) {
         case POST_UPLOAD_SUCCESS: {
             return {
                 ...state,
                 isLastPostUploadSuccess: true,
+                redirectUrl: action.payload,
             }
         }
         case POST_UPLOAD_FAIL: {

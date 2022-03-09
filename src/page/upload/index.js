@@ -84,6 +84,11 @@ export const Upload = () => {
         }
         dispatch(postUpload(payload));
     }
+    useEffect(()=>{
+        if(upload.isLastPostUploadSuccess===true){
+            window.location.href = upload.redirectUrl;
+        }
+    },[upload.redirectUrl]);
     
     
     return (
