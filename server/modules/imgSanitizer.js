@@ -32,3 +32,18 @@ export const imageStateRestore = async (htmlData) => {
         console.log('imageStateRestore failed');
     }
 }
+export const imageDelete = async (htmlData) => {
+    try {
+        let targetImageUris = htmlData.match(/(?<=<img src="\/api\/image\/)(.*?)(?=")/g);
+        if(targetImageUris){
+            await Promise.all(targetImageUris.map((uri)=>(
+                Image.deleteOne({uri:uri})
+            )))
+        }
+        console.log('imageDelete complete');
+    } catch (e) {
+        console.log(e);     
+        console.log('imageDelete failed');
+    }
+
+}

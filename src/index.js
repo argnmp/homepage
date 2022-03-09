@@ -19,6 +19,7 @@ delete window.__PRELOADED_STATE__;
 
 /*
 import postlist from './pagelist.js';
+import postex from './postex';
 let preloadedState = {
     category:{
         categoryData: {
@@ -38,25 +39,17 @@ let preloadedState = {
         name: "김태현",
     },
     page: {
-        currentPage: 'upload',
-        currentPageData: '',
+        currentPage: 'post',
+        currentPageData: postex,
         currentPageMetadata: {
-            currentCategory : 'nodejs',
-            totalPost: 10,
-            startPage : 1,
-            endPage : 2,
-            totalPage : 2,
-            currentPage : 1,
-        },
-        
-        
-        currentPageMetadata: {
+            uri: 'decode-ways',
             title: "decode ways",
             author: "kimtahen",
             uploadDate: '2022-03-04 14:53:55',
         }
         
-    }
+    },
+    
 }
 
 */
@@ -77,5 +70,5 @@ ReactDom.render(
 ReactDom.hydrate(
     <Provider store={store}><App/></Provider>
     ,rootElement);
- // */
+// */
     

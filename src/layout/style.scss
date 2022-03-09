@@ -96,6 +96,11 @@
                     display: none;
                 }
             }
+            .upload-link-wrapper {
+                @include smmd {
+                    display: none;
+                }
+            }
         }
     }
 }
@@ -186,4 +191,31 @@
             }
         }
     }
+    &:hover {
+        background-color: #3071A9;
+    }
+}
+
+.upload-link-wrapper{
+    display: flex;
+    width: 100%;
+    color: $polar-lf;
+    transition: 0.3s ease 0s;
+    cursor: pointer;
+    @include smmd{
+        justify-content: center;
+        line-height: 45px;
+        height: 45px;
+        font-size: 14px;
+    }
+    @include lgxl{
+        border-bottom: 1px solid $polar-df;
+        justify-content: space-evenly;
+        line-height: 46px;
+        font-size: 14px;
+        &:hover {
+            background-color: #3071A9;
+        }
+    }
+    
 }

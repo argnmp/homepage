@@ -24,7 +24,7 @@ import rootReducer from '../../src/modules/index';
 import Post from '../models/postModel.js';
 
 //modules
-import {imageStateChangeAndDelete, imageStateRestore} from '../modules/imgSanitizer';
+import {imageStateChangeAndDelete, imageStateRestore, imageDelete} from '../modules/imgSanitizer';
 
 
 const html = fs.readFileSync(
@@ -84,40 +84,40 @@ router.post('/', wrapAsync(async(req,res)=>{
             }
             else {
                 const query = await Post.findOne({uri: req.body.orgUri});
-            if(!query){
-                let err = new Error('not found');
-                err.status = 404;
-                throw err;
-            }
-            await imageStateRestore(query.data);
+                if(!query){
+                    let err = new Error('not found');
+                    err.status = 404;
+                    throw err;
+                }
+                await imageStateRestore(query.data);
 
-            let title = req.body.title;
-            let uri;
-            if(query.title === title){
-                uri = query.uri;
-            }
-            else {
-                uri = uri.replace(/ /gi,"-");
-                const sameTitleNum = await Post.countDocuments({title: title});
-                if(sameTitleNum!==0) uri += `-${sameTitleNum}`;
-            }
-            
-            let mdData = req.body.data;
-            let data = marked.parse(req.body.data);
-            let category = req.body.category;
+                let title = req.body.title;
+                let uri;
+                if(query.title === title){
+                    uri = query.uri;
+                }
+                else {
+                    uri = uri.replace(/ /gi,"-");
+                    const sameTitleNum = await Post.countDocuments({title: title});
+                    if(sameTitleNum!==0) uri += `-${sameTitleNum}`;
+                }
 
-            imageStateChangeAndDelete(data);
+                let mdData = req.body.data;
+                let data = marked.parse(req.body.data);
+                let category = req.body.category;
 
-            await Post.updateOne({uri: query.uri},{
-                uri: uri,
-                title: title,
-                mdData: mdData,
-                data: data,
-                category: category,
-            })
-            res.status(201).json({
-                redirectUrl:`/post/${uri}` 
-            });
+                imageStateChangeAndDelete(data);
+
+                await Post.updateOne({uri: query.uri},{
+                    uri: uri,
+                    title: title,
+                    mdData: mdData,
+                    data: data,
+                    category: category,
+                })
+                res.status(201).json({
+                    redirectUrl:`/post/${uri}` 
+                });
             }
             
 
@@ -136,60 +136,6 @@ router.post('/', wrapAsync(async(req,res)=>{
 
     }
 }));
-//post existing article
-router.post('/edit', wrapAsync(async(req,res)=>{
-    console.log('editpost',req.body);
-    if(!req.user){
-        let err = new Error('Unauthorized');
-        err.status = 401;
-        throw err;
-    }
-    else{
-        try{
-            const query = await Post.findOne({uri: req.body.orgUri});
-            if(!query){
-                let err = new Error('not found');
-                err.status = 404;
-                throw err;
-            }
-            await imageStateRestore(query.data);
-
-            let title = req.body.title;
-            let uri = req.body.title;
-            uri = uri.replace(/ /gi,"-");
-            const sameTitleNum = await Post.countDocuments({title: title});
-            if(sameTitleNum!==0) uri += `-${sameTitleNum}`;
-            
-            let mdData = req.body.data;
-            let data = marked.parse(req.body.data);
-            let category = req.body.category;
-
-            imageStateChangeAndDelete(data);
-
-            await Post.updateOne({uri: query.uri},{
-                uri: uri,
-                title: title,
-                mdData: mdData,
-                data: data,
-                category: category,
-            })
-            res.status(201).json({
-                redirectUrl:`/post/${uri}` 
-            });
-
-        }catch(e){
-            if(!e){
-                let err = new Error('Internal Server Error');
-                err.status = 500;
-                throw err;
-            }
-            else {
-                throw e;
-            }
-            
-        }
-    }
-}));
 
 router.get('/:uri', wrapAsync(async (req,res,next)=>{
     try {
@@ -200,7 +146,7 @@ router.get('/:uri', wrapAsync(async (req,res,next)=>{
         //if not found, query will be null;
         if(query){
             currentPageData = query.data;
-            currentPageMetadata = {title: query.title, author: query.author, uploadDate: query.uploadDate};
+            currentPageMetadata = {uri: query.uri, title: query.title, author: query.author, uploadDate: query.uploadDate};
         }
         else{
             let err = new Error('not found');
@@ -245,6 +191,47 @@ router.get('/:uri', wrapAsync(async (req,res,next)=>{
             throw e;
         }
     }
+}));
+router.delete('/:uri', wrapAsync(async (req,res,next)=>{
+    if(!req.user){
+        let err = new Error('Unauthorized');
+        err.status = 401;
+        throw err;
+    }
+    else {
+        try {
+            const query = await Post.findOne({uri: req.params.uri});
+            if(!query){
+                let err = new Error('not found');
+                err.status = 404;
+                throw err;
+            }
+            imageDelete(query.data);
+
+            const result = await Post.deleteOne({uri: req.params.uri});
+            if(result.deletedCount >= 0){
+                //status 204는 response body 가 없음을 의미하여 200을 사용해야함.
+                res.status(200).json({
+                    redirectUrl: `/`
+                });
+            }else {
+                let err = new Error('not found');
+                err.status = 404;
+                throw err;
+            }
+
+        } catch (e){
+            if(!e){
+                let err = new Error('Internal Server Error');
+                err.status = 500;
+                throw err;
+            }
+            else {
+                throw e;
+            }
+        }
+    }
+   
 }));
 
 

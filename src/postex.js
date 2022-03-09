@@ -106,4 +106,4 @@ let data1 = `
 
 
 `
-export default data1;
+export default data;

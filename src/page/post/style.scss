@@ -9,7 +9,7 @@
         background-color: rgba(0,0,0,0.5);
         
         span {
-            margin-right: 5px;
+            padding: 0px 4px;
         }
         @include smmd{
             padding: 25px 20px;
@@ -27,6 +27,20 @@
                 font-size: 14px;
                 color: $polar-df;
             }
+            .options{
+                display: flex;
+                justify-content: center;
+                margin-top: 5px;
+                font-size: 14px;
+                color: $polar-df;
+                a {
+                    color: $polar-df;
+                }
+                span {
+                    cursor: pointer;
+                } 
+
+            }
         }
         @include lgxl{
             padding: 15px 40px;
@@ -40,6 +54,17 @@
                 margin-top: 5px;
                 font-size: 14px;
                 color: $polar-df;
+            }
+            .options{
+                margin-top: 5px;
+                font-size: 14px;
+                color: $polar-df;
+                a {
+                    color: $polar-df;
+                }
+                span {
+                    cursor: pointer;
+                }
             }
 
         }

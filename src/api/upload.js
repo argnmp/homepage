@@ -14,8 +14,6 @@ export let uploadImage = (images) => {
 }
 
 export let uploadPost = (payload) => {
-    console.log('api',payload)
-    
         return axios({
             method: 'post',
             url: "/post",
