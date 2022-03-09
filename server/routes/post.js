@@ -23,6 +23,9 @@ import rootReducer from '../../src/modules/index';
 //mongodb
 import Post from '../models/postModel.js';
 
+//modules
+import {imageStateChangeAndDelete, imageStateRestore} from '../modules/imgSanitizer';
+
 
 const html = fs.readFileSync(
     path.resolve(__dirname, '../../../dist/index.html'),
@@ -66,6 +69,9 @@ router.post('/', wrapAsync(async(req,res)=>{
                 data,
                 uploadDate: new Date()
             })  
+
+            imageStateChangeAndDelete(data);
+
             await payload.save();
             res.status(201).json({
                 redirectUrl:`/post/${uri}` 

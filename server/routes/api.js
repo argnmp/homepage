@@ -45,7 +45,7 @@ function wrapAsync(fn) {
     };
   }
 
-//upload
+//image upload
 
 router.get('/imagetest', (req,res)=>{
     res.sendFile(path.join(__dirname, './image.html'));
@@ -86,6 +86,7 @@ router.post('/image',upload.array('image'), wrapAsync(async (req,res)=>{
                 let payload = new Image({
                     uri: `${Date.now()}_${req.files[i].originalname}`,
                     originalname: req.files[i].originalname,
+                    isTemp: true,
                     img: {
                         data: req.files[i].buffer,
                         contentType: req.files[i].mimetype,  
