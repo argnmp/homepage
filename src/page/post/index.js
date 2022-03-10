@@ -17,7 +17,6 @@ export const Post = () => {
         dispatch(postDelete(pageMetadata.uri));
     }
     useEffect(()=>{
-        console.log('common state',common);
         if(common.isLastFunctionSuccess===true){
             window.location.href = common.redirectUrl;
         }

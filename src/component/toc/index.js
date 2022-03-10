@@ -43,7 +43,6 @@ const useHeadingsData = () => {
 
             let nestedHeadings = [];
             while(searchIndex < headingElements.length){
-                console.log(nestedHeadings.length);
                 const {innerText: title, id, nodeName} = headingElements[searchIndex];
                 let h = nodeName === "H1" ? 1 : nodeName === "H2" ? 2 : 3;
 
@@ -62,7 +61,6 @@ const useHeadingsData = () => {
                 }
                 searchIndex++;
             }
-            console.log(nestedHeadings);
             return nestedHeadings;
 
         }
@@ -71,9 +69,6 @@ const useHeadingsData = () => {
         setNestedHeadings(composed);
     },[]);
 
-    useEffect(()=>{
-        //console.log('nested',nestedHeadings);
-    },[nestedHeadings]);
 
     return {nestedHeadings};
     
@@ -86,7 +81,6 @@ const useIntersectionObserver = (setActiveId) => {
                 map[headingElement.target.id] = headingElement;
                 return map;
             },headingElementsRef.current);
-            //console.log(headingElementsRef.current)
             
             const visibleHeadings = [];
             Object.keys(headingElementsRef.current).forEach((key)=>{
@@ -96,7 +90,6 @@ const useIntersectionObserver = (setActiveId) => {
             
             const getIndexFromId = (id) => 
                 headingElements.findIndex((heading) => heading.id === id);
-            //console.log('visibleHeadings',visibleHeadings); 
             if(visibleHeadings.length === 1){
                 setActiveId(visibleHeadings[0].target.id);
             } else if (visibleHeadings.length > 1) {

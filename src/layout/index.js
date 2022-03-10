@@ -1,4 +1,4 @@
-import React ,{useState} from 'react';
+import React ,{useEffect, useState} from 'react';
 import { useSelector } from 'react-redux';
 import './style.scss';
 
@@ -6,8 +6,7 @@ import {Logo} from '../component/logo';
 import {Category} from '../component/category';
 import {Toc} from '../component/toc';
 
-const User = ()=>{
-    const user = useSelector(state => state.user);
+const User = ({user})=>{
     return (
         <div className="user-wrapper">
             {user.isLogined ?
@@ -18,7 +17,34 @@ const User = ()=>{
         </div>
     )
 }
+const TopScroll = ()=>{
+    const [isBtnVisible, setIsBtnVisible] = useState(false);
+    const handleScroll = (e)=>{
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        })
+
+    }
+    useEffect(()=>{
+        const handleButtonVisible = () => {
+            if (window.pageYOffset > 100 ){
+                setIsBtnVisible(true);
+            }
+            else {
+                setIsBtnVisible(false);
+            }
+        }
+        window.addEventListener('scroll', handleButtonVisible);
+    })
+    return (
+        <div className={isBtnVisible ? `top-button top-button-visible` : `top-button`} onClick={handleScroll}>
+            <div className="up-arrow"></div>
+        </div>
+    )
+}
 export const Layout = ({children, isToc = false}) => {
+    const user = useSelector(state => state.user);
     const [categoryToggle, setCategoryToggle] = useState(false);
     let onToggle = () => setCategoryToggle(!categoryToggle);
     return (
@@ -35,8 +61,8 @@ export const Layout = ({children, isToc = false}) => {
                     <Logo/>
                 </div>
                 <div className="c">
-                    <User/>
-                    <div className="upload-link-wrapper"><a href="/upload">글 작성</a></div>
+                    <User user={user}/>
+                    {user.isLogined && <div className="upload-link-wrapper"><a href="/upload">글 작성</a></div>}
                     <div className="category-wrapper">
                         <Category/>
                     </div>
@@ -47,13 +73,14 @@ export const Layout = ({children, isToc = false}) => {
         </div>
         <div className={`panel-smmd-category-${categoryToggle ? 'on' : 'off'} `}>
             <Category/>
-            <div className="upload-link-wrapper"><a href="/upload">글 작성</a></div>
+            {user.isLogined && <div className="upload-link-wrapper"><a href="/upload">글 작성</a></div> }
         </div>
         <div className="panel-content">
             <div>
                 {children}
             </div> 
         </div>
+        <TopScroll/>
     </div>
            )
 }
