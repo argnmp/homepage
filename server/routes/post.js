@@ -46,7 +46,6 @@ function wrapAsync(fn) {
   }
 // post new article
 router.post('/', wrapAsync(async(req,res)=>{
-    console.log(req.body);
     if(!req.user){
         let err = new Error('Unauthorized');
         err.status = 401;

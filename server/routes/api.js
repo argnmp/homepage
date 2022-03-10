@@ -84,7 +84,7 @@ router.post('/image',upload.array('image'), wrapAsync(async (req,res)=>{
             let payloads = [];
             for(let i = 0; i < req.files.length; i++){
                 let payload = new Image({
-                    uri: `${Date.now()}_${req.files[i].originalname}`,
+                    uri: `${Date.now()}_${req.files[i].originalname.replace(" ","")}`,
                     originalname: req.files[i].originalname,
                     isTemp: true,
                     img: {
