@@ -43,7 +43,7 @@ let preloadedState = {
         currentPageData: postex,
         currentPageMetadata: {
             uri: 'decode-ways',
-            title: "decode ways",
+            title: "새로운 블로그를 제작하게 되었습니다",
             author: "kimtahen",
             uploadDate: '2022-03-04 14:53:55',
         }
