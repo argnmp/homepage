@@ -50,7 +50,7 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, '/dist'),
-        //publicPath: '/dist', //for devleoping server+client /for webpack server delete this line
+        publicPath: '/dist', //for devleoping server+client /for webpack server delete this line
         filename: '[name].js'
     },
     devServer: {
