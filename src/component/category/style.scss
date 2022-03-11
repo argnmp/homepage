@@ -12,21 +12,51 @@
     cursor: pointer;
     > li {
         font-size: 14px;
-        padding: 2px 10px;    
+        padding: 0px 15px;    
         color: $polar-lf;
-        &:hover {
-            background-color: $polar-sel;
+        line-height: 20px;
+        >span:hover {
+            text-decoration: underline;
         }
+            &::before {
+                content: "";
+                position: absolute;
+                width: 1px;
+                height: 20px;
+                transform: translateX(-10px);
+                background-color: $polar-lf;
+            }
     }
     .lower-category-list {
         > li {
-            padding: 2px 14px;
+            padding: 0px 30px;
             color: $polar-lf;
-            border-left: 1px solid $polar-lf;
-            &:hover {
-                background-color: $polar-selin;
+            line-height: 20px;
+            //border-left: 1px solid $polar-lf;
+            >span {
+                display: block;
+            }
+            >span:hover {
+                text-decoration: underline;
+            }
+            &::before {
+                content: "";
+                position: absolute;
+                width: 1px;
+                height: 20px;
+                transform: translateX(-40px);
+                background-color: $polar-lf;
+            }
+            &::after {
+                content: "";
+                position: absolute;
+                width: 1px;
+                height: 20px;
+                background-color: $polar-lf;
+                transform: translateY(-20px) translateX(-10px);
             }
         }
+        
     }
       
 }

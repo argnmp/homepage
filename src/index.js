@@ -10,14 +10,14 @@ import createSagaMiddleware from 'redux-saga';
 
 
 //for developing server + client
-///*
+/*
 const preloadedState = window.__PRELOADED_STATE__;
 delete window.__PRELOADED_STATE__;
-//*/
+*/
 
 //for developing client
 
-/*
+///*
 import postlist from './pagelist.js';
 import postex from './postex';
 let preloadedState = {
@@ -52,23 +52,23 @@ let preloadedState = {
     
 }
 
-*/
+//*/
 
 const sagaMiddleware = createSagaMiddleware();
 const store = createStore(rootReducer, preloadedState, compose(applyMiddleware(sagaMiddleware)));
 sagaMiddleware.run(rootSaga);
 
 const rootElement = document.getElementById('root');
-/*
+///*
 ReactDom.render(
     <Provider store={store}><App/></Provider>
     ,rootElement);
-  */
+ // */
 
- //   /*
+    /*
 
 ReactDom.hydrate(
     <Provider store={store}><App/></Provider>
     ,rootElement);
-// */
+ */
     
