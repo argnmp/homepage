@@ -2,8 +2,12 @@
 @use '../styles/variables' as *;
 
 .panel-wrapper {
+
     background: url('./background.jpg');
+    min-height: 100vh;
     background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
     box-sizing: border-box;
     display: grid;
     justify-content: center;

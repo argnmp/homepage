@@ -1,3 +1,6 @@
+const http = require('http');
+const https = require('https');
+
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');const cookieParser = require("cookie-parser");
@@ -74,8 +77,15 @@ app.use((err, req, res, next)=>{
     res.render('error');
 })
 
-const server = app.listen(app.get('port'), ()=>{
-    console.log(app.get('port'), '번 포트에서 대기중입니다.');
+http.createServer(app).listen(app.get('port'), ()=>{
+    console.log('server started at port',app.get('port'));
 })
-
-module.exports = app;
+/* //for https connection used for gcp
+let privateKey = fs.readFileSync("/etc/letsencrypt/live/kimtahen.com/privkey.pem");
+let certificate = fs.readFileSync("/etc/letsencrypt/live/kimtahen.com/cert.pem");
+let ca = fs.readFileSync("/etc/letsencrypt/live/kimtahen.com/chain.pem");
+const credentials = {key:privateKey, cert:certificate, ca: ca};
+https.createServer(credentials, app).listen(443,()=>{
+    console.log('https server started at port',433);
+})
+*/
