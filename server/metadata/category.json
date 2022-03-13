@@ -1,10 +1,18 @@
 {
     "profile":false,
-    "documents": {
+    "tech documents": {
+        "os": true,
         "cpp": true,
+        "java": true,
         "javascript": true,
-        "nodejs": true,
-        "reactjs": true
+        "sass|css": true,
+        "algorithm": true,
+        "node": true,
+        "react": true,
+        "react-native": true,
+        "gatsby": true,
+        "apis": true,
+        "memo": true
     },
-    "daily": true
+    "일상": true
 }

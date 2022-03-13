@@ -38,10 +38,13 @@ const Item = ({uri,title, author, date, preview}) => {
 export const List = () => {
     const list = useSelector(state => state.page.currentPageData);
     const {currentCategory, totalPost, startPage, endPage, currentPage, currentUri} = useSelector(state => state.page.currentPageMetadata);
+
     const listRenderer = (list) => {
         let result = [];
+        let k = 0;
         for(let i of list){
-            result.push(<li><Item uri={i.uri} title={i.title} author={i.author} date={moment(i.uploadDate).format('YYYY-MM-DD hh:mm:ss')} preview={i.preview}/></li>);
+            result.push(<li key={k}><Item uri={i.uri} title={i.title} author={i.author} date={moment(i.uploadDate).format('YYYY-MM-DD hh:mm:ss')} preview={i.preview}/></li>);
+            k++;
         }
         return <ul>{result}</ul>;
     }

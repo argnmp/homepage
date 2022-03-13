@@ -48,7 +48,6 @@
     .inner {
         padding: 5px;
         display: flex;
-        color: $polar-lf;
         select {
             border: none;
             background-color: $polar-df;
@@ -78,6 +77,7 @@
             cursor: pointer;
             border: none;
             background-color: $polar-df;
+            color: $polar-dlf;
             &:hover {
                 background-color: $polar-hi; 
             }

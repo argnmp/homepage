@@ -74,7 +74,6 @@ router.get('/:lowerdirectory', wrapAsync(async (req,res)=>{
         preloadedState.page.currentPage = 'list';
         preloadedState.page.currentPageData = currentPageData;
 
-        console.log(currentPageData);
 
         preloadedState.page.currentPageMetadata = {currentCategory: category, totalPost,startPage, endPage, totalPage, currentPage, currentUri: `/${req.params.lowerdirectory}`};
         preloadedState.category.categoryData = categoryData;

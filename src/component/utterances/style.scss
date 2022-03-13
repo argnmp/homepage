@@ -1,0 +1,9 @@
+@use '../../styles/mixin' as *;
+.utterances-wrapper{
+    @include smmd {
+        padding: 0px 20px;
+    }
+    @include lgxl {
+        padding: 0px 36px;
+    }
+}

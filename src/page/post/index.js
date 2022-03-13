@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {Layout} from '../../layout/index';
+import Utterances from '../../component/utterances';
 import moment from 'moment';
 import { postDelete } from '../../modules/common';
 
@@ -45,6 +46,7 @@ export const Post = () => {
                 <div className="wrapper">
                 <div className="markdown-body" dangerouslySetInnerHTML={{__html:pageData}}></div>
                 </div>
+                <Utterances/>
 
             </div>
         </Layout>

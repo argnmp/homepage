@@ -105,8 +105,6 @@ router.post('/', wrapAsync(async(req,res)=>{
                 let view = query.view;
                 let uri = query.uri;
 
-                console.log(query.title, title, query.title !== title);
-
                 if(query.title !== title) {
                     uri = req.body.title.replace(/ /gi,"-");
                     const sameTitleNum = await Post.countDocuments({title: req.body.title});
@@ -141,7 +139,6 @@ router.post('/', wrapAsync(async(req,res)=>{
             
 
         }catch(e){
-            console.log(e);
             if(!e){
                 let err = new Error('Internal Server Error');
                 err.status = 500;
@@ -162,7 +159,6 @@ router.get('/:uri', wrapAsync(async (req,res,next)=>{
         let currentPageMetadata;
         const query = await Post.findOne({uri: req.params.uri});
 
-        console.log(query);
         //if not found, query will be null;
         if(query){
             const result = await Post.updateOne({uri: query.uri},{
