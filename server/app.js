@@ -50,7 +50,18 @@ app.set("view engine", "jade");
 app.use(logger('dev'));
 app.use(flash());
 
-
+/* //http redirect to https
+app.get("*", (req, res, next) => {
+    if(req.secure){
+        // --- https
+        next();
+    }else{
+        // -- http
+        let to = "https://" + req.headers.host + req.url;
+        return res.redirect("https://" + req.headers.host + req.url);
+    }
+})
+*/
 
 app.use('/dist',express.static(path.join(__dirname , '../../dist')));
 //__dirname으로 해주어야함. 그렇지 않으면 node로 실행할때 다른 위치에서 실행할 경우 경로가 이상하게 됨.
