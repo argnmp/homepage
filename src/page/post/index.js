@@ -18,6 +18,7 @@ export const Post = () => {
         dispatch(postDelete(pageMetadata.uri));
     }
     useEffect(()=>{
+        console.log(common);
         if(common.isLastFunctionSuccess===true){
             window.location.href = common.redirectUrl;
         }
@@ -30,6 +31,7 @@ export const Post = () => {
                         {pageMetadata.title}
                     </div>
                     <div className="payload">
+                        <span>{pageMetadata.view} views</span>
                         <span>{moment(pageMetadata.uploadDate).format('YYYY-MM-DD hh:mm:ss')}  </span>
                         <span><i>posted by </i>{pageMetadata.author}</span>
                     </div>

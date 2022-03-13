@@ -45,11 +45,8 @@ function wrapAsync(fn) {
     };
   }
 
-//image upload
 
-router.get('/imagetest', (req,res)=>{
-    res.sendFile(path.join(__dirname, './image.html'));
-})
+//image upload
 router.get('/image/:uri', wrapAsync(async (req, res)=>{
     try{
         const query = await Image.findOne({uri: req.params.uri});
@@ -192,7 +189,6 @@ router.get('/logout',(req,res)=>{
         res.redirect('/');
     })
 })
-
 
 
 module.exports = router;

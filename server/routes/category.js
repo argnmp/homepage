@@ -63,7 +63,7 @@ router.get('/:lowerdirectory', wrapAsync(async (req,res)=>{
         } = paging(page, totalPost);
 
 
-        let currentPageData = await Post.find({category: { $in: [...targetCategory] }}).sort({uploadDate: -1})
+        let currentPageData = await Post.find({category: { $in: [...targetCategory] }},{data: 0, mdData: 0}).sort({uploadDate: -1})
             .skip(hidePost)
             .limit(maxPost);
 
@@ -73,6 +73,9 @@ router.get('/:lowerdirectory', wrapAsync(async (req,res)=>{
         let preloadedState = store.getState();
         preloadedState.page.currentPage = 'list';
         preloadedState.page.currentPageData = currentPageData;
+
+        console.log(currentPageData);
+
         preloadedState.page.currentPageMetadata = {currentCategory: category, totalPost,startPage, endPage, totalPage, currentPage, currentUri: `/${req.params.lowerdirectory}`};
         preloadedState.category.categoryData = categoryData;
         if(!req.user){
@@ -115,7 +118,7 @@ router.get('/:upperdirectory/:lowerdirectory', wrapAsync(async (req,res)=>{
             currentPage
         } = paging(page, totalPost);
 
-        let currentPageData = await Post.find({category: `${category}`}).sort({uploadDate: -1})
+        let currentPageData = await Post.find({category: `${category}`},{data: 0, mdData: 0}).sort({uploadDate: -1})
             .skip(hidePost)
             .limit(maxPost);
 
@@ -125,6 +128,7 @@ router.get('/:upperdirectory/:lowerdirectory', wrapAsync(async (req,res)=>{
         let preloadedState = store.getState();
         preloadedState.page.currentPage = 'list';
         preloadedState.page.currentPageData = currentPageData;
+
         preloadedState.page.currentPageMetadata = {currentCategory: category, totalPost, startPage, endPage, totalPage, currentPage, currentUri: `/${req.params.upperdirectory}/${req.params.lowerdirectory}`};
         preloadedState.category.categoryData = categoryData;
         if(!req.user){

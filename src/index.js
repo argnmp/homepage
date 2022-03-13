@@ -39,13 +39,16 @@ let preloadedState = {
         name: "김태현",
     },
     page: {
-        currentPage: 'post',
-        currentPageData: postex,
+        currentPage: 'list',
+        currentPageData: postlist,
         currentPageMetadata: {
+            currentCategory: 'documents',
+            totalPost: 13,
             uri: 'decode-ways',
             title: "새로운 블로그를 제작하게 되었습니다",
             author: "kimtahen",
             uploadDate: '2022-03-04 14:53:55',
+            views: 40,
         }
         
     },

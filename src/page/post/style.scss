@@ -6,9 +6,9 @@
     .index{
         width: 100%;
         border-radius: 5px;
-        background-color: rgba(0,0,0,0.5);
         word-break: keep-all;
-        
+        color: $polar-bg; 
+        background: $polar-hi;
         span {
             padding: 0px 4px;
         }
@@ -20,28 +20,24 @@
                 text-align: center;
                 font-size: 35px;
                 line-height: 45px;
-                color: $polar-lf;
             }
             .payload{
                 display: flex;
                 justify-content: center;
                 margin-top: 5px;
                 font-size: 14px;
-                color: $polar-df;
             }
             .options{
                 display: flex;
                 justify-content: center;
                 margin-top: 5px;
                 font-size: 14px;
-                color: $polar-df;
-                a {
-                    color: $polar-df;
-                }
                 span {
                     cursor: pointer;
                 } 
-
+                a {
+                    color: $polar-bg;
+                }
             }
         }
         @include lgxl{
@@ -49,25 +45,25 @@
             .title{
                 font-size: 45px;
                 line-height: 55px;
-                color: $polar-lf;
             }
             .payload{
                 margin-top: 10px;
                 font-size: 14px;
-                color: $polar-df;
             }
             .options{
                 margin-top: 10px;
                 font-size: 14px;
-                color: $polar-df;
-                a {
-                    color: $polar-df;
-                }
                 span {
                     cursor: pointer;
                 }
+                a {
+                    color: $polar-bg;
+                }
             }
 
+        }
+        .title {
+            font-weight: 700;
         }
         
     }

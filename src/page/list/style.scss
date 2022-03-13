@@ -23,9 +23,6 @@
         margin-right: 10px;
         font-size: 30px;
     }
-    .post{
-
-    }
 }
 .item-wrapper{
     padding-bottom: 20px;
@@ -35,13 +32,22 @@
         padding-bottom: 10px;
         .title{
             font-size: 26px;
+            color: $polar-hi;
         }
     }
+    .preview-wrapper{
+        color: $polar-dlf;
+        font-size: 14px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        overflow: hidden;
+    }
     .info-wrapper{
+        padding-top: 10px;
         span {
             margin-right: 5px;
-            color: $polar-df;
-            font-weight: 700;
+            color: $polar-dlf;
             font-size: 14px;
         }
     }

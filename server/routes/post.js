@@ -55,14 +55,23 @@ router.post('/', wrapAsync(async(req,res)=>{
         try{
             if(req.body.isNew){
                 let title = req.body.title;
-                let uri = req.body.title;
-                uri = uri.replace(/ /gi,"-");
+                let uri;
+                uri = req.body.title.replace(/ /gi,"-");
                 const sameTitleNum = await Post.countDocuments({title: title});
                 if(sameTitleNum!==0) uri += `-${sameTitleNum}`;
                 let author = req.user.name;
                 let mdData = req.body.data;
                 let data = marked.parse(req.body.data);
+                
+                //delete all html tags to build preview string
+                const regex = /(<([^>]+)>)/ig;
+                let preview = data.replace(regex, "");
+                preview = preview.replace(/\r?\n|\r/g, " ");
+                preview = preview.substr(0,300);
+                
+
                 let category = req.body.category;
+                let view = 0;
     
                 let payload = new Post({
                     uri,
@@ -71,6 +80,8 @@ router.post('/', wrapAsync(async(req,res)=>{
                     category,
                     mdData,
                     data,
+                    view,
+                    preview,
                     uploadDate: new Date()
                 })  
     
@@ -91,13 +102,14 @@ router.post('/', wrapAsync(async(req,res)=>{
                 await imageStateRestore(query.data);
 
                 let title = req.body.title;
-                let uri;
-                if(query.title === title){
-                    uri = query.uri;
-                }
-                else {
-                    uri = uri.replace(/ /gi,"-");
-                    const sameTitleNum = await Post.countDocuments({title: title});
+                let view = query.view;
+                let uri = query.uri;
+
+                console.log(query.title, title, query.title !== title);
+
+                if(query.title !== title) {
+                    uri = req.body.title.replace(/ /gi,"-");
+                    const sameTitleNum = await Post.countDocuments({title: req.body.title});
                     if(sameTitleNum!==0) uri += `-${sameTitleNum}`;
                 }
 
@@ -105,18 +117,26 @@ router.post('/', wrapAsync(async(req,res)=>{
                 let data = marked.parse(req.body.data);
                 let category = req.body.category;
 
+                //delete all html tags to build preview string
+                const regex = /(<([^>]+)>)/ig;
+                let preview = data.replace(regex, "");
+                preview = preview.replace(/\r?\n|\r/g, " ");
+                preview = preview.substr(0,300);
+
                 imageStateChangeAndDelete(data);
 
-                await Post.updateOne({uri: query.uri},{
+                const result = await Post.updateOne({uri: query.uri},{
                     uri: uri,
                     title: title,
                     mdData: mdData,
                     data: data,
                     category: category,
-                })
+                    view: view,
+                    preview: preview,
+                });
                 res.status(201).json({
                     redirectUrl:`/post/${uri}` 
-                });
+                });     
             }
             
 
@@ -142,10 +162,14 @@ router.get('/:uri', wrapAsync(async (req,res,next)=>{
         let currentPageMetadata;
         const query = await Post.findOne({uri: req.params.uri});
 
+        console.log(query);
         //if not found, query will be null;
         if(query){
+            const result = await Post.updateOne({uri: query.uri},{
+                view: query.view+1,
+            });
             currentPageData = query.data;
-            currentPageMetadata = {uri: query.uri, title: query.title, author: query.author, uploadDate: query.uploadDate};
+            currentPageMetadata = {uri: query.uri, title: query.title, author: query.author, uploadDate: query.uploadDate, view: query.view + 1, preview: query.preview};
         }
         else{
             let err = new Error('not found');

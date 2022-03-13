@@ -43,11 +43,11 @@ export const Category = () => {
     }
     useEffect(()=>{createCategory(list,true,null)},[]);
     return (
-        <>
+        <div className="category-wrapper">
             <div className="header">
                 <span>category</span>
             </div>
             {createCategory(list, true, null)}
-        </>
+        </div>
     )
 }
