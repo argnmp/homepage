@@ -1,6 +1,7 @@
 import {call, put, takeEvery} from 'redux-saga/effects';
 import { deletePost } from '../api/common';
 
+//post deletion
 const POST_DELETE = 'POST_DELETE';
 const POST_DELETE_SUCCESS = 'POST_DELETE_SUCCESS';
 const POST_DELETE_FAIL = 'POST_DELETE_FAIL';
@@ -19,17 +20,29 @@ function* postDeleteSaga(action){
     }
 }
 
+// switch color
+const COLOR_SWITCH = 'COLOR_SWITCH';
+export const colorSwitch = (colorState) => ({type: COLOR_SWITCH, payload: colorState});
+
+
 export function* commonSaga(){
     yield takeEvery(POST_DELETE, postDeleteSaga);
 }
 
 const initialState = {
+    colorState: false,
     isLastFunctionSuccess: null,
     redirectUrl: '',
 }
 
 const commonReducer = (state = initialState, action) => {
     switch (action.type){
+        case COLOR_SWITCH: {
+            return {
+                ...state,
+                colorState: action.payload,
+            }
+        }
         case POST_DELETE_SUCCESS: {
             return {
                 ...state,

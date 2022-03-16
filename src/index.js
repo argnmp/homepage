@@ -62,6 +62,7 @@ const store = createStore(rootReducer, preloadedState, compose(applyMiddleware(s
 sagaMiddleware.run(rootSaga);
 
 const rootElement = document.getElementById('root');
+
 /*
 ReactDom.render(
     <Provider store={store}><App/></Provider>

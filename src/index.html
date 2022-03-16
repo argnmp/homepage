@@ -9,6 +9,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <script type="text/javascript">
             window.__PRELOADED_STATE__ = __REDUX_STATE_FROM_SERVER__;
+    let colorState = window.localStorage.getItem("bgMode");
+    if (!colorState) colorState = "light";
+    if (colorState === 'dark') {
+        document.getElementsByTagName('html')[0].classList.add("dark-mode");
+    }
         </script>
 
                 

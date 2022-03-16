@@ -1,10 +1,12 @@
 import React ,{useEffect, useState} from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import './style.scss';
 
 import {Logo} from '../component/logo';
 import {Category} from '../component/category';
 import {Toc} from '../component/toc';
+
+import { colorSwitch } from '../modules/common';
 
 const User = ({user})=>{
     return (
@@ -44,6 +46,29 @@ const TopScroll = ()=>{
     )
 }
 export const Layout = ({children, isToc = false}) => {
+    const dispatch = useDispatch();
+    //switching between dark mode and light mode
+    //light == false, dark == true
+    const colorState = useSelector(state => state.common.colorState);
+    useEffect(()=>{
+        const bgMode = window.localStorage.getItem('bgMode');
+        if(bgMode === "dark"){
+            dispatch(colorSwitch(false));
+            document.getElementsByTagName("html")[0].classList.add("dark-mode");
+        }
+    },[]);
+    const darkSwitch = () => {
+        if(document.getElementsByTagName("html")[0].classList.contains("dark-mode")){
+            document.getElementsByTagName("html")[0].classList.remove("dark-mode");
+            window.localStorage.setItem("bgMode", "light");
+            dispatch(colorSwitch(false));
+        }
+        else {
+            document.getElementsByTagName("html")[0].classList.add("dark-mode");
+            window.localStorage.setItem("bgMode", "dark");
+            dispatch(colorSwitch(true));
+        }
+    }
     const user = useSelector(state => state.user);
     const [categoryToggle, setCategoryToggle] = useState(false);
     let onToggle = () => setCategoryToggle(!categoryToggle);
@@ -81,6 +106,7 @@ export const Layout = ({children, isToc = false}) => {
             </div> 
         </div>
         <TopScroll/>
+        <button className="dark-switch" onClick={darkSwitch}>{colorState ? 'L' : 'D'}</button>
     </div>
            )
 }

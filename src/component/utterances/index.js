@@ -12,7 +12,7 @@ import './style.scss';
 
 const src = 'https://utteranc.es/client.js';
 
-const Utterances = ({repo='kimtahen/homepage-comments', theme='photon-dark'}) => {
+const Utterances = ({repo='kimtahen/homepage-comments', colorState}) => {
     const containerRef = createRef();
 
     useEffect(()=>{
@@ -20,7 +20,7 @@ const Utterances = ({repo='kimtahen/homepage-comments', theme='photon-dark'}) =>
         const attributes = {
             src,
             repo,
-            theme,
+            'theme': colorState ? 'github-light' : 'photon-dark',
             'issue-term': 'pathname',
             'label': 'comments',
             'crossorigin': 'anonymous',

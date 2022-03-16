@@ -1,14 +1,14 @@
 @use '../../styles/variables' as * ;
 @use '../../styles/mixin' as *;
-@use '../../styles/github-markdown-dark.css' as *;
+@use '../../styles/github-markdown.css' as *;
 
 .upwrapper {
     .index{
         width: 100%;
         border-radius: 5px;
         word-break: keep-all;
-        color: $polar-bg; 
-        background: $polar-hi;
+        color: var(--foreground-color); 
+        background: var(--highlight-color);
         span {
             padding: 0px 4px;
         }
@@ -35,7 +35,7 @@
                     cursor: pointer;
                 } 
                 a {
-                    color: $polar-bg;
+                    color: var(--foreground-color);
                 }
             }
         }
@@ -56,7 +56,7 @@
                     cursor: pointer;
                 }
                 a {
-                    color: $polar-bg;
+                    color: var(--foreground-color);
                 }
             }
 

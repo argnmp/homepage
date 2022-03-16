@@ -46,7 +46,7 @@ export const Post = () => {
                 <div className="wrapper">
                 <div className="markdown-body" dangerouslySetInnerHTML={{__html:pageData}}></div>
                 </div>
-                <Utterances/>
+                <Utterances colorState={common.colorState}/>
 
             </div>
         </Layout>

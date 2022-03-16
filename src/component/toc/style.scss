@@ -13,13 +13,14 @@
         display: none;
     }
     a{
-        color:grey;
+        color: var(--main-font);
         &:hover {
-            color: $polar-lf;
+            color: var(--highlight-color);
         }
     }
     .active > a{
-        color: $polar-lf;
+        color: var(--highlight-color);
+        font-weight: 700;
     }
 
     > ul{

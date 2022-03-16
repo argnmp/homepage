@@ -6,9 +6,10 @@
 }
 
 html{
+    transition: all 0.3s ease 0s;
     width: 100%;
     height: 100%;
-    background: $polar-bg;
+    background: var(--background-color);
 }
 body{
     width: 100%;
@@ -17,6 +18,28 @@ body{
 #root {
     width: 100%;
     height: 100%;
+}
+
+:root {
+    --background-color: hsl(0,0%,90%);
+    --foreground-color: #f7f9fa;
+    --main-font: #202020;
+    --sub-font: hsl(0,0%,40%);
+    --border-color: #dae1e6;
+    --highlight-color: #374d8c;
+    --reverse-color: #141E27;
+    --reverse-font: #EEEDDE;
+}
+
+.dark-mode {
+    --background-color: #141E27;
+    --foreground-color: #203239;
+    --main-font: #EEEDDE;
+    --sub-font: #E5E3C9;
+    --border-color: #141E27;
+    --highlight-color: #913535;
+    --reverse-color: hsl(0,0%,90%);
+    --reverse-font: #202020;
 }
 
 

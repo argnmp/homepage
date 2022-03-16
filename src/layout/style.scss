@@ -3,11 +3,7 @@
 
 .panel-wrapper {
 
-    //background: url('./background.jpg');
     min-height: 100vh;
-    //background-attachment: fixed;
-    //background-repeat: no-repeat;
-    //background-position: center center;
     box-sizing: border-box;
     display: grid;
     justify-content: center;
@@ -58,9 +54,9 @@
     display: grid;
     width: 100%;
     height: 100%;
-    border: 1px solid $polar-df;
+    border: 1px solid var(--border-color);
     border-radius: 5px;
-    background: $polar-fg;
+    background: var(--foreground-color);
 }
 
 .panel-menu {
@@ -99,7 +95,7 @@
         .b{
             height: 100%;
             @include lgxl {
-                border-bottom: 1px solid $polar-df;
+                border-bottom: 1px solid var(--border-color);
             }
         }
         .c{
@@ -120,7 +116,7 @@
 .burger-btn{
     width: 20px;
     height: 4px;
-    background: $polar-lf;
+    background: var(--main-font);
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(255,101,47,.2);
     transition: all .5s ease-in-out;
@@ -131,7 +127,7 @@
     position: absolute;
     width: 20px;
     height: 4px;
-    background: $polar-lf;
+    background: var(--main-font);
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(255,101,47,.2);
     transition: all .5s ease-in-out;
@@ -181,8 +177,7 @@
     display: flex;
     cursor: pointer;
     width: 100%;
-    color: $polar-lf;
-    transition: 0.3s ease 0s;
+    color: var(--main-font);
     @include smmd{
         justify-content: center;
         line-height: 46px;
@@ -193,7 +188,7 @@
         }
     }
     @include lgxl{
-        border-bottom: 1px solid $polar-df;
+        border-bottom: 1px solid var(--border-color);
         justify-content: space-evenly;
         line-height: 46px;
         font-size: 14px;
@@ -205,18 +200,23 @@
         }
     }
     .logout-wrapper {
-        font-size: 12px;
+        font-size: 14px;
+        a {
+            color: var(--main-font);
+        }
     }
     &:hover {
-        background-color: $polar-hi;
+        background-color: var(--highlight-color);
+        transition: 0.3s ease 0s;
     }
 }
 
 .upload-link-wrapper{
     display: flex;
     width: 100%;
-    color: $polar-lf;
-    transition: 0.3s ease 0s;
+    a {
+        color: var(--main-font);
+    }
     cursor: pointer;
     @include smmd{
         justify-content: center;
@@ -225,12 +225,13 @@
         font-size: 14px;
     }
     @include lgxl{
-        border-bottom: 1px solid $polar-df;
+        border-bottom: 1px solid var(--border-color);
         justify-content: space-evenly;
         line-height: 46px;
         font-size: 14px;
         &:hover {
-            background-color: $polar-hi;
+            transition: 0.3s ease 0s;
+            background-color: var(--highlight-color);
         }
     }
     
@@ -253,7 +254,7 @@
         content: '';
         width: 4px;
         height: 25px;
-        background-color: $polar-lf;
+        background-color: var(--highlight-color);
         position: absolute;
     }
     .up-arrow::before{
@@ -267,4 +268,16 @@
 .top-button-visible {
     opacity: 1;
 
+}
+.dark-switch {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    bottom: 20px;
+    left: 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 24px;
+    background-color: var(--reverse-color);
+    color: var(--reverse-font);
 }

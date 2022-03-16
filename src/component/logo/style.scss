@@ -6,12 +6,12 @@
     transition: all 0.3s ease 0s;
     a {
         text-decoration: none;
-        color: $polar-lf;
+        color: var(--main-font);
         line-height: 46px;
         font-weight: 700;
     }
     &:hover {
-        background-color: $polar-hi;
+        background-color: var(--highlight-color);
     }
 }
 
