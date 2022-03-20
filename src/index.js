@@ -69,7 +69,7 @@ ReactDom.render(
     ,rootElement);
 */
 
-//    /*
+//   /*
 
 ReactDom.hydrate(
     <Provider store={store}><App/></Provider>

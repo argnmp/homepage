@@ -91,6 +91,9 @@
                 cursor: pointer;
                 transition: all .5s ease-in-out;
             }
+            &:hover {
+                background-color: var(--highlight-color);
+            }
         }
         .b{
             height: 100%;
@@ -118,7 +121,6 @@
     height: 4px;
     background: var(--main-font);
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(255,101,47,.2);
     transition: all .5s ease-in-out;
 } 
 .burger-btn::before,
@@ -129,7 +131,6 @@
     height: 4px;
     background: var(--main-font);
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(255,101,47,.2);
     transition: all .5s ease-in-out;
 }
 .burger-btn::before{
@@ -205,6 +206,9 @@
             color: var(--main-font);
         }
     }
+    a {
+        color: var(--main-font);
+    }
     &:hover {
         background-color: var(--highlight-color);
         transition: 0.3s ease 0s;
@@ -271,6 +275,7 @@
 }
 .dark-switch {
     position: fixed;
+    cursor: pointer;
     width: 30px;
     height: 30px;
     bottom: 20px;

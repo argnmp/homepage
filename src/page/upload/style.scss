@@ -49,6 +49,7 @@
         display: flex;
         select {
             border: none;
+            color: var(--main-font);
             background-color: var(--foreground-color);
             &:hover {
                 background-color: var(--highlight-color);
@@ -64,6 +65,7 @@
             height: 100%;
             margin: 0px 5px;
             border: none;
+            color: var(--main-font);
             background-color: var(--foreground-color);
             &:focus {
                 outline: none;
@@ -98,6 +100,8 @@
     resize: none;
     border-radius: 5px;
     border: none;
+    font-family: inherit;
+    color: var(--main-font);
     background-color: var(--foreground-color);
     &:focus {
         outline: none;

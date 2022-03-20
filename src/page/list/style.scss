@@ -57,6 +57,9 @@
     justify-content: center;
     width: 100%;
     color: $polar-lf;
+    a {
+        color: var(--main-font);
+    }
     ul {
         display: inline-block;
     }
