@@ -36,7 +36,7 @@ function wrapAsync(fn) {
   }
 
 router.get('/', wrapAsync(async (req,res)=>{
-    if(!req.user){
+    if(!req.user || req.user.level > 0){
         let err = new Error('Unauthorized');
         err.status = 401;
         throw err;
@@ -85,7 +85,7 @@ router.get('/', wrapAsync(async (req,res)=>{
 
 //edit upload page
 router.get('/:uri', wrapAsync(async (req,res)=>{
-    if(!req.user){
+    if(!req.user || req.user.level > 0){
         let err = new Error('Unauthorized');
         err.status = 401;
         throw err;

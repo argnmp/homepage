@@ -46,7 +46,7 @@ function wrapAsync(fn) {
   }
 // post new article
 router.post('/', wrapAsync(async(req,res)=>{
-    if(!req.user){
+    if(!req.user || req.user.leve > 0){
         let err = new Error('Unauthorized');
         err.status = 401;
         throw err;
@@ -212,7 +212,7 @@ router.get('/:uri', wrapAsync(async (req,res,next)=>{
     }
 }));
 router.delete('/:uri', wrapAsync(async (req,res,next)=>{
-    if(!req.user){
+    if(!req.user || req.user.level > 0){
         let err = new Error('Unauthorized');
         err.status = 401;
         throw err;

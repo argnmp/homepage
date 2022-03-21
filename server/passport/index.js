@@ -1,3 +1,5 @@
+import User from '../models/userModel';
+
 const LocalStrategy = require('passport-local').Strategy;
 const user = {
     id: 'kimtahen',
@@ -7,24 +9,36 @@ const user = {
 exports.config = (passport) => {
     passport.serializeUser((user,done)=>{
         //로그인시 session에 user.id를 저장함.
-        done(null,{id: user.id, name: user.name});
+        done(null,user);
     });
 
     passport.deserializeUser((user,done)=>{
-        console.log(user);
         // 웹페이지에 요청시마다 req.session.passport.user 의 키값을 불러옴
         done(null, user);
     });
     passport.use(new LocalStrategy({
-        usernameField: 'id',
-        passwordField: 'pw'
+        usernameField: 'email',
+        passwordField: 'password'
     },
-    (id,pw,done)=>{
-        console.log(id,pw);
-        if(id!=user.id || pw!=user.pw)
-            return done(null, false, {message: 'invaild id or pw'});
-        console.log('correct');
-        return done(null, user);
+    async (email,password,done)=>{
+        try {
+            const account = await User.findByEmail(email);
+            if (!account) {
+                return done(null, false, { message: 'invalid email or password' });
+            }
+            else {
+                if (account.validatePassword(password)) {
+                    return done(null, { email: account.email, name: account.name, level: account.level});
+                }
+                else {
+                    return done(null, false, { message: 'invalid email or password' });
+                }
+            }
+
+        } catch(err){
+            done(err);
+        }
+        
     }))
 
 }

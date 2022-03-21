@@ -34,6 +34,7 @@ import upload from '../controllers/multer.js';
 
 
 //mongodb
+import User from '../models/userModel.js';
 import Image from '../models/imageModel.js';
 
 //비동기 함수에 대한 에러처리
@@ -71,7 +72,7 @@ router.get('/image/:uri', wrapAsync(async (req, res)=>{
 
 }));
 router.post('/image',upload.array('image'), wrapAsync(async (req,res)=>{
-    if(!req.user){
+    if(!req.user || req.user.level > 0){
         let err = new Error('Unauthorized');
         err.status = 401;
         throw err;
@@ -103,7 +104,7 @@ router.post('/image',upload.array('image'), wrapAsync(async (req,res)=>{
 
 }));
 router.delete('/image/:uri', wrapAsync(async (req, res)=>{
-    if(!req.user){
+    if(!req.user || req.user.level > 0){
         let err = new Error('Unauthorized');
         err.status = 401;
         throw err;
@@ -134,11 +135,6 @@ router.delete('/image/:uri', wrapAsync(async (req, res)=>{
 }));
 
 //login
-router.get('/',(req,res)=>{
-    let page = getPage('Passport','This is Passport Example Page',authInfo(req));
-    console.log(req.user);
-    res.send(page);
-});
 router.get('/login', wrapAsync(async (req,res)=>{
     try{
         //using redux to send data from server to client
@@ -153,6 +149,7 @@ router.get('/login', wrapAsync(async (req,res)=>{
             preloadedState.user.name = "";
         }
         else{
+            res.redirect('/');
             preloadedState.user.isLogined = true;
             preloadedState.user.name = req.user.name;
         }
@@ -188,6 +185,21 @@ router.get('/logout',(req,res)=>{
     req.session.save(()=>{
         res.redirect('/');
     })
+})
+
+const registerPage = fs.readFileSync(
+    path.resolve(__dirname, './register.html'),
+    'utf8'
+)
+router.get('/register', (req,res)=>{
+    res.send(registerPage);
+});
+router.post('/register',async (req,res)=>{
+    const email = req.body.email;
+    const name = req.body.name;
+    const password = req.body.password;
+    let result = await User.localRegister({email, name, password}) ;
+    res.status(200).redirect('/');
 })
 
 

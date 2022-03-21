@@ -8,8 +8,8 @@ export const Login = () => {
             <div className="title-wrapper">kimtahen.com</div>
             <div className="form-wrapper">
             <form action="/api/login" method="post">
-                <input type="text" name="id" placeholder="id"/><br/>
-                <input type="password" name="pw" placeholder="pw"/><br/>
+                <input type="text" name="email" placeholder="id"/><br/>
+                <input type="password" name="password" placeholder="pw"/><br/>
                 <div>
                     <input type="submit" value="Login"/>
                 </div>
