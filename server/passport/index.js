@@ -28,7 +28,7 @@ exports.config = (passport) => {
             }
             else {
                 if (account.validatePassword(password)) {
-                    return done(null, { email: account.email, name: account.name, level: account.level});
+                    return done(null, { _id: account._id, email: account.email, name: account.name, level: account.level});
                 }
                 else {
                     return done(null, false, { message: 'invalid email or password' });

@@ -94,6 +94,10 @@ export const Upload = () => {
             window.location.href = upload.redirectUrl;
         }
     },[upload.redirectUrl]);
+
+    useEffect(()=>{
+        console.log(upload);
+    },[upload.isPending]);
     
     
     return (

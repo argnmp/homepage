@@ -3,7 +3,11 @@ import mongoose from 'mongoose';
 const postSchema = new mongoose.Schema({
     uri: {type: String, required: true,},
     title: {type: String, required: true,},
-    author: {type: String, required: true},
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'user',
+    },
     uploadDate: {type: Date, required: true, default: new Date()},
     category: {type:String, required: true},
     view: {type:Number, required: true},

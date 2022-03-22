@@ -19,11 +19,15 @@ export const Post = () => {
         dispatch(postDelete(pageMetadata.uri));
     }
     useEffect(()=>{
-        console.log(common);
-        if(common.isLastFunctionSuccess===true){
+        if(common.isLastPostDeletionSuccess===true){
             window.location.href = common.redirectUrl;
         }
-    },[common.isLastFunctionSuccess]);
+    },[common.isLastPostDeletionSuccess]);
+    /*
+    useEffect(()=>{
+        console.log(common);
+    },[common.isPending])
+    */
     return (
         <Layout isToc={true}>
             <div className="upwrapper">

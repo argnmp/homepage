@@ -1,5 +1,10 @@
-import {call, put, takeEvery} from 'redux-saga/effects';
+import {call, put, takeEvery, delay} from 'redux-saga/effects';
 import { deletePost } from '../api/common';
+
+//pending switch
+const PENDING_SWITCH = 'PENDING_SWITCH';
+
+export const pendingSwitch = () => ({type: PENDING_SWITCH});
 
 //post deletion
 const POST_DELETE = 'POST_DELETE';
@@ -11,13 +16,14 @@ export const postDeleteSuccess = (redirectUrl)=>({type: POST_DELETE_SUCCESS, pay
 export const postDeleteFail = ()=>({type: POST_DELETE_FAIL});
 
 function* postDeleteSaga(action){
+    yield put(pendingSwitch());
     try {
         const res = yield call(deletePost, action.payload);
-        console.log(res);
         yield put(postDeleteSuccess(res.data.redirectUrl));
     }catch(e){
         yield put(postDeleteFail());
     }
+    yield put(pendingSwitch());
 }
 
 // switch color
@@ -31,7 +37,8 @@ export function* commonSaga(){
 
 const initialState = {
     colorState: false,
-    isLastFunctionSuccess: null,
+    isPending: false,
+    isLastPostDeletionSuccess: null,
     redirectUrl: '',
 }
 
@@ -43,17 +50,23 @@ const commonReducer = (state = initialState, action) => {
                 colorState: action.payload,
             }
         }
+        case PENDING_SWITCH: {
+            return {
+                ...state,
+                isPending: !state.isPending
+            }
+        }
         case POST_DELETE_SUCCESS: {
             return {
                 ...state,
-                isLastFunctionSuccess: true,
+                isLastPostDeletionSuccess: true,
                 redirectUrl: action.payload,
             }
         }
         case POST_DELETE_FAIL: {
             return {
                 ...state,
-                isLastFunctionSuccess: false,
+                isLastPostDeletionSuccess: false,
             }
         }
         default: {

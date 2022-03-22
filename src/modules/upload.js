@@ -1,6 +1,11 @@
 import {call, put, takeEvery} from 'redux-saga/effects';
 import { uploadImage, uploadPost } from '../api/upload';
 
+//pending switch
+const PENDING_SWITCH = 'PENDING_SWITCH';
+export const pendingSwitch = () => ({type: PENDING_SWITCH});
+
+
 const IMG_UPLOAD = 'IMG_UPLOAD';
 const IMG_UPLOAD_SUCCESS = 'IMG_UPLOAD_SUCCESS'
 const IMG_UPLOAD_FAIL = 'IMG_UPLOAD_FAIL'
@@ -18,15 +23,18 @@ export const postUploadSuccess = (redirectUrl)=>({type: POST_UPLOAD_SUCCESS, pay
 export const postUploadFail = ()=>({type: POST_UPLOAD_FAIL});
 
 function* imgUploadSaga(action){
+    yield put(pendingSwitch());
     try {
         const res = yield call(uploadImage,action.payload);   
         yield put(imgUploadSuccess(res.data));
     }catch(e){
         yield put(imgUploadFail());
     }
+    yield put(pendingSwitch());
 }
 
 function* postUploadSaga(action){
+    yield put(pendingSwitch());
     try {
         const res = yield call(uploadPost, action.payload);
         console.log(res);
@@ -34,7 +42,7 @@ function* postUploadSaga(action){
     }catch(e){
         yield put(postUploadFail());
     }
-
+    yield put(pendingSwitch());
 }
 
 export function* uploadSaga(){
@@ -43,6 +51,7 @@ export function* uploadSaga(){
 }
 
 const initialState = {
+    isPending: false,
     isLastPostUploadSuccess: null,
     redirectUrl: null,
     isLastImgUploadSuccess: null, 
@@ -50,6 +59,12 @@ const initialState = {
 }
 const uploadReducer = (state = initialState, action) => {
     switch (action.type) {
+        case PENDING_SWITCH: {
+            return {
+                ...state,
+                isPending: !state.isPending
+            }
+        }
         case POST_UPLOAD_SUCCESS: {
             return {
                 ...state,

@@ -42,8 +42,10 @@ export const List = () => {
     const listRenderer = (list) => {
         let result = [];
         let k = 0;
+        
         for(let i of list){
-            result.push(<li key={k}><Item uri={i.uri} title={i.title} author={i.author} date={moment(i.uploadDate).format('YYYY-MM-DD hh:mm:ss')} preview={i.preview}/></li>);
+            console.log(i);
+            result.push(<li key={k}><Item uri={i.uri} title={i.title} author={'author' in i  ? i.author.name : 'undefined'} date={moment(i.uploadDate).format('YYYY-MM-DD hh:mm:ss')} preview={i.preview}/></li>);
             k++;
         }
         return <ul>{result}</ul>;

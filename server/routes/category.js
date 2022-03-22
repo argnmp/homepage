@@ -65,7 +65,8 @@ router.get('/:lowerdirectory', wrapAsync(async (req,res)=>{
 
         let currentPageData = await Post.find({category: { $in: [...targetCategory] }},{data: 0, mdData: 0}).sort({uploadDate: -1})
             .skip(hidePost)
-            .limit(maxPost);
+            .limit(maxPost)
+            .populate({path: 'author', select: 'name'});
 
         //using redux to send data from server to client
         //push page data into redux state
@@ -119,7 +120,8 @@ router.get('/:upperdirectory/:lowerdirectory', wrapAsync(async (req,res)=>{
 
         let currentPageData = await Post.find({category: `${category}`},{data: 0, mdData: 0}).sort({uploadDate: -1})
             .skip(hidePost)
-            .limit(maxPost);
+            .limit(maxPost)
+            .populate({path: 'author', select: 'name'});
 
         //using redux to send data from server to client
         //push page data into redux state
@@ -149,7 +151,7 @@ router.get('/:upperdirectory/:lowerdirectory', wrapAsync(async (req,res)=>{
             )
         res.send(result);
         
-    }catch{
+    }catch(e){
         let err = new Error('Internal Server Error');
         err.status = 500;
         throw err;

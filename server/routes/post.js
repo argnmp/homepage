@@ -46,7 +46,7 @@ function wrapAsync(fn) {
   }
 // post new article
 router.post('/', wrapAsync(async(req,res)=>{
-    if(!req.user || req.user.leve > 0){
+    if(!req.user || req.user.level > 0){
         let err = new Error('Unauthorized');
         err.status = 401;
         throw err;
@@ -54,12 +54,13 @@ router.post('/', wrapAsync(async(req,res)=>{
     else{
         try{
             if(req.body.isNew){
+                console.log(req.user);
                 let title = req.body.title;
                 let uri;
                 uri = req.body.title.replace(/ /gi,"-");
                 const sameTitleNum = await Post.countDocuments({title: title});
                 if(sameTitleNum!==0) uri += `-${sameTitleNum}`;
-                let author = req.user.name;
+                let author = req.user._id;
                 let mdData = req.body.data;
                 let data = marked.parse(req.body.data);
                 
@@ -157,7 +158,7 @@ router.get('/:uri', wrapAsync(async (req,res,next)=>{
     try {
         let currentPageData;
         let currentPageMetadata;
-        const query = await Post.findOne({uri: req.params.uri});
+        const query = await Post.findOne({uri: req.params.uri}).populate({path: 'author', select: 'name'});
 
         //if not found, query will be null;
         if(query){
@@ -165,7 +166,7 @@ router.get('/:uri', wrapAsync(async (req,res,next)=>{
                 view: query.view+1,
             });
             currentPageData = query.data;
-            currentPageMetadata = {uri: query.uri, title: query.title, author: query.author, uploadDate: query.uploadDate, view: query.view + 1, preview: query.preview};
+            currentPageMetadata = {_id: query._id, uri: query.uri, title: query.title, author: query.author.name, uploadDate: query.uploadDate, view: query.view + 1, preview: query.preview};
         }
         else{
             let err = new Error('not found');
