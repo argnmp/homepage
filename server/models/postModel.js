@@ -15,6 +15,16 @@ const postSchema = new mongoose.Schema({
     mdData: {type: String},
     data: {type: String}
 });
+
+postSchema.virtual('comments', {
+    ref: 'comment',
+    localField: '_id',
+    foreignField: 'post',
+})
+
+postSchema.set('toObject', {virtuals: true});
+postSchema.set('toJSON', {virtuals: true});
+
 const model = mongoose.model(`post`,postSchema, `post`);
 
 export default model;

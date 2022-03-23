@@ -37,7 +37,6 @@ function* postUploadSaga(action){
     yield put(pendingSwitch());
     try {
         const res = yield call(uploadPost, action.payload);
-        console.log(res);
         yield put(postUploadSuccess(res.data.redirectUrl));
     }catch(e){
         yield put(postUploadFail());

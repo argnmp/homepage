@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {Layout} from '../../layout/index';
-import Utterances from '../../component/utterances';
+import {Comment} from '../../component/comment';
 import moment from 'moment';
 import { postDelete } from '../../modules/common';
 
@@ -19,10 +19,10 @@ export const Post = () => {
         dispatch(postDelete(pageMetadata.uri));
     }
     useEffect(()=>{
-        if(common.isLastPostDeletionSuccess===true){
+        if((common.isPending===false) && (common.isLastPostDeletionSuccess===true)){
             window.location.href = common.redirectUrl;
         }
-    },[common.isLastPostDeletionSuccess]);
+    },[common.isPending]);
     /*
     useEffect(()=>{
         console.log(common);
@@ -50,7 +50,7 @@ export const Post = () => {
                 <div className="wrapper">
                 <div className="markdown-body" dangerouslySetInnerHTML={{__html:pageData}}></div>
                 </div>
-                <Utterances colorState={common.colorState}/>
+                <Comment />
 
             </div>
         </Layout>

@@ -5,9 +5,10 @@ import pageReducer from './page'
 import userReducer from './user';
 import uploadReducer, {uploadSaga} from './upload';
 import commonReducer, {commonSaga} from './common';
+import commentReducer, {commentSaga} from './comment';
 
 export function* rootSaga() {
-    yield all([uploadSaga(), commonSaga()]);
+    yield all([uploadSaga(), commonSaga(), commentSaga()]);
 }
 const rootReducer = combineReducers({
     category: categoryReducer,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     user: userReducer,
     upload: uploadReducer,
     common: commonReducer,
+    comment: commentReducer
 });
 
 export default rootReducer;

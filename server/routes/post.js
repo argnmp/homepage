@@ -22,9 +22,11 @@ import rootReducer from '../../src/modules/index';
 
 //mongodb
 import Post from '../models/postModel.js';
+import Comment from '../models/commentModel.js';
 
 //modules
 import {imageStateChangeAndDelete, imageStateRestore, imageDelete} from '../modules/imgSanitizer';
+import { commentBuilder } from '../modules/commentBuilder.js';
 
 
 const html = fs.readFileSync(
@@ -165,8 +167,15 @@ router.get('/:uri', wrapAsync(async (req,res,next)=>{
             const result = await Post.updateOne({uri: query.uri},{
                 view: query.view+1,
             });
+            const comments = await Comment.find({post: query._id}).populate({path: 'author', select: 'name'}).sort({depth:-1, uploadDate: 1});
+            comments.forEach(element => {
+                element.childComments = [];
+            });
+            console.log(comments);
             currentPageData = query.data;
-            currentPageMetadata = {_id: query._id, uri: query.uri, title: query.title, author: query.author.name, uploadDate: query.uploadDate, view: query.view + 1, preview: query.preview};
+            currentPageMetadata = {_id: query._id, uri: query.uri, title: query.title, author: query.author.name, uploadDate: query.uploadDate, view: query.view + 1, preview: query.preview,
+            comments: [...commentBuilder(comments)],
+            };
         }
         else{
             let err = new Error('not found');
@@ -189,6 +198,10 @@ router.get('/:uri', wrapAsync(async (req,res,next)=>{
         else{
             preloadedState.user.isLogined = true;
             preloadedState.user.name = req.user.name;
+            preloadedState.user.email = req.user.email;
+            preloadedState.user._id = req.user._id;
+            preloadedState.user.level = req.user.level;
+
         }
 
         let renderString = renderToString(<Provider store={store}><App/></Provider>);
@@ -202,6 +215,7 @@ router.get('/:uri', wrapAsync(async (req,res,next)=>{
         res.send(result);
 
     } catch (e){
+        console.log(e);
         if(!e){
             let err = new Error('Internal Server Error');
             err.status = 500;

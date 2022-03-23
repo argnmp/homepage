@@ -36,6 +36,9 @@ import upload from '../controllers/multer.js';
 //mongodb
 import User from '../models/userModel.js';
 import Image from '../models/imageModel.js';
+import Comment from '../models/commentModel.js';
+import Post from '../models/postModel.js';
+import { query } from 'express';
 
 //비동기 함수에 대한 에러처리
 function wrapAsync(fn) {
@@ -46,6 +49,132 @@ function wrapAsync(fn) {
     };
   }
 
+//comment
+router.get('/comment', wrapAsync(async (req,res)=>{
+    const query1 = await Comment.find({uri: 'commenttest'}).populate('comments');
+    query1.forEach(element => {
+        element.childComments = [];
+    });
+    console.log(query1);
+}))
+router.post('/comment', wrapAsync(async (req, res)=>{
+    if(!req.user){
+        let err = new Error('Unauthorized');
+        err.status = 401;
+        throw err;
+    }
+    else {
+        try{
+            if(req.body.depth > 5) {
+                let err = new Error('Comment depth exceed');
+                err.status = 500;
+                throw err;
+            }
+            if(req.body.depth == 1){
+                await Comment.createComment({
+                    depth: req.body.depth,
+                    postId: req.body.postId,
+                    authorId: req.user._id,
+                    parentCommentId: null,
+                    data: req.body.data
+                });                  
+            }
+            else {
+                await Comment.createComment({
+                    depth: req.body.depth,
+                    postId: req.body.postId,
+                    authorId: req.user._id,
+                    parentCommentId: req.body.parentCommentId,
+                    data: req.body.data
+                });                  
+
+            }
+            res.status(201).end();
+        }
+        catch (e) {
+            console.log(e);
+            if (!e) {
+                let err = new Error('Internal Server Error');
+                err.status = 500;
+                throw err;
+            }
+            else {
+                throw e;
+            }
+        }
+    }
+
+
+}));
+router.post('/commentedit', wrapAsync(async (req, res)=>{
+    if(!req.user){
+        let err = new Error('Unauthorized');
+        err.status = 401;
+        throw err;
+    }
+    else {
+        try{
+            const query = await Comment.findOne({_id: req.body.comment});
+            if(req.user._id.toString()!==query.author.toString()){
+                let err = new Error('Unauthorized');
+                err.status = 401;
+                throw err;
+            }
+            await Comment.updateOne({_id: req.body.comment},{
+                data: req.body.data,
+                editDate: Date.now()
+            })
+            res.status(201).end();
+        }
+        catch (e) {
+            console.log(e);
+            if (!e) {
+                let err = new Error('Internal Server Error');
+                err.status = 500;
+                throw err;
+            }
+            else {
+                throw e;
+            }
+        }
+    }
+
+
+}));
+router.delete('/comment/:id', wrapAsync(async (req, res)=>{
+    if(!req.user){
+        let err = new Error('Unauthorized');
+        err.status = 401;
+        throw err;
+    }
+    else {
+        try{
+            const query = await Comment.findOne({_id: req.params.id});
+            if(req.user._id.toString()!==query.author.toString()){
+                let err = new Error('Unauthorized');
+                err.status = 401;
+                throw err;
+            }
+            await Comment.updateOne({_id: req.params.id},{
+                isDeleted: true,
+            })
+            res.status(201).end();
+            
+        }
+        catch (e) {
+            if (!e) {
+                let err = new Error('Internal Server Error');
+                err.status = 500;
+                throw err;
+            }
+            else {
+                throw e;
+            }
+        }
+    }
+
+
+}));
 
 //image upload
 router.get('/image/:uri', wrapAsync(async (req, res)=>{

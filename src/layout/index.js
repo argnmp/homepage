@@ -12,8 +12,8 @@ const User = ({user})=>{
     return (
         <div className="user-wrapper">
             {user.isLogined ?
-                [<div className="greeting">{user.name}<i>님 환영합니다</i></div>,
-                    <div className="logout-wrapper"><a href="/api/logout">로그아웃</a></div>] :
+                [<div key={1} className="greeting">{user.name}<i>님 환영합니다</i></div>,
+                    <div key={2} className="logout-wrapper"><a href="/api/logout">로그아웃</a></div>] :
                 <a href="/api/login">로그인</a>
             }
         </div>

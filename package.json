@@ -5,10 +5,12 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx cross-env NODE_ENV=development webpack serve --mode development --open --hot",
-    "build-server": "npm run clean-server && npx babel server --out-dir ./dist-server/server --config-file ./babel.server.js --copy-files && npx babel src --out-dir ./dist-server/src --config-file ./babel.server.js --copy-files && npm run build",
-    "build": "npm run clean-client && webpack --mode production",
+    "build-server": "npm run clean-server && npx babel server --out-dir ./dist-server/server --config-file ./babel.server.js --copy-files && npx babel src --out-dir ./dist-server/src --config-file ./babel.server.js --copy-files",
+    "build-all": "npm run clean-server && npx babel server --out-dir ./dist-server/server --config-file ./babel.server.js --copy-files && npx babel src --out-dir ./dist-server/src --config-file ./babel.server.js --copy-files && npm run build-client",
+    "build-client": "npm run clean-client && webpack --mode production",
     "start-server": "npm run build-server && node ./dist-server/server/app.js",
-    "start": "npm run dev",
+    "start-all": "npm run build-all && node ./dist-server/server/app.js",
+    "start-client": "npm run dev",
     "clean-client": "npx rimraf dist",
     "clean-server": "npx rimraf dist-server"
   },
