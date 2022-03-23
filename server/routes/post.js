@@ -56,7 +56,6 @@ router.post('/', wrapAsync(async(req,res)=>{
     else{
         try{
             if(req.body.isNew){
-                console.log(req.user);
                 let title = req.body.title;
                 let uri;
                 uri = req.body.title.replace(/ /gi,"-");
@@ -171,7 +170,6 @@ router.get('/:uri', wrapAsync(async (req,res,next)=>{
             comments.forEach(element => {
                 element.childComments = [];
             });
-            console.log(comments);
             currentPageData = query.data;
             currentPageMetadata = {_id: query._id, uri: query.uri, title: query.title, author: query.author.name, uploadDate: query.uploadDate, view: query.view + 1, preview: query.preview,
             comments: [...commentBuilder(comments)],
@@ -215,7 +213,6 @@ router.get('/:uri', wrapAsync(async (req,res,next)=>{
         res.send(result);
 
     } catch (e){
-        console.log(e);
         if(!e){
             let err = new Error('Internal Server Error');
             err.status = 500;

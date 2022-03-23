@@ -26,9 +26,11 @@ const CommentRequestHead = ({depth}) => {
         <div className='commentRequest-wrapper'>
             <div className="box">
                 <textarea className="comment-input" ref={inputRef} />
-                <input type="button" onClick={(e) => {
-                    applyHandler(e);
-                }} value="작성하기" />
+                <div>
+                    <input type="button" onClick={(e) => {
+                        applyHandler(e);
+                    }} value="작성하기" />
+                </div>
             </div> 
         </div>
     )
@@ -72,20 +74,27 @@ const CommentRequest = ({ depth, parentCommentId, author}) => {
 
     return (
         <div className='commentRequest-wrapper'>
-            {(depth != 1) && <input type="button" onClick={()=>{setIsReplyOpen(!isReplyOpen); setIsEditOpen(false);}} value="답글"/>}
-            {(user._id.toString()===author._id.toString()/*||1*/)&&(depth != 1) && <input type="button" onClick={()=>{setIsEditOpen(!isEditOpen); setIsReplyOpen(false);}} value="수정"/>}
-            {(user._id.toString()===author._id.toString()/*||1*/)&&(depth != 1) && <input type="button" onClick={(e)=>{deleteHandler(e)}} value="삭제"/>}
+            <div className="menu">
+                {(depth != 1) && <input type="button" onClick={() => { setIsReplyOpen(!isReplyOpen); setIsEditOpen(false); }} value="답글" />}
+                {(user._id.toString() === author._id.toString()/*||1*/) && (depth != 1) && <input type="button" onClick={() => { setIsEditOpen(!isEditOpen); setIsReplyOpen(false); }} value="수정" />}
+                {(user._id.toString() === author._id.toString()/*||1*/) && (depth != 1) && <input type="button" onClick={(e) => { deleteHandler(e) }} value="삭제" />}
+            </div>
             {(isReplyOpen || (depth == 1)) && <div className="box">
                 <textarea className="comment-input" ref={inputRef}/>
+                <div>
                 <input type="button" onClick={(e)=>{
                     replyHandler(e);
                 }} value="댓글 달기"/>
+                </div>
                 </div>} 
             {(isEditOpen) && <div className="box">
                 <textarea className="comment-input" ref={inputRef}/>
-                <input type="button" onClick={(e)=>{
-                    editHandler(e);
-                }} value="수정하기"/>
+                <div>
+                    <input type="button" onClick={(e) => {
+                        editHandler(e);
+                    }} value="수정하기" />
+
+                </div>
                 </div>} 
         </div>
     )
@@ -95,9 +104,11 @@ const Item = ({commentId, index, data, author, uploadDate, editDate, depth}) => 
     const user = useSelector(state => state.user);
     return (
         <div key={index} className="comment-item-wrapper" style={{paddingLeft: `${40*(depth-1)}px`}}>
+            <div>
             <span className="author">{author.name}</span>
             <span className="uploadDate"><i>{uploadDate} {editDate==null ? '' : `| 수정: ${moment(editDate).format('YYYY-MM-DD hh:mm:ss')}`}</i></span>
             <div className="data">{data}</div>
+            </div>
             {user.isLogined && depth < 5 && <CommentRequest depth={depth+1} parentCommentId={commentId} author={author} orgData={data}/>}
         </div>
     )
@@ -129,8 +140,8 @@ export const Comment = () => {
     return (
         <div className="comment-wrapper">
             <div className="title">댓글</div>
-            {renderer(pageMetadata.comments, 1)}
             {user.isLogined ? <CommentRequestHead depth={1}/> : '로그인 후 댓글 작성이 가능합니다.'}
+            {renderer(pageMetadata.comments, 1)}
         </div>
     )
 }
