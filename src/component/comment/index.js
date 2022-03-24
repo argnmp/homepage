@@ -140,7 +140,7 @@ export const Comment = () => {
     return (
         <div className="comment-wrapper">
             <div className="title">댓글</div>
-            {user.isLogined ? <CommentRequestHead depth={1}/> : '로그인 후 댓글 작성이 가능합니다.'}
+            {user.isLogined ? <CommentRequestHead depth={1}/> : <div className="notLogined">로그인 후 댓글 작성이 가능합니다.</div>}
             {renderer(pageMetadata.comments, 1)}
         </div>
     )

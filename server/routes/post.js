@@ -246,6 +246,7 @@ router.delete('/:uri', wrapAsync(async (req,res,next)=>{
             }
             imageDelete(query.data);
 
+            await Comment.deleteMany({post: query._id});
             const result = await Post.deleteOne({uri: req.params.uri});
             if(result.deletedCount >= 0){
                 //status 204는 response body 가 없음을 의미하여 200을 사용해야함.
