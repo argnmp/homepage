@@ -2,16 +2,17 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 const webpack = require('webpack');
+require('dotenv').config();
 const prod = process.env.NODE_ENV === 'production';
 
-const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
+//const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
 
 module.exports = {
     mode: prod ? 'production' : 'development',
     devtool: prod ? 'hidden-source-map' : 'eval',
     entry: './src/index.js',
     resolve: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        extensions: ['.js', '.jsx'],
     },
     module: {
         rules: [
@@ -85,6 +86,6 @@ module.exports = {
         }),
         new MiniCssExtractPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new BundleAnalyzerPlugin(),
+        //new BundleAnalyzerPlugin(),
     ],
 }

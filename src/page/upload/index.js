@@ -10,7 +10,6 @@ marked.setOptions({
 })
 
 import './style.scss';
-import { textSpanContainsTextSpan } from 'typescript';
 
 export const Upload = () => {
     const page = useSelector(state=>state.page);
