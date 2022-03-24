@@ -1,6 +1,8 @@
 import React, {useState, useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {imgUpload, postUpload} from '../../modules/upload';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import {marked} from 'marked';
 marked.setOptions({
@@ -8,11 +10,13 @@ marked.setOptions({
 })
 
 import './style.scss';
+import { textSpanContainsTextSpan } from 'typescript';
 
 export const Upload = () => {
     const page = useSelector(state=>state.page);
     const dispatch = useDispatch();
     const [postData, setPostData] = useState(page.currentPageData);
+    const [buttonTarget, setButtonTarget] = useState(-1);
     const inputPanelRef = useRef();
     const outputPanelRef = useRef();
     
@@ -61,18 +65,30 @@ export const Upload = () => {
     //image upload button
     let hiddenImgInput = useRef();
     const upload = useSelector(state=>state.upload);
+    const toastId = React.useRef();
     useEffect(()=>{
-        if(upload.isLastImgUploadSuccess===true){
-            let currentData = postData;
-            for(let i of upload.imgUris){
-                currentData += `\n![](${i.url})`;
+        if(buttonTarget===0){
+            if (upload.isPending == true) {
+                toastId.current = toast("Upload in progress...", { autoClose: false });
             }
-            inputPanelRef.current.value = currentData;
-            setPostData(currentData);
+            if (upload.isPending == false && upload.isLastImgUploadSuccess === true) {
+                let currentData = postData;
+                for (let i of upload.imgUris) {
+                    currentData += `\n![](${i.url})`;
+                }
+                inputPanelRef.current.value = currentData;
+                setPostData(currentData);
+                toast.update(toastId.current, { type: toast.TYPE.SUCCESS, render: "Image Upload Success", autoClose: 5000 });
+            }
+            if (upload.isPending == false && upload.isLastImgUploadSuccess === false) {
+                toast.update(toastId.current, { type: toast.TYPE.ERROR, render: "Image Upload Fail", autoClose: 5000 });
+            }
+
         }
-    },[upload.imgUris])
+    },[upload.isPending])
     const imageHandler = (e)=>{
         e.preventDefault();
+        setButtonTarget(0);
         dispatch(imgUpload(e.target.files));     
     }
 
@@ -81,6 +97,7 @@ export const Upload = () => {
     let categoryRef = useRef();
     const uploadHander = (e)=>{
         e.preventDefault();
+        setButtonTarget(1);
         let payload = {
             orgUri: page.currentPageMetadata.orgUri,
             title: titleRef.current.value,
@@ -90,14 +107,13 @@ export const Upload = () => {
         dispatch(postUpload(payload));
     }
     useEffect(()=>{
-        if(upload.isLastPostUploadSuccess===true){
-            window.location.href = upload.redirectUrl;
+        if(buttonTarget===1){
+            if (upload.isPending == false && upload.isLastPostUploadSuccess === true) {
+                window.location.href = upload.redirectUrl;
+            }
         }
-    },[upload.redirectUrl]);
-
-    useEffect(()=>{
-        console.log(upload);
     },[upload.isPending]);
+
     
     
     return (
@@ -121,7 +137,7 @@ export const Upload = () => {
                     <div className="markdown-body" dangerouslySetInnerHTML={{__html: mdConverter(postData)}} ></div>
                 </div>
             </div>
-            
+            <ToastContainer/> 
         </div>
            ) 
 }

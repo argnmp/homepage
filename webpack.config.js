@@ -4,6 +4,8 @@ const path = require('path');
 const webpack = require('webpack');
 const prod = process.env.NODE_ENV === 'production';
 
+const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
+
 module.exports = {
     mode: prod ? 'production' : 'development',
     devtool: prod ? 'hidden-source-map' : 'eval',
@@ -43,6 +45,12 @@ module.exports = {
                 exclude: /node_modules/
             },
             {
+                test: /\.css$/i,
+                use:[MiniCssExtractPlugin.loader,{
+                    loader: 'css-loader',
+                }]
+            },
+            {
                 test: /\.html$/i,
                 loader: 'html-loader',
             }
@@ -77,5 +85,6 @@ module.exports = {
         }),
         new MiniCssExtractPlugin(),
         new webpack.HotModuleReplacementPlugin(),
+        new BundleAnalyzerPlugin(),
     ],
 }
