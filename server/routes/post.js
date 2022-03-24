@@ -62,8 +62,12 @@ router.post('/', wrapAsync(async(req,res)=>{
                 const sameTitleNum = await Post.countDocuments({title: title});
                 if(sameTitleNum!==0) uri += `-${sameTitleNum}`;
                 let author = req.user._id;
-                let mdData = req.body.data;
-                let data = marked.parse(req.body.data);
+                
+                //prevent html tag in mdData from error
+                let rawData = req.body.data.replace(/</g,"&lt;").replace(/>/g,"&gt;"); 
+                let mdData = rawData;
+
+                let data = marked.parse(rawData);
                 
                 //delete all html tags to build preview string
                 const regex = /(<([^>]+)>)/ig;
@@ -112,9 +116,11 @@ router.post('/', wrapAsync(async(req,res)=>{
                     const sameTitleNum = await Post.countDocuments({title: req.body.title});
                     if(sameTitleNum!==0) uri += `-${sameTitleNum}`;
                 }
+                //prevent html tag in mdData from error
+                let rawData = req.body.data.replace(/</g,"&lt;").replace(/>/g,"&gt;"); 
+                let mdData = rawData;
 
-                let mdData = req.body.data;
-                let data = marked.parse(req.body.data);
+                let data = marked.parse(rawData);
                 let category = req.body.category;
 
                 //delete all html tags to build preview string
@@ -141,6 +147,7 @@ router.post('/', wrapAsync(async(req,res)=>{
             
 
         }catch(e){
+            console.log(e);
             if(!e){
                 let err = new Error('Internal Server Error');
                 err.status = 500;

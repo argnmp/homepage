@@ -2,6 +2,16 @@
 @use '../../styles/mixin' as *;
 @use '../../styles/github-markdown.css' as *;
 
+@keyframes smoothAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-5%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 .upwrapper {
     .index{
         width: 100%;
@@ -63,6 +73,13 @@
         }
         .title {
             font-weight: 700;
+            animation: smoothAppear 1s;
+        }
+        .payload {
+            animation: smoothAppear 1s; 
+        }
+        .options {
+            animation: smoothAppear 1s; 
         }
         
     }
@@ -76,6 +93,4 @@
     }
 
 }
-
-
 

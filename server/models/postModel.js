@@ -11,7 +11,7 @@ const postSchema = new mongoose.Schema({
     uploadDate: {type: Date, required: true, default: new Date()},
     category: {type:String, required: true},
     view: {type:Number, required: true},
-    preview: {type: String, required: true},
+    preview: {type: String, required: true, default: ""},
     mdData: {type: String},
     data: {type: String}
 });

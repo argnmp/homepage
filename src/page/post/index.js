@@ -40,7 +40,7 @@ export const Post = () => {
                         <span>{moment(pageMetadata.uploadDate).format('YYYY-MM-DD hh:mm:ss')}  </span>
                         <span><i>posted by </i>{pageMetadata.author}</span>
                     </div>
-                    {user.isLogined && 
+                    {user.isLogined && user.level==0 && 
                     <div className="options">
                         <span><a href={`/upload/${pageMetadata.uri}`}>수정</a></span>
                         <span onClick={(e)=>{deleteHandler(e)}}>삭제</span>
