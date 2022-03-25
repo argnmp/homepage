@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {Layout} from '../../layout/index';
 import {Comment} from '../../component/comment';
-import moment from 'moment/src/moment';
+import moment from 'moment';
 import { postDelete } from '../../modules/common';
 
 import './style.scss';
@@ -48,7 +48,7 @@ export const Post = () => {
                     }
                 </div>
                 <div className="wrapper">
-                <div className="markdown-body" dangerouslySetInnerHTML={{__html:pageData}}></div>
+                <div className="markdown-body" dangerouslySetInnerHTML={{__html:pageData.replace(/&amp;lt;/g,"<").replace(/&amp;gt;/g,">")}}></div>
                 </div>
                 <Comment />
 

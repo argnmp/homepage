@@ -63,11 +63,11 @@ router.post('/', wrapAsync(async(req,res)=>{
                 if(sameTitleNum!==0) uri += `-${sameTitleNum}`;
                 let author = req.user._id;
                 
-                //prevent html tag in mdData from error
+                //prevent html tag in mdData from error, json에 <script> 이 태그가 들어나면 js 오류남
                 let rawData = req.body.data.replace(/</g,"&lt;").replace(/>/g,"&gt;"); 
                 let mdData = rawData;
 
-                let data = marked.parse(rawData);
+                let data = marked.parse(req.body.data);
                 
                 //delete all html tags to build preview string
                 const regex = /(<([^>]+)>)/ig;
@@ -120,7 +120,7 @@ router.post('/', wrapAsync(async(req,res)=>{
                 let rawData = req.body.data.replace(/</g,"&lt;").replace(/>/g,"&gt;"); 
                 let mdData = rawData;
 
-                let data = marked.parse(rawData);
+                let data = marked.parse(req.body.data);
                 let category = req.body.category;
 
                 //delete all html tags to build preview string

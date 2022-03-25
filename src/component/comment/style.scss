@@ -41,6 +41,7 @@
 .commentRequest-wrapper {
     padding-top: 5px;
     input[type="button"]{
+        cursor: pointer;
         transition: all 0.3s ease 0s;
         border: 1px solid var(--highlight-color);
         border-radius: 5px;
@@ -86,6 +87,7 @@
             display: flex;
             justify-content: right;
             input[type="button"]{
+                cursor: pointer;
                 margin-right: 0;
                 color: var(--main-font);
                 display: inline-block;

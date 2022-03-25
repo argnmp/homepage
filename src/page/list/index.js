@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import moment from 'moment/src/moment';
+import moment from 'moment';
 import { useSelector } from 'react-redux';
 import {Layout} from '../../layout/index';
 

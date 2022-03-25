@@ -112,6 +112,11 @@
                     display: none;
                 }
             }
+            .register-wrapper {
+                @include smmd {
+                    display: none;
+                }
+            }
         }
     }
 }
@@ -241,6 +246,31 @@
     
 }
 
+.register-wrapper{
+    display: flex;
+    width: 100%;
+    a {
+        color: var(--main-font);
+    }
+    cursor: pointer;
+    @include smmd{
+        justify-content: center;
+        line-height: 45px;
+        height: 45px;
+        font-size: 14px;
+    }
+    @include lgxl{
+        border-bottom: 1px solid var(--border-color);
+        justify-content: space-evenly;
+        line-height: 46px;
+        font-size: 14px;
+        &:hover {
+            transition: 0.3s ease 0s;
+            background-color: var(--highlight-color);
+        }
+    }
+}
+
 .top-button {
     position: fixed;
     width: 30px;
@@ -274,6 +304,11 @@
 
 }
 .dark-switch {
+    border-radius: 0;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+
     position: fixed;
     cursor: pointer;
     width: 30px;

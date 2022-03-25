@@ -33,6 +33,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     secret: `${process.env.COOKIE_SECRET}`,
+    cookie: { maxAge: 60 * 60 * 1000 },
     //store: new fileStore(),
 }));
 

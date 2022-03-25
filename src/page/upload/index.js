@@ -14,7 +14,7 @@ import './style.scss';
 export const Upload = () => {
     const page = useSelector(state=>state.page);
     const dispatch = useDispatch();
-    const [postData, setPostData] = useState(page.currentPageData);
+    const [postData, setPostData] = useState(page.currentPageData.replace(/&lt;/g,"<").replace(/&gt;/g,">"));
     const [buttonTarget, setButtonTarget] = useState(-1);
     const inputPanelRef = useRef();
     const outputPanelRef = useRef();
@@ -68,7 +68,7 @@ export const Upload = () => {
     useEffect(()=>{
         if(buttonTarget===0){
             if (upload.isPending == true) {
-                toastId.current = toast("Upload in progress...", { autoClose: false });
+                toastId.current = toast("Image Upload in progress...", { autoClose: false, theme: 'colored' });
             }
             if (upload.isPending == false && upload.isLastImgUploadSuccess === true) {
                 let currentData = postData;
@@ -77,10 +77,12 @@ export const Upload = () => {
                 }
                 inputPanelRef.current.value = currentData;
                 setPostData(currentData);
-                toast.update(toastId.current, { type: toast.TYPE.SUCCESS, render: "Image Upload Success", autoClose: 5000 });
+                toast.dismiss(toastId.current);
+                toast.success("Image Upload Success",{theme: 'colored'});
             }
             if (upload.isPending == false && upload.isLastImgUploadSuccess === false) {
-                toast.update(toastId.current, { type: toast.TYPE.ERROR, render: "Image Upload Fail", autoClose: 5000 });
+                toast.dismiss(toastId.current);
+                toast.error("Image Upload Fail",{theme: 'colored'});
             }
 
         }
@@ -103,12 +105,32 @@ export const Upload = () => {
             category: categoryRef.current.value,
             data: inputPanelRef.current.value
         }
+        if(payload.title===""){
+            toast.warn("Title is required",{theme: 'colored'});
+            return;
+        }
+        if(payload.data===""){
+            toast.warn("Text is required",{theme: 'colored'});
+            return;
+        }
+        
         dispatch(postUpload(payload));
     }
     useEffect(()=>{
         if(buttonTarget===1){
+            if (upload.isPending == true) {
+                toastId.current = toast("Post Upload in progress...", {autoClose: false, theme: 'colored'});
+            }
             if (upload.isPending == false && upload.isLastPostUploadSuccess === true) {
-                window.location.href = upload.redirectUrl;
+                toast.dismiss(toastId.current);
+                toast.success("Post Upload Success",{theme: 'colored'});
+                setTimeout(()=>{
+                    window.location.href = upload.redirectUrl;
+                },1000);
+            }
+            if (upload.isPending == false && upload.isLastPostUploadSuccess === false) {
+                toast.dismiss(toastId.current);
+                toast.error("Post Upload Fail",{theme: 'colored'});
             }
         }
     },[upload.isPending]);

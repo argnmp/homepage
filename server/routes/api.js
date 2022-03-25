@@ -50,13 +50,6 @@ function wrapAsync(fn) {
   }
 
 //comment
-router.get('/comment', wrapAsync(async (req,res)=>{
-    const query1 = await Comment.find({uri: 'commenttest'}).populate('comments');
-    query1.forEach(element => {
-        element.childComments = [];
-    });
-    console.log(query1);
-}))
 router.post('/comment', wrapAsync(async (req, res)=>{
     if(!req.user){
         let err = new Error('Unauthorized');

@@ -40,7 +40,7 @@ module.exports = {
             */
             {
                 test: /\.s[ac]ss$/i,
-                use:[prod==='development' ? style-loader : MiniCssExtractPlugin.loader,{
+                use:[MiniCssExtractPlugin.loader,{
                     loader: 'css-loader',
                 },'sass-loader'],
                 exclude: /node_modules/
@@ -59,7 +59,7 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, '/dist'),
-        publicPath: '/dist/', //for devleoping server+client /for webpack server delete this line / 이렇게 publicPath를 써주어야 제대로 jpg 파일이 연결됨.
+        //publicPath: '/dist/', //for devleoping server+client /for webpack server delete this line / 이렇게 publicPath를 써주어야 제대로 jpg 파일이 연결됨.
         filename: '[name].[chunkhash].js'
     },
     devServer: {
@@ -86,6 +86,10 @@ module.exports = {
         }),
         new MiniCssExtractPlugin(),
         new webpack.HotModuleReplacementPlugin(),
+        new webpack.IgnorePlugin({
+            resourceRegExp: /^\.\/locale$/,
+            contextRegExp: /moment$/,
+        }),
         //new BundleAnalyzerPlugin(),
     ],
 }

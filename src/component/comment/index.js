@@ -1,6 +1,6 @@
 import React, {useEffect, useState, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import moment from 'moment/src/moment';
+import moment from 'moment';
 import './style.scss';
 
 import { commentCreate, commentEdit, commentDelete } from '../../modules/comment';
