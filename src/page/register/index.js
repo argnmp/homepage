@@ -49,7 +49,6 @@ export const Register = () => {
             password: passwordRef.current.value,
         })
         .then((res)=>{
-            console.log(res);
             if(!res.data.isSuccess){
                 toast.dismiss(toastId.current);
                 toast.warn(res.data.msg, {theme: 'colored'});
