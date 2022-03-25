@@ -59,7 +59,7 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, '/dist'),
-        //publicPath: '/dist/', //for devleoping server+client /for webpack server delete this line / 이렇게 publicPath를 써주어야 제대로 jpg 파일이 연결됨.
+        publicPath: '/dist/', //for devleoping server+client /for webpack server delete this line / 이렇게 publicPath를 써주어야 제대로 jpg 파일이 연결됨.
         filename: '[name].[chunkhash].js'
     },
     devServer: {

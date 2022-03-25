@@ -309,20 +309,88 @@ router.get('/logout',(req,res)=>{
     })
 })
 
-const registerPage = fs.readFileSync(
-    path.resolve(__dirname, './register.html'),
-    'utf8'
-)
 router.get('/register', (req,res)=>{
-    res.send(registerPage);
+    if(req.user){
+        res.status(200).redirect('/');
+    }
+    else {
+        try {
+            //using redux to send data from server to client
+            //push page data into redux state
+            const store = createStore(rootReducer);
+            let preloadedState = store.getState();
+            preloadedState.page.currentPage = 'register';
+            preloadedState.page.currentPageData = '';
+            preloadedState.category.categoryData = JSON.parse(categoryData);
+
+            let renderString = renderToString(<Provider store={store}><App /></Provider>);
+
+            const result = html
+                .replace('__REDUX_STATE_FROM_SERVER__', JSON.stringify(preloadedState))
+                .replace(
+                    '<div id="root"></div>',
+                    `<div id="root">${renderString}</div>`
+                )
+            res.send(result);
+
+        } catch (e) {
+            console.log(e);
+            let err = new Error('Internal Server Error');
+            err.status = 500;
+            throw err;
+
+        }
+    }
 });
-router.post('/register',async (req,res)=>{
+router.post('/register',wrapAsync(async (req,res)=>{
+    if(req.user){
+        res.status(200).redirect('/');
+    }
+    else {
+        try{
+            const email = req.body.email;
+            const name = req.body.name;
+            const password = req.body.password;
+            
+            const query = await User.findOne({$or:[{email: email}, {name: name}]});
+            if(!query){
+                let result = await User.localRegister({ email, name, password });
+                res.status(200).redirect('/');
+            }
+            else {
+                if(email===query.email){
+                    res.status(200).json({
+                        isSuccess: false,
+                        msg: 'Email exists'
+                    })
+                }
+                else if(name===query.name){
+                    res.status(200).json({
+                        isSuccess: false,
+                        msg: 'Name exists'
+                    })
+                }
+            }
+
+        }catch (e){
+            if(!e){
+                let err = new Error('Internal Server Error');
+                err.status = 500;
+                throw err;
+            }
+            else {
+                throw e;
+            }
+        }
+
+    }
+
     const email = req.body.email;
     const name = req.body.name;
     const password = req.body.password;
     let result = await User.localRegister({email, name, password}) ;
     res.status(200).redirect('/');
-})
+}));
 
 
 module.exports = router;

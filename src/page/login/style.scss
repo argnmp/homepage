@@ -29,6 +29,9 @@
         border-radius: 2px;
         background-color: var(--highlight-color);
     }
+    input[type="submit"]{
+        cursor: pointer;
+    }
     
     > div {
         width: 200px;

@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import './style.scss';
+import 'react-toastify/dist/ReactToastify.css';
 
 import {Index} from './page/index';
 import {Profile} from './page/profile';

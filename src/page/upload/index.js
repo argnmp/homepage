@@ -2,7 +2,6 @@ import React, {useState, useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {imgUpload, postUpload} from '../../modules/upload';
 import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 
 import {marked} from 'marked';
 marked.setOptions({
@@ -68,7 +67,7 @@ export const Upload = () => {
     useEffect(()=>{
         if(buttonTarget===0){
             if (upload.isPending == true) {
-                toastId.current = toast("Image Upload in progress...", { autoClose: false, theme: 'colored' });
+                toastId.current = toast("Image Upload in progress...", { autoClose: false, theme: 'colored', isLoading: true });
             }
             if (upload.isPending == false && upload.isLastImgUploadSuccess === true) {
                 let currentData = postData;
@@ -119,7 +118,7 @@ export const Upload = () => {
     useEffect(()=>{
         if(buttonTarget===1){
             if (upload.isPending == true) {
-                toastId.current = toast("Post Upload in progress...", {autoClose: false, theme: 'colored'});
+                toastId.current = toast("Post Upload in progress...", {autoClose: false, theme: 'colored', isLoading: true});
             }
             if (upload.isPending == false && upload.isLastPostUploadSuccess === true) {
                 toast.dismiss(toastId.current);
