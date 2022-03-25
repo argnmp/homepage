@@ -32,17 +32,6 @@ export const Register = () => {
             return;
         }
         toastId.current = toast("Register in progress...",{autoClose: false, theme: 'colored', isLoading: true})
-        /*
-        axios({
-            method: 'post',
-            url: '/api/register',
-            data: {
-                email: emailRef.current.value,
-                name: nameRef.current.value,
-                password: passwordRef.current.value,
-            }
-        })
-        */
         axios.post('/api/register',{
             email: emailRef.current.value,
             name: nameRef.current.value,
@@ -52,6 +41,14 @@ export const Register = () => {
             if(!res.data.isSuccess){
                 toast.dismiss(toastId.current);
                 toast.warn(res.data.msg, {theme: 'colored'});
+            }
+            else {
+                toast.dismiss(toastId.current);
+                toast.success("Register Success",{theme: 'colored'});
+                setTimeout(()=>{
+                    window.location.href = '/';
+                },1000);
+
             }
         })
         .catch((err)=>{

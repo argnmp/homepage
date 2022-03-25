@@ -92,7 +92,7 @@ export const Layout = ({children, isToc = false}) => {
                                 <a href="/api/register">회원가입</a>
                             </div>
                     }
-                    {user.isLogined && <div className="upload-link-wrapper"><a href="/upload">글 작성</a></div>}
+                    {user.isLogined && user.level==0 && <div className="upload-link-wrapper"><a href="/upload">글 작성</a></div>}
                     <div className="category-wrapper">
                         <Category/>
                     </div>
@@ -103,7 +103,7 @@ export const Layout = ({children, isToc = false}) => {
         </div>
         <div className={`panel-smmd-category-${categoryToggle ? 'on' : 'off'} `}>
             <Category/>
-            {user.isLogined && <div className="upload-link-wrapper"><a href="/upload">글 작성</a></div> }
+            {user.isLogined && user.level==0 && <div className="upload-link-wrapper"><a href="/upload">글 작성</a></div> }
             {!user.isLogined && <div className="register-wrapper"><a href="/api/register">회원가입</a></div> }
         </div>
         <div className="panel-content">

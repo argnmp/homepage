@@ -85,6 +85,10 @@ router.get('/:lowerdirectory', wrapAsync(async (req,res)=>{
         else{
             preloadedState.user.isLogined = true;
             preloadedState.user.name = req.user.name;
+            preloadedState.user.email = req.user.email;
+            preloadedState.user._id = req.user._id;
+            preloadedState.user.level = req.user.level;
+
         }
 
         let renderString = renderToString(<Provider store={store}><App/></Provider>);
@@ -97,7 +101,8 @@ router.get('/:lowerdirectory', wrapAsync(async (req,res)=>{
             )
         res.send(result);
 
-    }catch{
+    }catch(e){
+        console.log(e);
         let err = new Error('Internal Server Error');
         err.status = 500;
         throw err;
@@ -139,6 +144,10 @@ router.get('/:upperdirectory/:lowerdirectory', wrapAsync(async (req,res)=>{
         else{
             preloadedState.user.isLogined = true;
             preloadedState.user.name = req.user.name;
+            preloadedState.user.email = req.user.email;
+            preloadedState.user._id = req.user._id;
+            preloadedState.user.level = req.user.level;
+
         }
 
         let renderString = renderToString(<Provider store={store}><App/></Provider>);
@@ -152,6 +161,7 @@ router.get('/:upperdirectory/:lowerdirectory', wrapAsync(async (req,res)=>{
         res.send(result);
         
     }catch(e){
+        console.log(e);
         let err = new Error('Internal Server Error');
         err.status = 500;
         throw err;

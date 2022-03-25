@@ -53,13 +53,17 @@ router.get('/', wrapAsync(async (req,res)=>{
                 orgUri: '',
             }
             preloadedState.category.categoryData = JSON.parse(categoryData);
-            if(!req.user){
+            if (!req.user) {
                 preloadedState.user.isLogined = false;
                 preloadedState.user.name = "";
             }
-            else{
+            else {
                 preloadedState.user.isLogined = true;
                 preloadedState.user.name = req.user.name;
+                preloadedState.user.email = req.user.email;
+                preloadedState.user._id = req.user._id;
+                preloadedState.user.level = req.user.level;
+
             }
 
             let renderString = renderToString(<Provider store={store}><App/></Provider>);
@@ -110,13 +114,17 @@ router.get('/:uri', wrapAsync(async (req,res)=>{
                 orgUri: query.uri
             }
             preloadedState.category.categoryData = JSON.parse(categoryData);
-            if(!req.user){
+            if (!req.user) {
                 preloadedState.user.isLogined = false;
                 preloadedState.user.name = "";
             }
-            else{
+            else {
                 preloadedState.user.isLogined = true;
                 preloadedState.user.name = req.user.name;
+                preloadedState.user.email = req.user.email;
+                preloadedState.user._id = req.user._id;
+                preloadedState.user.level = req.user.level;
+
             }
 
             let renderString = renderToString(<Provider store={store}><App/></Provider>);

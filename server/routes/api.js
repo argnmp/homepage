@@ -258,6 +258,9 @@ router.delete('/image/:uri', wrapAsync(async (req, res)=>{
 
 //login
 router.get('/login', wrapAsync(async (req,res)=>{
+    if(req.user){
+        res.status(200).redirect('/');
+    }
     try{
         //using redux to send data from server to client
         //push page data into redux state
@@ -266,14 +269,19 @@ router.get('/login', wrapAsync(async (req,res)=>{
         preloadedState.page.currentPage = 'login';
         preloadedState.page.currentPageData = '';
         preloadedState.category.categoryData = JSON.parse(categoryData);
+
         if(!req.user){
             preloadedState.user.isLogined = false;
             preloadedState.user.name = "";
         }
         else{
-            res.redirect('/');
+            preloadedState.user.isLogined = true;
             preloadedState.user.isLogined = true;
             preloadedState.user.name = req.user.name;
+            preloadedState.user.email = req.user.email;
+            preloadedState.user._id = req.user._id;
+            preloadedState.user.level = req.user.level;
+
         }
 
 
@@ -355,7 +363,9 @@ router.post('/register',wrapAsync(async (req,res)=>{
             const query = await User.findOne({$or:[{email: email}, {name: name}]});
             if(!query){
                 let result = await User.localRegister({ email, name, password });
-                res.status(200).redirect('/');
+                res.status(200).json({
+                    isSuccess: true
+                });
             }
             else {
                 if(email===query.email){
@@ -382,14 +392,8 @@ router.post('/register',wrapAsync(async (req,res)=>{
                 throw e;
             }
         }
-
     }
 
-    const email = req.body.email;
-    const name = req.body.name;
-    const password = req.body.password;
-    let result = await User.localRegister({email, name, password}) ;
-    res.status(200).redirect('/');
 }));
 
 

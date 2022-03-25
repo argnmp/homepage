@@ -15,7 +15,8 @@ userSchema.statics.localRegister = function ({email, name, password}) {
         email,
         name,
         level: 3, 
-        password: bcrypt.hashSync(password, 10)
+        password: bcrypt.hashSync(password, 10),
+        regDate: Date.now()
     })
     return account.save();
 }
