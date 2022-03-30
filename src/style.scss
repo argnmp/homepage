@@ -21,24 +21,24 @@ body{
 }
 
 :root {
-    --background-color: hsl(0,0%,90%);
-    --foreground-color: #f7f9fa;
+    --background-color: #f7f7f7;
+    --foreground-color: #ffffff;
     --main-font: #202020;
     --sub-font: hsl(0,0%,40%);
-    --border-color: #dae1e6;
+    --border-color: #eeeeee;
     --highlight-color: #374d8c;
-    --reverse-color: #141E27;
-    --reverse-font: #EEEDDE;
+    --reverse-color: #121212;
+    --reverse-font: rgba(255,255,255,0.87);
 }
 
 .dark-mode {
-    --background-color: #141E27;
-    --foreground-color: #203239;
-    --main-font: #EEEDDE;
-    --sub-font: #E5E3C9;
-    --border-color: #141E27;
+    --background-color: #121212;
+    --foreground-color: #1e1e1e;
+    --main-font: rgba(255,255,255,0.87);
+    --sub-font: rgba(255,255,255,0.6);
+    --border-color: #121212;
     --highlight-color: #913535;
-    --reverse-color: hsl(0,0%,90%);
+    --reverse-color: #f7f7f7;
     --reverse-font: #202020;
 }
 
