@@ -40,7 +40,7 @@ let preloadedState = {
         name: "김태현",
     },
     page: {
-        currentPage: 'register',
+        currentPage: 'post',
         currentPageData: postex,
         currentPageMetadata: {
             currentCategory: 'documents',
@@ -128,16 +128,16 @@ sagaMiddleware.run(rootSaga);
 
 const rootElement = document.getElementById('root');
 
-/*
+///*
 ReactDom.render(
     <Provider store={store}><App/></Provider>
     ,rootElement);
-*/
+//*/
 
-//   /*
+   /*
 
 ReactDom.hydrate(
     <Provider store={store}><App/></Provider>
     ,rootElement);
-//*/
+*/
     

@@ -8,6 +8,9 @@
     @include lgxl {
         padding: 20px 40px;
     }
+    @include xl {
+        padding: 20px 100px;
+    }
     
 }
 .index-wrapper{

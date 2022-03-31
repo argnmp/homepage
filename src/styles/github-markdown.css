@@ -3,7 +3,7 @@
   -webkit-text-size-adjust: 100%;
   color: var(--main-font);
   margin: 0;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.5;
   word-wrap: break-word;
   width: 100%;
@@ -298,8 +298,8 @@
 .markdown-body blockquote {
   margin: 0;
   padding: 0 1em;
-  color: #8b949e;
-  border-left: .25em solid #30363d;
+  color: var(--sub-font);
+  border-left: .25em solid var(--sub-font);
 }
 
 .markdown-body ul,
@@ -834,7 +834,7 @@
   overflow: auto;
   font-size: 85%;
   line-height: 1.45;
-  background-color: #161b22;
+  background-color: var(--float-color);
   border-radius: 6px;
 }
 
