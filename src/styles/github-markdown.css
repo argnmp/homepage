@@ -3,10 +3,16 @@
   -webkit-text-size-adjust: 100%;
   color: var(--main-font);
   margin: 0;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.5;
   word-wrap: break-word;
   width: 100%;
+}
+.markdown-body ul {
+  list-style-type: disc;
+}
+.markdown-body ol {
+  list-style-type: decimal;
 }
 
 
@@ -668,12 +674,12 @@
 }
 
 .markdown-body table tr {
-  background-color: #0d1117;
+  background-color: var(--foreground-color);
   border-top: 1px solid #21262d;
 }
 
 .markdown-body table tr:nth-child(2n) {
-  background-color: #161b22;
+  background-color: var(--background-color);
 }
 
 .markdown-body table img {
