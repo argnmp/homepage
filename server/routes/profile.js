@@ -53,7 +53,6 @@ router.get('/', wrapAsync(async (req,res)=>{
             preloadedState.user.email = req.user.email;
             preloadedState.user._id = req.user._id;
             preloadedState.user.level = req.user.level;
-
         }
 
         let renderString = renderToString(<Provider store={store}><App/></Provider>);

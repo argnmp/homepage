@@ -2,16 +2,15 @@
     "profile":false,
     "tech documents": {
         "os": true,
+        "linux": true,
         "cpp": true,
         "java": true,
         "javascript": true,
+        "rust":true,
         "sass|css": true,
         "algorithm": true,
         "node": true,
         "react": true,
-        "react-native": true,
-        "gatsby": true,
-        "apis": true,
         "memo": true
     },
     "일상": true

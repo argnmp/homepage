@@ -2,11 +2,49 @@
 @use '../../styles/mixin' as *;
 
 .wrapper {
+    width: 100%;
+    height: 100%;
     @include smmd {
         padding: 20px 20px; 
     }     
     @include lgxl {
         padding: 20px 40px;
+    }
+    code {
+        background: none;
+    }
+}
+.innerwrapper {
+    display: flex;
+    width: 100%;
+    height:100%;
+    flex-direction: column;
+    div > span{
+        color: red;
+        font-weight: 900;
+    }
+}
+.codewrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px; 
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--sub-font);
+    width: 100%;
+    > div{
+        >input{
+            float:right;
+        }
+    } 
+}
+.dummycode{
+    white-space: pre-wrap;
+    display: inline-block;
+    font-size: 16px;
+    .hi {
+        color: #00ff00;
+        font-weight: 900;
     }
 }
 

@@ -18,10 +18,44 @@ const html = fs.readFileSync(
     'utf8'
 )
 
-const pageData = fs.readFileSync(
-    path.resolve(__dirname, '../static/index/index.html'),
-    'utf8'
-)
+const pageMetadata = {
+    code: 
+`use std::fs::File;
+use std::io::{self, BufRead};
+
+fn tracks(artist: &str) -> io::Result<io::Lines<io::BufReader<File>>> {
+    let album = File::open(artist)?;
+    Ok(io::BufReader::new(album).lines())
+}
+fn main () {    
+    if let Ok(computer) = tracks("radiohead.txt") {
+        for track in computer {
+            if let Ok(title) = track {
+                println!("{}", title);
+            }
+        }
+    }
+}`,
+    output:[
+        'Airbag',
+        'Paranoid Android',
+        'Subterranean Homesick Alien',
+        'Exit Music (For a Film)',
+        'Let Down',
+        'Karma Police',
+        'Fitter Happier',
+        'Electioneering',
+        'Climbing Up the Walls',
+        'No Surprises',
+        'Lucky',
+        'The Tourist',
+    ],
+    hi:[
+        'Ok(computer)',
+        'radiohead.txt',
+    ],
+    emb: `<iframe width="100%" height="315" src="https://www.youtube.com/embed/u5CVsCnxyXg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`, 
+}
 
 //category metadata -> change to automatically change metadata
 const categoryData = fs.readFileSync(
@@ -44,7 +78,7 @@ router.get('/', wrapAsync(async (req,res)=>{
         const store = createStore(rootReducer);
         let preloadedState = store.getState();
         preloadedState.page.currentPage = 'index';
-        preloadedState.page.currentPageData = pageData;
+        preloadedState.page.currentPageMetadata = pageMetadata;
         preloadedState.category.categoryData = JSON.parse(categoryData);
         if(!req.user){
             preloadedState.user.isLogined = false;
