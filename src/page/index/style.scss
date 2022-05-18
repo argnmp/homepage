@@ -1,7 +1,7 @@
 @use '../../styles/variables' as * ;
 @use '../../styles/mixin' as *;
 
-.wrapper {
+.indexwrapper {
     width: 100%;
     height: 100%;
     @include smmd {
@@ -9,6 +9,9 @@
     }     
     @include lgxl {
         padding: 20px 40px;
+    }
+    @include xl {
+        padding: 20px 100px;
     }
     code {
         background: none;
@@ -42,6 +45,7 @@
     white-space: pre-wrap;
     display: inline-block;
     font-size: 16px;
+    color: var(--main-font);
     .hi {
         color: #00ff00;
         font-weight: 900;

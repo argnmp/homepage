@@ -34,7 +34,7 @@ export const Index = () => {
     }
     return (
         <Layout>
-            <div className="wrapper">
+            <div className="indexwrapper">
                 <div className="innerwrapper">
                     <div>
                         <span>{'main.rs'}</span>

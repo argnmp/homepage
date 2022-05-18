@@ -9,6 +9,9 @@
     @include lgxl {
         padding: 20px 40px;
     }
+    @include xl{
+        padding: 20px 100px;
+    }
     .title {
         width: 100%;
         height: 40px;

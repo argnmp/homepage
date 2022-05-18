@@ -15,7 +15,6 @@
 .upwrapper {
     .index{
         width: 100%;
-        border-radius: 5px;
         word-break: keep-all;
         color: var(--foreground-color); 
         background: var(--highlight-color);
@@ -69,7 +68,9 @@
                     color: var(--foreground-color);
                 }
             }
-
+        }
+        @include xl{
+            padding: 50px 100px;
         }
         .title {
             font-weight: 700;
@@ -89,6 +90,9 @@
         }     
         @include lgxl {
             padding: 20px 40px;
+        }
+        @include xl {
+            padding: 20px 100px;
         }
     }
 
