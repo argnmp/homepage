@@ -12,7 +12,7 @@ const Pagination = ({startPage, endPage, currentPage, currentUri}) => {
         <ul>
         {pageNumbers.map((number,index)=>(
             <li key={index}>
-                <span><a href={`/category${currentUri}?page=${number}`}>{number}</a></span>
+                <span className={`${number===currentPage ? 'current' : ''}`}><a href={`/category${currentUri}?page=${number}`}>{number}</a></span>
             </li>
         ))} 
         </ul>
@@ -51,7 +51,7 @@ export const List = () => {
     }
     return (
         <Layout>
-            <div className="wrapper">
+            <div className="listupperwrapper">
                 <div className="index-wrapper">
                     <span className="category">{currentCategory}</span>
                     <span className="post">{totalPost} posts</span>

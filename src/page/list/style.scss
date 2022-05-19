@@ -1,7 +1,7 @@
 @use '../../styles/variables' as * ;
 @use '../../styles/mixin' as *;
 
-.wrapper {
+.listupperwrapper {
     @include smmd {
         padding: 20px 20px; 
     }     
@@ -9,7 +9,7 @@
         padding: 20px 40px;
     }
     @include xl {
-        padding: 20px 100px;
+        padding: 20px 120px;
     }
     
 }
@@ -35,6 +35,9 @@
         .title{
             font-size: 26px;
             color: var(--highlight-color);
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
     .preview-wrapper{
@@ -59,10 +62,20 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    color: $polar-lf;
     a {
-        color: var(--main-font);
+        color: var(--sub-font);
+        &:hover{
+            text-decoration: underline;
+        }
     }
+    .current {
+        a {
+            color: var(--highlight-color);
+            font-weight: 700;
+            font-size: 16px;
+        }
+    }
+    
     ul {
         display: inline-block;
     }
