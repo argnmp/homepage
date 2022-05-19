@@ -11,7 +11,7 @@
         padding: 20px 40px;
     }
     @include xl {
-        padding: 20px 120px;
+        padding: 20px 100px;
     }
     code {
         background: none;
@@ -23,7 +23,7 @@
     height:100%;
     flex-direction: column;
     div > span{
-        color: red;
+        color: var(--highlight-color);
         font-weight: 900;
     }
 }
@@ -40,6 +40,14 @@
             float:right;
         }
     } 
+}
+@keyframes typing {
+    0% {
+        width: 0%;
+    } 
+    100% {
+        width: 100%;
+    }
 }
 .dummycode{
     white-space: pre-wrap;

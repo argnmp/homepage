@@ -24,7 +24,7 @@ body{
     --background-color: #f7f7f7;
     --foreground-color: #ffffff;
     --main-font: #202020;
-    --sub-font: hsl(0,0%,40%);
+    --sub-font: hsl(0,0%,60%);
     --border-color: #394c59;
     --highlight-color: #394c59;
     --reverse-color: #121212;
@@ -32,26 +32,12 @@ body{
     --float-color: #2d2d2d;
 }
 //*/
-/*
-:root {
-    --background-color: #5f9959;
-    --foreground-color: #98c190;
-    --main-font: #202020;
-    --sub-font: hsl(0,0%,20%);
-    --border-color: #5f9959;
-    --highlight-color: #394c59;
-    --reverse-color: #121212;
-    --reverse-font: rgba(255,255,255,0.87);
-    --float-color: #394c59;
-    --contrast-color: #d3d3d3;
-}
-*/
 
 .dark-mode {
     --background-color: #121212;
     --foreground-color: #1e1e1e;
     --main-font: rgba(255,255,255,0.87);
-    --sub-font: rgba(255,255,255,0.6);
+    --sub-font: hsl(0,0%,40%);
     --border-color: #121212;
     --highlight-color: #394c59;
     --reverse-color: #f7f7f7;

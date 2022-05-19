@@ -7,7 +7,6 @@ import './style.scss';
 
 
 export const Index = () => {
-    const pageData = useSelector(state => state.page.currentPageData);
     const pageMetadata = useSelector(state => state.page.currentPageMetadata); 
     let targetCode = pageMetadata.code.replaceAll("<","&lt;").replaceAll(">","&gt;");
     pageMetadata.hi.forEach((elem)=>{targetCode = targetCode.replace(elem,`<span class="hi">${elem}</span>`)})
@@ -15,8 +14,6 @@ export const Index = () => {
     const outputRef = useRef();
     const buttonRef = useRef();
     const embRef = useRef();
-    useEffect(()=>{
-    },[]);
     const onExecute = ()=>{
         pageMetadata.output.forEach((element, idx) => {
             let t = document.createElement('div');
@@ -47,14 +44,14 @@ export const Index = () => {
                         </div>
                     </div>
                     <div>
-                        <span>{'>> output'}</span>
+                        <span>{'$bash'}</span>
                         <div className="codewrapper">
                             <pre className="dummycode" ref={outputRef}>
                             </pre>
                         </div>
                     </div>
                     <div ref={embRef} style={{ display: "none" }} >
-                        <span>{'>> target'}</span>
+                        <span>{'target'}</span>
                         <div className='codewrapper'>
                             <div dangerouslySetInnerHTML={{ __html: pageMetadata.emb }}></div>
                         </div>
