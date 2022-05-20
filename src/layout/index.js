@@ -1,4 +1,4 @@
-import React ,{useEffect, useState} from 'react';
+import React ,{useEffect, useState, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './style.scss';
 
@@ -50,13 +50,15 @@ export const Layout = ({children, isToc = false}) => {
     //switching between dark mode and light mode
     //light == false, dark == true
     const colorState = useSelector(state => state.common.colorState);
+    const darkSwitchRef = useRef();
     useEffect(()=>{
         const bgMode = window.localStorage.getItem('bgMode');
         if(bgMode === "dark"){
             dispatch(colorSwitch(true));
-            document.getElementsByTagName("html")[0].classList.add("dark-mode");
-            document.querySelector(".light-mode-highlighter").disabled = true;
-            document.querySelector(".dark-mode-highlighter").disabled = false;
+            darkSwitchRef.current.innerText = "D";
+        }
+        else {
+            darkSwitchRef.current.innerText = "L";
         }
     },[]);
     const darkSwitch = () => {
@@ -65,6 +67,7 @@ export const Layout = ({children, isToc = false}) => {
             window.localStorage.setItem("bgMode", "light");
             document.querySelector(".dark-mode-highlighter").disabled = true;
             document.querySelector(".light-mode-highlighter").disabled = false;
+            darkSwitchRef.current.innerText = "L";
             dispatch(colorSwitch(false));
         }
         else {
@@ -72,6 +75,7 @@ export const Layout = ({children, isToc = false}) => {
             window.localStorage.setItem("bgMode", "dark");
             document.querySelector(".light-mode-highlighter").disabled = true;
             document.querySelector(".dark-mode-highlighter").disabled = false;
+            darkSwitchRef.current.innerText = "D";
             dispatch(colorSwitch(true));
         }
     }
@@ -118,7 +122,7 @@ export const Layout = ({children, isToc = false}) => {
             </div> 
         </div>
         <TopScroll/>
-        <button className="dark-switch" onClick={darkSwitch}>{colorState ? 'L' : 'D'}</button>
+        <button className="dark-switch" onClick={darkSwitch} ref={darkSwitchRef}></button>
     </div>
            )
 }
