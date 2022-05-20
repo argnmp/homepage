@@ -98,3 +98,27 @@
 
 }
 
+/*markdown overwrite*/
+.markdown-body {
+    pre, p, table, ul, ol, blockquote, dl{
+        @include smmd{
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        @include  lgxl {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        @include  xl {
+            margin-left: 40px;
+            margin-right: 40px;
+        }
+    }
+    img {
+        width: 100%;
+        max-width: 800px;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

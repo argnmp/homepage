@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {Layout} from '../../layout/index';
 import {Comment} from '../../component/comment';
@@ -14,20 +14,24 @@ export const Post = () => {
     let common = useSelector(state=>state.common);
     const user = useSelector(state => state.user);
 
+    const postRef = useRef();
+
     const deleteHandler = (e)=>{
         e.preventDefault();
         dispatch(postDelete(pageMetadata.uri));
     }
     useEffect(()=>{
+        const imgs = postRef.current.querySelectorAll("img"); 
+        imgs.forEach((img)=>img.addEventListener("click",(e)=>{
+            window.open(img.src);
+        }))
+    }, []);
+    useEffect(()=>{
         if((common.isPending===false) && (common.isLastPostDeletionSuccess===true)){
             window.location.href = common.redirectUrl;
         }
     },[common.isPending]);
-    /*
-    useEffect(()=>{
-        console.log(common);
-    },[common.isPending])
-    */
+    
     return (
         <Layout isToc={true}>
             <div className="upwrapper">
@@ -48,7 +52,7 @@ export const Post = () => {
                     }
                 </div>
                 <div className="wrapper">
-                <div className="markdown-body" dangerouslySetInnerHTML={{__html:pageData.replace(/&amp;lt;/g,"<").replace(/&amp;gt;/g,">")}}></div>
+                <div ref={postRef} className="markdown-body" dangerouslySetInnerHTML={{__html:pageData.replace(/&amp;lt;/g,"<").replace(/&amp;gt;/g,">")}}></div>
                 </div>
                 <Comment />
 
