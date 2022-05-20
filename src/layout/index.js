@@ -53,7 +53,7 @@ export const Layout = ({children, isToc = false}) => {
     useEffect(()=>{
         const bgMode = window.localStorage.getItem('bgMode');
         if(bgMode === "dark"){
-            dispatch(colorSwitch(false));
+            dispatch(colorSwitch(true));
             document.getElementsByTagName("html")[0].classList.add("dark-mode");
             document.querySelector(".light-mode-highlighter").disabled = true;
             document.querySelector(".dark-mode-highlighter").disabled = false;
