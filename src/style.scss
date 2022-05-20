@@ -23,26 +23,24 @@ body{
 :root {
     --background-color: #f7f7f7;
     --foreground-color: #ffffff;
-    --main-font: #202020;
-    --sub-font: hsl(0,0%,60%);
+    --main-font: rgba(0,0,0,0.87);
+    --sub-font: rgba(0,0,0,0.38);
     --border-color: #394c59;
     --highlight-color: #394c59;
     --reverse-color: #121212;
     --reverse-font: rgba(255,255,255,0.87);
-    --float-color: #2d2d2d;
+    --float-color: hsl(0,0%,100%);
 }
 //*/
 
 .dark-mode {
     --background-color: #121212;
     --foreground-color: #1e1e1e;
-    --main-font: rgba(255,255,255,0.87);
-    --sub-font: hsl(0,0%,40%);
+    --main-font: rgba(255,255,255,0.87); 
+    --sub-font: rgba(255,255,255,0.38);
     --border-color: #121212;
     --highlight-color: #394c59;
     --reverse-color: #f7f7f7;
-    --reverse-font: #202020;
-    --float-color: #2d2d2d; 
+    --reverse-font: rgba(0,0,0,0.87);
+    --float-color: #030d16; 
 }
-
-

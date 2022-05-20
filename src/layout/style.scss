@@ -310,9 +310,10 @@
 
 }
 .dark-switch {
-    border-radius: 0;
+    -webkit-border-radius: none;
     -webkit-appearance: none;
     -moz-appearance: none;
+    border-radius: 0;
     appearance: none;
 
     position: fixed;

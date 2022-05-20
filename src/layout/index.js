@@ -55,17 +55,23 @@ export const Layout = ({children, isToc = false}) => {
         if(bgMode === "dark"){
             dispatch(colorSwitch(false));
             document.getElementsByTagName("html")[0].classList.add("dark-mode");
+            document.querySelector(".light-mode-highlighter").disabled = true;
+            document.querySelector(".dark-mode-highlighter").disabled = false;
         }
     },[]);
     const darkSwitch = () => {
         if(document.getElementsByTagName("html")[0].classList.contains("dark-mode")){
             document.getElementsByTagName("html")[0].classList.remove("dark-mode");
             window.localStorage.setItem("bgMode", "light");
+            document.querySelector(".dark-mode-highlighter").disabled = true;
+            document.querySelector(".light-mode-highlighter").disabled = false;
             dispatch(colorSwitch(false));
         }
         else {
             document.getElementsByTagName("html")[0].classList.add("dark-mode");
             window.localStorage.setItem("bgMode", "dark");
+            document.querySelector(".light-mode-highlighter").disabled = true;
+            document.querySelector(".dark-mode-highlighter").disabled = false;
             dispatch(colorSwitch(true));
         }
     }
