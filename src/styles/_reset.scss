@@ -50,14 +50,6 @@ html {
     -webkit-text-size-adjust: 100%; /* 2 */
     -ms-text-size-adjust: 100%; /* 2 */
 }
-button,
-html input[type="button"], /* 1 */
-input[type="reset"],
-input[type="submit"] {
-    -webkit-appearance: button; /* 2 */
-    cursor: pointer; /* 3 */
-    *overflow: visible;  /* 4 */
-}
 /* HTML5 display-role reset :wherefor older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {

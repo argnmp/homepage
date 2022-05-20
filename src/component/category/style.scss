@@ -10,36 +10,32 @@
     font-weight: 700;
 }
 .upper-category-list {
-    padding: 0px 20px;
-    
-    cursor: pointer;
+    padding: 0px 30px;
     > li {
         font-size: 14px;
         color: var(--main-font);
         line-height: 24px;
-        >span:hover {
-            text-decoration: underline;
-        }
     }
     .lower-category-list {
         > li {
             padding: 0px 30px;
-            color: var(--main-font);
+            color: var(--sub-font);
             line-height: 24px;
-            >span {
-                display: block;
-            }
-            >span:hover {
-                text-decoration: underline;
-            }
-            &::before {
-                content: "\27ab";
-                position: absolute;
-                transform: translateX(-20px);
-            }
         }
         
     }
       
+}
+.category-text{
+    display: flex;
+    height: 24px;
+    >svg {
+        margin-top: 5px;
+    }
+    >span:hover {
+        text-decoration: underline;
+        cursor: pointer;
+        color: var(--main-font);
+    }
 }
 
