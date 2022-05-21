@@ -42,3 +42,96 @@ net stop MongoDB
 ```
 MongoDB에서 database는 homepage를 사용한다. 따라서 .env 파일에 homepage database를 읽고 쓰는 권한이 주어진 사용자를 추가해주어야 한다.
 
+## How to Deploy
+### nvm으로 node 설치
+### mongodb 설치
+### mongodb 설정
+```shell
+sudo systemctl start mongod
+mongo
+```
+admin 계정 생성
+```shell
+use admin
+db.createUser({ user: "<username>",
+  pwd: "<password>",
+  roles: [
+    "userAdminAnyDatabase",
+    "dbAdminAnyDatabase",
+    "readWriteAnyDatabase"
+  ]
+})
+```
+
+db별 계정 생성
+
+use myDB
+```shell
+db.createUser({ user: "<username>",
+  pwd: "<password>",
+  roles: [
+    "dbAdmin",
+    "readWrite"
+  ]
+})
+```
+
+하지만 이렇게 db 자체를 생성하여 계정을 생성하면 mongosh로 접속할 시 database를 지정해주어야 한다. 다음과 같이 말이다.
+```shell
+mongo -u homepage --authenticationDatabase homepage
+```
+
+이런 방식으로 하면 이 프로젝트에서는 특정 데이터베이스를 직접 지정해주지 않아서 로그인이 되지 않을 것이다. 
+
+따라서 db자체를 생성하지 말고 admin database에 생성해주어야 한다. 
+
+use admin
+```shell
+db.createUser({ user: "<username>",
+  pwd: "<password>",
+  roles: [
+    {role:"dbAdmin", db:"<targetdb>"},
+    {role:"readWrite", db:"<targetdb>"},
+  ]
+})
+```
+
+사용자 삭제시
+```shell
+use admin
+db.dropUser("<username>")
+```
+
+/etc/mongod.conf 에 `#security` 부분을 다음과 같이 변경
+```shell
+security:
+  authorization: "enabled"
+```
+
+## mongodb backup & restore
+
+1. 기존 서버에 접속해있는 상태
+```shell
+mongodump -d homepage -o dbbackup -u homepage -p xeon159 --authenticationDatabase admin
+```
+-d: 백업할 mongodb의 database | -o: 백업한 파일이 위치할 디렉터리 | -u database 접근 권한 있는 계정 아이디 | -p: -u의 패스워드 | --authenticationDatabase: 계정 정보가 등록된 데이터베이스
+
+2. 접속 해제 후 로컬
+
+원격서버에서 백업한 파일을 로컬로 가져온다.
+```shell
+scp -i ./gcp_rsa_4096 -r kimtahen.r@34.145.108.112:/home/kimtahen.r/dbbackup ./dbbackup
+```
+-i: 원격서버에 접속하기 위한 인증서 | -r: 폴더째로 로컬로 가져오기 위한 플래그 | 첫번째: 폴더를 가져올 윈격서버의 주소와 디렉터리 | 두번째: 가져온 폴더를 저장할 로컬의 디렉터리
+
+다음으로 새로운 원격 서버에 복원할 데이터를 업로드한다.
+```shell
+scp -i .\homepage_key.pem -r ./dbbackup kimtahen@20.210.238.95:/home/kimtahen/dbbackup
+```
+-i: 원격서버에 접속하기 위한 인증서 | -r: 폴더째로 원격서버로 업로드 하기위한 플래그 | 첫번째: 업로드할 폴더 | 두번째: 업로드될 원격 서버의 주소와 디렉터리
+
+3. 새로운 서버에 접속해 있는 상태
+```shell
+mongorestore -d homepage ./dbbackup/homepage -u homepage -p xeon159 --authenticationDatabase admin
+```
+-d: 복원할 mongodb의 database | 복원할 디렉터리 | -u database 접근 권한 있는 계정 아이디 | -p: -u의 패스워드 | --authenticationDatabase: 계정 정보가 등록된 데이터베이스
