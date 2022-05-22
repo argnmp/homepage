@@ -99,7 +99,6 @@ async function initializer (){
     const db = await connect();
     //set categoryData ==> async 
     await categoryBuilder(app);
-    console.log(app.get('categoryCount'));
 
     http.createServer(app).listen(app.get('port'), () => {
         console.log('server started at port', app.get('port'));

@@ -4,6 +4,9 @@ import fs from 'fs';
 import path from 'path';
 const router = express.Router();
 
+//categoryModule
+import { categoryCountUpdater } from '../modules/categoryBuilder.js';
+
 //markdown parser
 import {marked} from 'marked';
 marked.setOptions({
@@ -34,10 +37,6 @@ const html = fs.readFileSync(
     'utf8'
 )
 
-const categoryData = fs.readFileSync(
-    path.resolve(__dirname, '../metadata/category.json')
-)
-
 //비동기 함수에 대한 에러처리 
 function wrapAsync(fn) {
     return function(req, res, next) {
@@ -48,6 +47,7 @@ function wrapAsync(fn) {
   }
 // post new article
 router.post('/', wrapAsync(async(req,res)=>{
+    const app = req.app;
     if(!req.user || req.user.level > 0){
         let err = new Error('Unauthorized');
         err.status = 401;
@@ -94,6 +94,7 @@ router.post('/', wrapAsync(async(req,res)=>{
                 imageStateChangeAndDelete(data);
     
                 await payload.save();
+                await categoryCountUpdater(app);
                 res.status(201).json({
                     redirectUrl:`/post/${uri}` 
                 });     
@@ -140,12 +141,11 @@ router.post('/', wrapAsync(async(req,res)=>{
                     view: view,
                     preview: preview,
                 });
+                await categoryCountUpdater(app);
                 res.status(201).json({
                     redirectUrl:`/post/${uri}` 
                 });     
             }
-            
-
         }catch(e){
             console.log(e);
             if(!e){
@@ -163,6 +163,7 @@ router.post('/', wrapAsync(async(req,res)=>{
 }));
 
 router.get('/:uri', wrapAsync(async (req,res,next)=>{
+    const app = req.app;
     try {
         let currentPageData;
         let currentPageMetadata;
@@ -195,7 +196,10 @@ router.get('/:uri', wrapAsync(async (req,res,next)=>{
         preloadedState.page.currentPage = 'post';
         preloadedState.page.currentPageData = currentPageData;
         preloadedState.page.currentPageMetadata = currentPageMetadata;
-        preloadedState.category.categoryData = JSON.parse(categoryData);
+        preloadedState.category.categoryData = {
+            categoryList: app.get('categoryList'),
+            categoryCount: app.get('categoryCount'),
+        };
         if(!req.user){
             preloadedState.user.isLogined = false;
             preloadedState.user.name = "";
@@ -231,6 +235,7 @@ router.get('/:uri', wrapAsync(async (req,res,next)=>{
     }
 }));
 router.delete('/:uri', wrapAsync(async (req,res,next)=>{
+    const app = req.app;
     if(!req.user || req.user.level > 0){
         let err = new Error('Unauthorized');
         err.status = 401;
@@ -248,7 +253,9 @@ router.delete('/:uri', wrapAsync(async (req,res,next)=>{
 
             await Comment.deleteMany({post: query._id});
             const result = await Post.deleteOne({uri: req.params.uri});
+            console.log(result);
             if(result.deletedCount >= 0){
+                await categoryCountUpdater(app);
                 //status 204는 response body 가 없음을 의미하여 200을 사용해야함.
                 res.status(200).json({
                     redirectUrl: `/`
@@ -258,7 +265,6 @@ router.delete('/:uri', wrapAsync(async (req,res,next)=>{
                 err.status = 404;
                 throw err;
             }
-
         } catch (e){
             if(!e){
                 let err = new Error('Internal Server Error');

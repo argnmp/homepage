@@ -21,10 +21,6 @@ const pageData = fs.readFileSync(
     path.resolve(__dirname, '../static/profile/index.html'),
     'utf8'
 )
-const categoryData = fs.readFileSync(
-    path.resolve(__dirname, '../metadata/category.json')
-)
-
 //비동기 함수에 대한 에러처리 
 function wrapAsync(fn) {
     return function(req, res, next) {
@@ -35,6 +31,7 @@ function wrapAsync(fn) {
   }
 
 router.get('/', wrapAsync(async (req,res)=>{
+    const app = req.app;
     try{
         //using redux to send data from server to client
         //push page data into redux state
@@ -42,7 +39,10 @@ router.get('/', wrapAsync(async (req,res)=>{
         let preloadedState = store.getState();
         preloadedState.page.currentPage = 'profile';
         preloadedState.page.currentPageData = pageData;
-        preloadedState.category.categoryData = JSON.parse(categoryData);
+        preloadedState.category.categoryData = {
+            categoryList: app.get('categoryList'),
+            categoryCount: app.get('categoryCount'),
+        };
         if(!req.user){
             preloadedState.user.isLogined = false;
             preloadedState.user.name = "";

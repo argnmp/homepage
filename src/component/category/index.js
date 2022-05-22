@@ -5,7 +5,8 @@ import {useSelector} from 'react-redux';
 import './style.scss';
 
 export const Category = () => {
-    const list = useSelector(state => state.category.categoryData);
+    const categoryList = useSelector(state => state.category.categoryData.categoryList);
+    const categoryCount = useSelector(state => state.category.categoryData.categoryCount);
     let getUrl = (page, isPost, upperPage) => {
         let targetUrl;
         if(isPost){
@@ -27,7 +28,7 @@ export const Category = () => {
                 const targetUrl = getUrl(i,true,upperPage);
                 returnElement.push(<li key={i} >
                     <div className='category-text'>
-                        <span onClick={(e)=>{e.stopPropagation(); document.location.href=targetUrl;}}>{i}</span>
+                        <span onClick={(e)=>{e.stopPropagation(); document.location.href=targetUrl;}}>{`${i} ${categoryCount[i]!==null ? '('+categoryCount[i]+')' : ""}`}</span>
                     </div>
                     {createCategory(list[i], false, i)}
                     </li>)        
@@ -37,7 +38,7 @@ export const Category = () => {
                 const targetUrl = getUrl(i,list[i],upperPage);
                 returnElement.push(<li key={i}>
                     <div className='category-text'>
-                        <span onClick={(e)=>{e.stopPropagation(); document.location.href=targetUrl;}}>{i}</span>
+                        <span onClick={(e)=>{e.stopPropagation(); document.location.href=targetUrl;}}>{`${i} ${categoryCount[i]!==null ? '('+categoryCount[i]+')' : ""}`}</span>
                     </div>
                     </li>);
             }
@@ -50,13 +51,12 @@ export const Category = () => {
             
         }
     }
-    useEffect(()=>{createCategory(list,true,null)},[]);
     return (
         <div className="category-wrapper">
             <div className="header">
                 <span>category</span>
             </div>
-            {createCategory(list, true, null)}
+            {createCategory(categoryList, true, null)}
         </div>
     )
 }

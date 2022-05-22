@@ -58,10 +58,6 @@ fn main () {
     emb: `<iframe width="100%" height="315" src="https://www.youtube.com/embed/u5CVsCnxyXg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`, 
 }
 
-//category metadata -> change to automatically change metadata
-const categoryData = fs.readFileSync(
-    path.resolve(__dirname, '../metadata/category.json')
-)
 
 //비동기 함수에 대한 에러처리 
 function wrapAsync(fn) {
@@ -73,6 +69,7 @@ function wrapAsync(fn) {
   }
 
 router.get('/', wrapAsync(async (req,res)=>{
+    const app = req.app;
     try{
         //using redux to send data from server to client
         //push page data into redux state
@@ -80,7 +77,10 @@ router.get('/', wrapAsync(async (req,res)=>{
         let preloadedState = store.getState();
         preloadedState.page.currentPage = 'index';
         preloadedState.page.currentPageMetadata = pageMetadata;
-        preloadedState.category.categoryData = JSON.parse(categoryData);
+        preloadedState.category.categoryData = {
+            categoryList: app.get('categoryList'),
+            categoryCount: app.get('categoryCount'),
+        };
         if(!req.user){
             preloadedState.user.isLogined = false;
             preloadedState.user.name = "";

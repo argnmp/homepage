@@ -20,11 +20,6 @@ const html = fs.readFileSync(
     'utf8'
 )
 
-let categoryData = fs.readFileSync(
-    path.resolve(__dirname, '../metadata/category.json')
-)
-categoryData = JSON.parse(categoryData);
-
 function wrapAsync(fn) {
     return function(req, res, next) {
         // Make sure to `.catch()` any errors and pass them along to the `next()`
@@ -38,13 +33,15 @@ import paging from '../modules/paging';
 
 
 router.get('/:lowerdirectory', wrapAsync(async (req,res)=>{
+    const app = req.app;
     try{
         let category = req.params.lowerdirectory;
         let page = req.query.page | 1;
         let targetCategory;
-        if(typeof(categoryData[`${category}`])==='object'){
-            targetCategory = Object.keys(categoryData[`${category}`]).map(item=>{
-                if(categoryData[`${category}`][item]){
+        const categoryList = app.get('categoryList');
+        if(typeof(categoryList[`${category}`])==='object'){
+            targetCategory = Object.keys(categoryList[`${category}`]).map(item=>{
+                if(categoryList[`${category}`][item]){
                     return item;
                 }
             });
@@ -74,10 +71,11 @@ router.get('/:lowerdirectory', wrapAsync(async (req,res)=>{
         let preloadedState = store.getState();
         preloadedState.page.currentPage = 'list';
         preloadedState.page.currentPageData = currentPageData;
-
-
         preloadedState.page.currentPageMetadata = {currentCategory: category, totalPost,startPage, endPage, totalPage, currentPage, currentUri: `/${req.params.lowerdirectory}`};
-        preloadedState.category.categoryData = categoryData;
+        preloadedState.category.categoryData = {
+            categoryList: app.get('categoryList'),
+            categoryCount: app.get('categoryCount'),
+        };
         if(!req.user){
             preloadedState.user.isLogined = false;
             preloadedState.user.name = "";
@@ -110,6 +108,7 @@ router.get('/:lowerdirectory', wrapAsync(async (req,res)=>{
 
 }));
 router.get('/:upperdirectory/:lowerdirectory', wrapAsync(async (req,res)=>{
+    const app = req.app;
     try{
         let category = req.params.lowerdirectory;
         let page = req.query.page | 1;
@@ -136,7 +135,10 @@ router.get('/:upperdirectory/:lowerdirectory', wrapAsync(async (req,res)=>{
         preloadedState.page.currentPageData = currentPageData;
 
         preloadedState.page.currentPageMetadata = {currentCategory: category, totalPost, startPage, endPage, totalPage, currentPage, currentUri: `/${req.params.upperdirectory}/${req.params.lowerdirectory}`};
-        preloadedState.category.categoryData = categoryData;
+        preloadedState.category.categoryData = {
+            categoryList: app.get('categoryList'),
+            categoryCount: app.get('categoryCount'),
+        };
         if(!req.user){
             preloadedState.user.isLogined = false;
             preloadedState.user.name = "";
