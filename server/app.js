@@ -10,9 +10,9 @@ const fs = require('fs');
 const flash = require('connect-flash');
 require("dotenv").config();
 
-//mongodb;
+//mongodb
 const connect = require('./db/index.js');
-const db = connect();
+
 
 //routes
 const indexRouter = require('./routes/index.js');
@@ -21,6 +21,9 @@ const categoryRouter = require('./routes/category.js')
 const postRouter = require('./routes/post.js');
 const apiRouter = require('./routes/api.js');
 const uploadRouter = require('./routes/upload.js');
+
+//module
+import { categoryBuilder } from './modules/categoryBuilder.js';
 
 const app = express();
 
@@ -47,6 +50,8 @@ app.set('port', process.env.PORT || 8000);
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "jade");
+
+
 
 app.use(logger('dev'));
 app.use(flash());
@@ -89,15 +94,25 @@ app.use((err, req, res, next)=>{
     res.render('error');
 })
 
-http.createServer(app).listen(app.get('port'), ()=>{
-    console.log('server started at port',app.get('port'));
-})
-/* //for https connection used for gcp
-let privateKey = fs.readFileSync("/etc/letsencrypt/live/kimtahen.com/privkey.pem");
-let certificate = fs.readFileSync("/etc/letsencrypt/live/kimtahen.com/cert.pem");
-let ca = fs.readFileSync("/etc/letsencrypt/live/kimtahen.com/chain.pem");
-const credentials = {key:privateKey, cert:certificate, ca: ca};
-https.createServer(credentials, app).listen(443,()=>{
-    console.log('https server started at port',433);
-})
-*/
+async function initializer (){
+    //connect to mongodb
+    const db = await connect();
+    //set categoryData ==> async 
+    await categoryBuilder(app);
+    console.log(app.get('categoryCount'));
+
+    http.createServer(app).listen(app.get('port'), () => {
+        console.log('server started at port', app.get('port'));
+    })
+    /* //for https connection used for gcp
+    let privateKey = fs.readFileSync("/etc/letsencrypt/live/kimtahen.com/privkey.pem");
+    let certificate = fs.readFileSync("/etc/letsencrypt/live/kimtahen.com/cert.pem");
+    let ca = fs.readFileSync("/etc/letsencrypt/live/kimtahen.com/chain.pem");
+    const credentials = {key:privateKey, cert:certificate, ca: ca};
+    https.createServer(credentials, app).listen(443,()=>{
+        console.log('https server started at port',433);
+    })
+    */
+}
+
+initializer();
