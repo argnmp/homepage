@@ -9,7 +9,7 @@ export const Profile = () => {
     const pageData = useSelector(state => state.page.currentPageData);
     return (
         <Layout>
-            <div className="wrapper">
+            <div className="profile-wrapper">
                 <div className="markdown-body" dangerouslySetInnerHTML={{__html:pageData}}></div>
             </div>
         </Layout>

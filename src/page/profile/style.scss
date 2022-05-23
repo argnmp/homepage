@@ -1,7 +1,7 @@
 @use '../../styles/variables' as * ;
 @use '../../styles/mixin' as *;
 
-.wrapper {
+.profile-wrapper {
     @include smmd {
         padding: 20px 20px; 
     }     
