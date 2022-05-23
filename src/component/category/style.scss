@@ -14,24 +14,17 @@
     > li {
         font-size: 14px;
         color: var(--bsub-font);
-        line-height: 24px;
     }
     .lower-category-list {
         > li {
             padding: 0px 30px;
             color: var(--sub-font);
-            line-height: 24px;
         }
         
     }
       
 }
 .category-text{
-    display: flex;
-    height: 24px;
-    >svg {
-        margin-top: 5px;
-    }
     >span:hover {
         text-decoration: underline;
         cursor: pointer;

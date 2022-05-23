@@ -75,6 +75,7 @@ import postex from './postex';
 let preloadedState = {
     category:{
         categoryData: {
+            categoryList: {
             "profile":false,
             "documents": {
                 "cpp": true,
@@ -83,6 +84,16 @@ let preloadedState = {
                 "reactjs": true
             },
             "daily": true
+            },
+            categoryCount: {
+                profile: null,
+                documents : 12,
+                cpp: 12,
+                javascript: 11,
+                nodejs: 0,
+                reactjs: 4,
+                daily: 39,
+            }
         }
         
     },
