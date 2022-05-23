@@ -55,10 +55,10 @@ export const Layout = ({children, isToc = false}) => {
         const bgMode = window.localStorage.getItem('bgMode');
         if(bgMode === "dark"){
             dispatch(colorSwitch(true));
-            darkSwitchRef.current.innerText = "D";
+            darkSwitchRef.current.innerText = "L";
         }
         else {
-            darkSwitchRef.current.innerText = "L";
+            darkSwitchRef.current.innerText = "D";
         }
     },[]);
     const darkSwitch = () => {
@@ -67,7 +67,7 @@ export const Layout = ({children, isToc = false}) => {
             window.localStorage.setItem("bgMode", "light");
             document.querySelector(".dark-mode-highlighter").disabled = true;
             document.querySelector(".light-mode-highlighter").disabled = false;
-            darkSwitchRef.current.innerText = "L";
+            darkSwitchRef.current.innerText = "D";
             dispatch(colorSwitch(false));
         }
         else {
@@ -75,7 +75,7 @@ export const Layout = ({children, isToc = false}) => {
             window.localStorage.setItem("bgMode", "dark");
             document.querySelector(".light-mode-highlighter").disabled = true;
             document.querySelector(".dark-mode-highlighter").disabled = false;
-            darkSwitchRef.current.innerText = "D";
+            darkSwitchRef.current.innerText = "L";
             dispatch(colorSwitch(true));
         }
     }
