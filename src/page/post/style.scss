@@ -101,7 +101,7 @@
 /*markdown overwrite*/
 .markdown-body {
     box-sizing: content-box;
-    pre, p,  ul, ol, blockquote, dl{
+    >p, >pre, >ul, >ol, >blockquote, >dl{
         @include smmd{
             margin-left: 10px;
             margin-right: 10px;
@@ -116,8 +116,7 @@
         }
     }
     img {
-        width: 100%;
-        max-width: 800px;
+        max-height: 500px;
         &:hover {
             cursor: pointer;
         }
@@ -144,11 +143,38 @@
             padding-right: 40px;
         }
     }
+    pre {
+        @include smmd{
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+        @include  lgxl {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        @include  xl {
+            margin-left: 40px;
+            margin-right: 40px;
+        }
+
+    }
     hr {
         background-color: var(--sub-font);
     }
-    h1,h2,h3,h4,h5,h6 {
+    h1,h2,h3 {
         border-bottom: 1px solid var(--sub-font);
+    }
+    h1,h2,h3,h4,h5,h6 {
+        >a {
+            color: var(--main-font);
+            text-decoration: none;
+            &:hover{
+                text-decoration: underline;
+            }
+            &:active{
+                text-decoration: none;
+            }
+        }
     }
     blockquote {
         >p{

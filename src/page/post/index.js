@@ -25,6 +25,14 @@ export const Post = () => {
         imgs.forEach((img)=>img.addEventListener("click",(e)=>{
             window.open(img.src);
         }))
+        const hids = postRef.current.querySelectorAll("h1, h2, h3, h4, h5, h6");
+        hids.forEach((h)=>{
+            const a = document.createElement("a");
+            a.href = '#'+h.id;
+            a.innerText = h.innerText;
+            h.innerText = "";
+            h.appendChild(a);
+        })
     }, []);
     useEffect(()=>{
         if((common.isPending===false) && (common.isLastPostDeletionSuccess===true)){
