@@ -36,7 +36,7 @@ router.get('/:lowerdirectory', wrapAsync(async (req,res)=>{
     const app = req.app;
     try{
         let category = req.params.lowerdirectory;
-        let page = req.query.page | 1;
+        let page = req.query.page || 1;
         let targetCategory;
         const categoryList = app.get('categoryList');
         if(typeof(categoryList[`${category}`])==='object'){
@@ -58,7 +58,6 @@ router.get('/:lowerdirectory', wrapAsync(async (req,res)=>{
             totalPage,
             currentPage
         } = paging(page, totalPost);
-
 
         let currentPageData = await Post.find({category: { $in: [...targetCategory] }},{data: 0, mdData: 0}).sort({uploadDate: -1})
             .skip(hidePost)
@@ -111,7 +110,7 @@ router.get('/:upperdirectory/:lowerdirectory', wrapAsync(async (req,res)=>{
     const app = req.app;
     try{
         let category = req.params.lowerdirectory;
-        let page = req.query.page | 1;
+        let page = req.query.page || 1;
         const totalPost = await Post.countDocuments({category: `${category}`});
         let {
             startPage,
