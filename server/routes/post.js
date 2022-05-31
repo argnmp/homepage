@@ -180,7 +180,7 @@ router.get('/:uri', wrapAsync(async (req,res,next)=>{
             });
             currentPageData = query.data;
             currentPageMetadata = {_id: query._id, uri: query.uri, title: query.title, author: query.author.name, uploadDate: query.uploadDate, view: query.view + 1, preview: query.preview,
-            comments: [...commentBuilder(comments)],
+            comments: [...commentBuilder(comments)], category: query.category
             };
         }
         else{

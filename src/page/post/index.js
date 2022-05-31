@@ -44,6 +44,9 @@ export const Post = () => {
         <Layout isToc={true}>
             <div className="upwrapper">
                 <div className="index">
+                    <div className="index-category">
+                        <span>{pageMetadata.category}</span>
+                    </div>
                     <div className="title">
                         {pageMetadata.title}
                     </div>

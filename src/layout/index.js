@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import './style.scss';
 
 import {Logo} from '../component/logo';
+import { Avatar } from '../component/avatar';
 import {Category} from '../component/category';
 import {Toc} from '../component/toc';
 
@@ -83,47 +84,53 @@ export const Layout = ({children, isToc = false}) => {
     const [categoryToggle, setCategoryToggle] = useState(false);
     let onToggle = () => setCategoryToggle(!categoryToggle);
     return (
-    <div className={`panel-wrapper category-${categoryToggle ? 'on' : 'off'}`}>
-        <div className="panel-menu">
-            <div className="panel-menu-inner">
-                <div className="a">
-                    <div className={`bg-btn ${categoryToggle ? 'btn-open': ''}`} onClick={onToggle}>
-                        <div className="burger-btn"></div>
-                    </div>
-                    {/*<button onClick={onToggle}>button</button>*/}
-                </div>
-                <div className="b">
-                    <Logo/>
-                </div>
-                <div className="c">
-                    <User user={user}/>
-                    {!user.isLogined&&
-                            <div className="register-wrapper">
-                                <a href="/api/register">회원가입</a>
+        <div>
+            <div className={`panel-wrapper category-${categoryToggle ? 'on' : 'off'}`}>
+                <div className="panel-menu">
+                    <div className="panel-menu-inner">
+                        <div className="a">
+                            <div className={`bg-btn ${categoryToggle ? 'btn-open' : ''}`} onClick={onToggle}>
+                                <div className="burger-btn"></div>
                             </div>
-                    }
-                    {user.isLogined && user.level==0 && <div className="upload-link-wrapper"><a href="/upload">글 작성</a></div>}
-                    <div className="category-wrapper">
-                        <Category/>
+                            {/*<button onClick={onToggle}>button</button>*/}
+                        </div>
+                        <div className="b">
+                            <Logo />
+                        </div>
+                        <div className="c">
+                            <Avatar/>
+                            <User user={user} />
+                            {!user.isLogined &&
+                                <div className="register-wrapper">
+                                    <a href="/api/register">회원가입</a>
+                                </div>
+                            }
+                            {user.isLogined && user.level == 0 && <div className="upload-link-wrapper"><a href="/upload">글 작성</a></div>}
+                            <div className="category-wrapper">
+                                <Category />
+                            </div>
+                            {isToc ? <Toc /> : ''}
+                        </div>
+
                     </div>
-                    {isToc ? <Toc/> : ''}
                 </div>
-                
+                <div className={`panel-smmd-category-${categoryToggle ? 'on' : 'off'} `}>
+                    <Category />
+                    {user.isLogined && user.level == 0 && <div className="upload-link-wrapper"><a href="/upload">글 작성</a></div>}
+                    {!user.isLogined && <div className="register-wrapper"><a href="/api/register">회원가입</a></div>}
+                </div>
+                <div className="panel-content">
+                    <div>
+                        {children}
+                    </div>
+                </div>
+                <TopScroll />
+                <button className="dark-switch" onClick={darkSwitch} ref={darkSwitchRef}></button>
+            </div>
+            <div className='lfooter'>
+                <div>© 2022 kimtahen. All Rights Reserved</div>
             </div>
         </div>
-        <div className={`panel-smmd-category-${categoryToggle ? 'on' : 'off'} `}>
-            <Category/>
-            {user.isLogined && user.level==0 && <div className="upload-link-wrapper"><a href="/upload">글 작성</a></div> }
-            {!user.isLogined && <div className="register-wrapper"><a href="/api/register">회원가입</a></div> }
-        </div>
-        <div className="panel-content">
-            <div>
-                {children}
-            </div> 
-        </div>
-        <TopScroll/>
-        <button className="dark-switch" onClick={darkSwitch} ref={darkSwitchRef}></button>
-    </div>
            )
 }
 

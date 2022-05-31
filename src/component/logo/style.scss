@@ -1,4 +1,4 @@
-@use '../../styles/variables' as *;
+@use '../../styles/mixin' as *;
 .logo-wrapper{
     display: flex;
     justify-content: center;
@@ -6,7 +6,7 @@
     transition: all 0.3s ease 0s;
     > a {
         text-decoration: none;
-        color: var(--main-font);
+        color: var(--bsub-font);
         line-height: 46px;
         font-weight: 700;
         font-size: 16px;
@@ -15,6 +15,11 @@
     }
     &:hover {
         background-color: var(--highlight-color);
+        border-radius: 5px 5px 0 0;
+        @include smmd {
+            border-radius: 0px 0px 0 0;
+        }
+        
     }
 }
 
