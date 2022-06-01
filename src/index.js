@@ -101,13 +101,11 @@ let preloadedState = {
         isLogined: true,
         _id: 1232,
         name: "김태현",
-        level: 0,
     },
     page: {
         currentPage: 'post',
         currentPageData: postex,
         currentPageMetadata: {
-            category: 'rust',
             currentCategory: 'documents',
             totalPost: 13,
             _id: '62393b4fb03766e4b9dcd68d',
