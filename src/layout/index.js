@@ -17,6 +17,11 @@ const User = ({user})=>{
                     <div key={2} className="logout-wrapper"><a href="/api/logout">로그아웃</a></div>] :
                 <a href="/api/login">로그인</a>
             }
+            {!user.isLogined &&
+                <div className="register-wrapper">
+                    <a href="/api/register">회원가입</a>
+                </div>
+            }
         </div>
     )
 }
@@ -100,11 +105,6 @@ export const Layout = ({children, isToc = false}) => {
                         <div className="c">
                             <Avatar/>
                             <User user={user} />
-                            {!user.isLogined &&
-                                <div className="register-wrapper">
-                                    <a href="/api/register">회원가입</a>
-                                </div>
-                            }
                             {user.isLogined && user.level == 0 && <div className="upload-link-wrapper"><a href="/upload">글 작성</a></div>}
                             <div className="category-wrapper">
                                 <Category />
