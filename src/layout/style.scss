@@ -258,6 +258,15 @@
     
 }
 
+.register-wrapper {
+    display: flex;
+    justify-content: center;
+    line-height: 46px;
+    a {
+        color: var(--main-font);
+    }
+}
+
 
 .top-button {
     position: fixed;
