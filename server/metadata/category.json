@@ -6,6 +6,7 @@
         "cpp": true,
         "java": true,
         "javascript": true,
+        "python": true,
         "rust":true,
         "sass|css": true,
         "algorithm": true,
@@ -13,5 +14,6 @@
         "react": true,
         "memo": true
     },
+    "projects": true,
     "일상": true
 }
