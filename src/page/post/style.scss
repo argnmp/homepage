@@ -166,10 +166,10 @@
     hr {
         background-color: var(--sub-font);
     }
-    h1,h2,h3 {
-        border-bottom: 1px solid var(--sub-font);
-    }
     h1,h2,h3,h4,h5,h6 {
+        margin: 0px;
+        padding-top: 10px;
+        padding-bottom: 5px;
         >a {
             color: var(--main-font);
             
