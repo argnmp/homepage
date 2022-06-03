@@ -32,8 +32,9 @@ export const Upload = () => {
         to.current.scrollTop = percentage * (to.current.scrollHeight - to.current.offsetHeight);
     }
     
-    const bottomAnchor = (t)=>{
-        t.current.scrollTop = t.current.scrollHeight - t.current.offsetHeight;
+    const bottomAnchor = (t, e)=>{
+        if(e.target.scrollHeight===e.target.clientHeight || (e.target.value.length - e.target.selectionStart)<=10)
+            t.current.scrollTop = t.current.scrollHeight - t.current.offsetHeight;
     }
 
     //markdown convert to html
@@ -149,7 +150,7 @@ export const Upload = () => {
             </div>
             <div className="input-panel">
                 <div className="inner">
-                    <textarea className="postInput" onChange={(e)=>{setPostData(e.target.value); if(e.target.scrollHeight===e.target.clientHeight) bottomAnchor(outputPanelRef)}} ref={inputPanelRef} defaultValue={page.currentPageData.replace(/&lt;/g,"<").replace(/&gt;/g,">")} ></textarea>
+                    <textarea className="postInput" onChange={(e)=>{setPostData(e.target.value);  bottomAnchor(outputPanelRef, e); console.log(e.target.selectionStart, e.target.selectionEnd, e.target.value.length)}} ref={inputPanelRef} defaultValue={page.currentPageData.replace(/&lt;/g,"<").replace(/&gt;/g,">")} ></textarea>
                 </div>
             </div>
             <div className="output-panel">
