@@ -51,9 +51,7 @@
             border: none;
             color: var(--main-font);
             background-color: var(--foreground-color);
-            &:hover {
-                background-color: var(--highlight-color);
-            }
+            cursor: pointer;
             &:focus {
                 outline: none;
             }
@@ -92,6 +90,7 @@
     height: 100%;
 }
 .postInput {
+    font-family: "SF Mono", "Consolas", "Menlo", monospace;
     box-sizing: border-box;
     width: 100%;
     height: 100%;
