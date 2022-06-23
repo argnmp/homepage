@@ -16,9 +16,10 @@
     .index{
         width: 100%;
         word-break: keep-all;
-        color: var(--foreground-color); 
-        background: var(--highlight-color);
+        color: var(--main-font); 
+        //background: var(--highlight-color);
         border-radius: 5px 5px 0 0;
+        border-bottom: 1px solid var(--border-color);
         span {
             padding: 0px 4px;
         }
@@ -45,7 +46,7 @@
                     cursor: pointer;
                 } 
                 a {
-                    color: var(--foreground-color);
+                    color: var(--main-font);
                 }
             }
         }
@@ -66,7 +67,7 @@
                     cursor: pointer;
                 }
                 a {
-                    color: var(--foreground-color);
+                    color: var(--main-font);
                 }
             }
         }
@@ -78,7 +79,6 @@
             animation: smoothAppear 1s; 
         }
         .title {
-            font-weight: 700;
             animation: smoothAppear 1s;
         }
         .payload {
@@ -106,19 +106,8 @@
 /*markdown overwrite*/
 .markdown-body {
     box-sizing: content-box;
-    >p, >pre, >ul, >ol, >blockquote, >dl{
-        @include smmd{
-            margin-left: 10px;
-            margin-right: 10px;
-        }
-        @include  lgxl {
-            margin-left: 20px;
-            margin-right: 20px;
-        }
-        @include  xl {
-            margin-left: 40px;
-            margin-right: 40px;
-        }
+    >p, >pre, >ul, >ol {
+        color: var(--bbsub-font);
     }
     img {
         max-height: 500px;
@@ -135,47 +124,21 @@
     }
     table {
         display: block;
-        @include smmd{
-            padding-left: 10px;
-            padding-right: 10px;
-        }
-        @include  lgxl {
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-        @include  xl {
-            padding-left: 40px;
-            padding-right: 40px;
-        }
-    }
-    pre {
-        @include smmd{
-            margin-left: 10px;
-            margin-right: 10px;
-        }
-        @include  lgxl {
-            margin-left: 20px;
-            margin-right: 20px;
-        }
-        @include  xl {
-            margin-left: 40px;
-            margin-right: 40px;
-        }
-
     }
     hr {
         background-color: var(--sub-font);
     }
     h1,h2,h3,h4,h5,h6 {
+        font-weight: 500;
         margin: 0px;
-        padding-top: 10px;
+        padding-top: 20px;
         padding-bottom: 5px;
         >a {
             color: var(--main-font);
             
             text-decoration: none;
             &:hover{
-                text-decoration: underline;
+                text-decoration: none;
             }
             &:active{
                 text-decoration: none;
@@ -185,9 +148,13 @@
     }
     h1 {
         font-size: 2.25rem;
+        border-bottom: 1px solid var(--bsub-font);
+        margin-bottom: 5px;
     }
     h2 {
         font-size: 1.75rem;
+        border-bottom: 1px solid var(--bsub-font);
+        margin-bottom: 5px;
     }
     h3 {
         font-size: 1.25rem;
