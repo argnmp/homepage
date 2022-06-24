@@ -346,9 +346,10 @@
     border: none;
     border-radius: 5px;
     padding: 0;
-    background-color: var(--reverse-color);
-    color: var(--reverse-font);
     transition: 0.3s ease 0s;
+    svg {
+        fill: var(--main-font);
+    }
 }
 .lheader{
     box-sizing: border-box;
