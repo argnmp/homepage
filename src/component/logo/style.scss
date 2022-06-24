@@ -2,7 +2,6 @@
 .logo-wrapper{
     display: flex;
     justify-content: center;
-    height: 100%;
     transition: all 0.3s ease 0s;
     > a {
         text-decoration: none;
@@ -10,13 +9,13 @@
         line-height: 46px;
         font-weight: 700;
         font-size: 16px;
-        text-decoration: overline ;
+        text-decoration: overline;
         //text-shadow: 5px 5px #00ff00;
         text-shadow: 5px 5px var(--highlight-color);
     }
     &:hover {
-        background-color: var(--highlight-color);
-        border-radius: 5px 5px 0 0;
+        //background-color: var(--highlight-color);
+        //border-radius: 5px 5px 0 0;
         @include smmd {
             border-radius: 0px 0px 0 0;
         }

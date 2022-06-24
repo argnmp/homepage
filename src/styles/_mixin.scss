@@ -31,3 +31,8 @@
         @content
     }
 }
+@mixin mdlg {
+    @media (min-width: #{$screen-md-min}) and (max-width: #{$screen-xl-min}){
+        @content
+    }
+}
