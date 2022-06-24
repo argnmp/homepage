@@ -12,7 +12,8 @@
             width: 100%;
             padding-bottom: 100%;
             background-image: url(./avatar.jpg);
-            background-position: calc(var(--mouse-x)*0.025px + -75px) calc(var(--mouse-y)*0.025px + -75px);
+            background-position: center;
+            //background-position: calc(var(--mouse-x)*0.025px + -75px) calc(var(--mouse-y)*0.025px + -75px);
             border: 1px solid var(--border-color);
             box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
         }

@@ -66,12 +66,13 @@ export const Layout = ({children, isToc = false}) => {
         else {
             
         }
-
+        /*
         let docStyle = document.documentElement.style;
         document.addEventListener('mousemove', function(e){
             docStyle.setProperty('--mouse-x',e.clientX);
             docStyle.setProperty('--mouse-y',e.clientY);
         })
+        */
     },[]);
     const darkSwitch = () => {
         if(document.getElementsByTagName("html")[0].classList.contains("dark-mode")){
