@@ -269,6 +269,9 @@
         }
     }
     a {
+        @include smmd{
+            font-size: 12px;
+        }
         color: var(--main-font);
         &:hover{
             text-decoration: underline;
