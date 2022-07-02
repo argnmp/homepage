@@ -87,7 +87,7 @@
     display: block;
     cursor: pointer;
     svg {
-        fill: var(--main-font);
+        fill: var(--bbsub-font);
     }
 }
 
@@ -261,7 +261,9 @@
         }
     }
     .logout-wrapper {
-        font-size: 14px;
+        @include smmd{
+            font-size: 12px;
+        }
         a {
             color: var(--main-font);
         }
@@ -319,7 +321,7 @@
     cursor: pointer;
     transition: all 0.3s ease 0s;
     svg {
-        fill: var(--main-font);
+        fill: var(--bbsub-font);
     } 
 }
 .top-button-visible {
@@ -338,7 +340,7 @@
     padding: 0;
     transition: 0.3s ease 0s;
     svg {
-        fill: var(--main-font);
+        fill: var(--bbsub-font);
     }
 }
 .lheader{
