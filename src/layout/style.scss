@@ -54,7 +54,10 @@
 }
 .panelMenu-off {
     @include mdlg {
-        grid-template-columns: 65px minmax(0,1fr);
+        grid-template-columns: minmax(0,1fr);
+        .panel-content{
+            padding-left: 8px;
+        }
     }
 }
 .panelMenu-mdlg-off{
@@ -67,23 +70,12 @@
         display: grid;
     }
 }
-.panel-mdlg-logo {
-    @include smmd{display: none;} 
-    @include xl{display: none;} 
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    transform: rotate(-90deg) translateY(-62px);
-}
 
 .panel-menu-switch {
-    transition: left 300ms ease-in-out;
+    //transition: left 300ms ease-in-out;
     position: fixed;
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
     display: block;
     cursor: pointer;
     svg {
@@ -93,7 +85,7 @@
 
 .panel-menu-switch-on{
     top: 20px;
-    left: calc(100% - 50px);
+    left: 265px;
 }
 
 .panel-menu-switch-off{
@@ -153,9 +145,6 @@
         }
         .b{
             height: 100%;
-            @include lgxl {
-                border-bottom: 1px solid var(--border-color);
-            }
         }
         .c{
             .category-wrapper {
@@ -249,7 +238,6 @@
     }
     @include lgxl{
         padding: 0 20px;
-        border-bottom: 1px solid var(--border-color);
         line-height: 46px;
         font-size: 14px;
         justify-content: space-between; 
@@ -295,7 +283,6 @@
         font-size: 14px;
     }
     @include lgxl{
-        border-bottom: 1px solid var(--border-color);
         padding: 0px 20px;
         justify-content: left;
         line-height: 46px;
@@ -334,8 +321,8 @@
 .dark-switch {
     position: fixed;
     cursor: pointer;
-    width: 30px;
-    height: 30px;
+    width: 24px;
+    height: 24px;
     bottom: 20px;
     left: 20px;
     border: none;
