@@ -13,86 +13,127 @@
     }
 }
 .upwrapper {
-    width: 100%;
     .index{
         width: 100%;
         word-break: keep-all;
         color: var(--main-font); 
+        background-color: var(--foreground-color);
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        padding-bottom: 10px;
         span {
             padding: 0px 4px;
         }
         @include smmd{
-            padding: 25px 20px;
-            padding-bottom: 0px;
-            .title{
-                display: flex;
-                font-size: 35px;
-                line-height: 45px;
-            }
-            .payload{
-                margin-top: 6px;
-                display: flex;
-                justify-content: center;
-                font-size: 14px;
-                flex-direction: column;
-                >span {
-                    margin-top: 2px;
+            height: 300px;
+            padding-top: 50px;
+            .index-down {
+                width: 100%;
+                padding: 0 20px;
+                margin: auto 0;
+                .index-category{
+                    font-size: 1rem;
+                    font-weight: 700;
                 }
-            }
-            .options{
-                display: flex;
-                margin-top: 8px;
-                font-size: 14px;
-                span {
-                    cursor: pointer;
-                } 
-                a {
-                    color: var(--main-font);
+                .title {
+                    font-size: 2rem;
+                    line-height: 2.2rem;
+                    font-weight: 800;
+                    padding: 10px 0;
                 }
+            
+                .payload {
+                    display: flex;
+                    justify-content: center;
+                    font-size: 14px;
+                    flex-direction: column;
+                    >span {
+                        margin-top: 2px;
+                    }
+                }
+            
+                .options {
+                    display: flex;
+                    font-size: 14px;
+                    span {
+                        cursor: pointer;
+                    }
+            
+                    a {
+                        color: var(--main-font);
+                    }
+                }
+
             }
         }
         @include mdlg{
-            padding: 40px 50px;
-            padding-bottom: 10px;
-            .title{
-                font-size: 2.25rem;
-                line-height: 2.25rem;
-            }
-            .payload{
-                margin-top: 8px;
-                font-size: 14px;
-            }
-            .options{
-                margin-top: 8px;
-                font-size: 14px;
-                span {
-                    cursor: pointer;
+            height: 300px;
+            .index-down {
+                width: 100%;
+                padding: 0 30px;
+                margin: auto 0;
+                .index-category{
+                    text-align: center;
+                    font-size: 1.2rem;
+                    font-weight: 700;
                 }
-                a {
-                    color: var(--main-font);
+                .title{
+                    padding: 10px 0;
+                    text-align: center;
+                    font-size: 2.5rem;
+                    line-height: 2.5rem;
+                    font-weight: 800;
+                }
+                .payload{
+                    text-align: center;
+                    font-size: 14px;
+                }
+                .options{
+                    text-align: center;
+                    font-size: 14px;
+                    span {
+                        cursor: pointer;
+                    }
+                    a {
+                        color: var(--main-font);
+                    }
                 }
             }
         }
-        @include xl{
-            padding: 40px 125px;
-            padding-bottom: 10px;
-            .title{
-                font-size: 2.25rem;
-                line-height: 2.25rem;
-            }
-            .payload{
-                margin-top: 8px;
-                font-size: 14px;
-            }
-            .options{
-                margin-top: 5px;
-                font-size: 14px;
-                span {
-                    cursor: pointer;
+        @include lgxl{
+            height: 400px;
+            .index-down{
+                width: 1200px;
+                padding: 0 35px;
+                margin: auto 0;
+                .index-category{
+                    text-align: center;
+                    font-size: 1.2rem;
+                    font-weight: 700;
                 }
-                a {
-                    color: var(--main-font);
+                .title{
+                    padding: 20px 0;
+                    font-size: 3.5rem;
+                    line-height: 3.5rem;
+                    font-weight: 800;
+                    text-align: center;
                 }
+                .payload{
+                    text-align: center;
+                    font-size: 1rem;
+                }
+                .options{
+                    text-align: center;
+                    font-size: 1rem;
+                    span {
+                        cursor: pointer;
+                    }
+                    a {
+                        color: var(--main-font);
+                    }
+                }
+
             }
         }
         .index-category {
@@ -110,15 +151,38 @@
         }
         
     }
-    .wrapper {
+    .postcontent {
         @include smmd {
-            padding: 20px 20px; 
-        }     
-        @include mdlg {
-            padding: 20px 50px;
+            padding-left: 20px;
+            padding-right: 20px;
+            .tocwrapper{
+                display: none;
+            }
+
         }
-        @include xl {
-            padding: 20px 125px;
+        @include mdlg {
+            padding-left: 50px;
+            padding-right: 50px;
+            .tocwrapper{
+                padding-top: 20px;
+            }
+        }
+        @include lgxl{
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            .postinnercontent{
+                flex: 0 0 1000px;
+            }
+            .tocwrapper{
+                padding-top: 15px;
+                padding-left: 20px;
+                width: 300px;
+                flex: 0 0 200px;
+            }
+            .dummywrapper{
+                flex: 0 1 200px;
+            }
         }
     }
 

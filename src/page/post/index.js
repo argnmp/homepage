@@ -4,6 +4,7 @@ import {Layout} from '../../layout/index';
 import {Comment} from '../../component/comment';
 import moment from 'moment';
 import { postDelete } from '../../modules/common';
+import { Toc } from '../../component/toc';
 
 import './style.scss';
 
@@ -44,26 +45,35 @@ export const Post = () => {
         <Layout isToc={true}>
             <div className="upwrapper">
                 <div className="index">
-                    <div className="index-category">
-                        <span>{pageMetadata.category}</span>
+                    <div className="index-down">
+                        <div className="index-category">
+                            <span>{pageMetadata.category}</span>
+                        </div>
+                        <div className="title">
+                            {pageMetadata.title}
+                        </div>
+                        <div className="payload">
+                            <span>{pageMetadata.view} views</span>
+                            <span>{moment(pageMetadata.uploadDate).format('YYYY-MM-DD hh:mm:ss')}  </span>
+                            <span><i>posted by </i>{pageMetadata.author}</span>
+                        </div>
+                        {user.isLogined && user.level == 0 &&
+                            <div className="options">
+                                <span><a href={`/upload/${pageMetadata.uri}`}>수정</a></span>
+                                <span onClick={(e) => { deleteHandler(e) }}>삭제</span>
+                            </div>
+                        }
+
                     </div>
-                    <div className="title">
-                        {pageMetadata.title}
-                    </div>
-                    <div className="payload">
-                        <span>{pageMetadata.view} views</span>
-                        <span>{moment(pageMetadata.uploadDate).format('YYYY-MM-DD hh:mm:ss')}  </span>
-                        <span><i>posted by </i>{pageMetadata.author}</span>
-                    </div>
-                    {user.isLogined && user.level==0 && 
-                    <div className="options">
-                        <span><a href={`/upload/${pageMetadata.uri}`}>수정</a></span>
-                        <span onClick={(e)=>{deleteHandler(e)}}>삭제</span>
-                    </div>
-                    }
                 </div>
-                <div className="wrapper">
-                <div ref={postRef} className="markdown-body" dangerouslySetInnerHTML={{__html:pageData.replace(/&amp;lt;/g,"<").replace(/&amp;gt;/g,">")}}></div>
+                <div className="postcontent">
+                    <div className="tocwrapper">
+                        <Toc/>                        
+                    </div>
+                    <div className="postinnercontent">
+                        <div ref={postRef} className="markdown-body" dangerouslySetInnerHTML={{ __html: pageData.replace(/&amp;lt;/g, "<").replace(/&amp;gt;/g, ">") }}></div>
+                    </div>
+                    <div className="dummywrapper"></div>
                 </div>
                 <Comment />
 

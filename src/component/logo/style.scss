@@ -1,39 +1,32 @@
 @use '../../styles/mixin' as *;
 .logo-wrapper{
     display: flex;
+    width: 200px;
+    flex-direction: column;
     justify-content: center;
-    height: 100%;
-    transition: all 0.3s ease 0s;
     > a {
-        text-decoration: none;
-        color: var(--bsub-font);
-        line-height: 46px;
-        font-weight: 700;
-        font-size: 16px;
-        text-decoration: overline;
-        //text-shadow: 5px 5px #00ff00;
-        text-shadow: 5px 5px var(--highlight-color);
-    }
-    &::before {
         position: absolute;
-        content: "";
-        width: 180px;
-        height: 1px;
-        transform: translateY(50px);
-        background-color: var(--border-color);
-        @include smmd {
-            display: none;
+        text-decoration: none;
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: var(--main-font);
+        &::after{
+            position: relative;
+            display: block;
+            content: "";
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--main-font);
+            transform: translateY(4px);
+            transition: all 0.3s ease 0s;
+        }
+        &:hover::after{
+            width: 100%;
         }
     }
     
-    &:hover {
-        //background-color: var(--highlight-color);
-        //border-radius: 5px 5px 0 0;
-        @include smmd {
-            border-radius: 0px 0px 0 0;
-        }
-        
-    }
 }
 
 

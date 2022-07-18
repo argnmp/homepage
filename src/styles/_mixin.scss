@@ -26,13 +26,13 @@
         @content
     }
 }
-@mixin lgxl {
-    @media (min-width: #{$screen-md-min}){
+@mixin mdlg {
+    @media (min-width: #{$screen-md-min}) and (max-width: #{$screen-xl-min}){
         @content
     }
 }
-@mixin mdlg {
-    @media (min-width: #{$screen-md-min}) and (max-width: #{$screen-xl-min}){
+@mixin lgxl {
+    @media (min-width: #{$screen-xl-min}){
         @content
     }
 }

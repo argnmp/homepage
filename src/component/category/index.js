@@ -53,9 +53,6 @@ export const Category = () => {
     }
     return (
         <div className="category-wrapper">
-            <div className="header">
-                <span>category</span>
-            </div>
             {createCategory(categoryList, true, null)}
         </div>
     )

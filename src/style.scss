@@ -21,17 +21,33 @@ body{
 }
 ///* //light color
 :root {
-    --background-color: #e9e9e9;
-    --foreground-color: #f7f7f7;
+    --background-color: #ffffff;
+    --foreground-color: #eeeeee;
     --main-font: rgba(0,0,0,0.87);
     --bbsub-font: rgba(0,0,0,0.70);
     --bsub-font: rgba(0,0,0,0.60);
     --sub-font: rgba(0,0,0,0.38);
-    --border-color: rgba(0,0,0,0.38);
-    --highlight-color: #c62641;
+    --border-color: rgba(0,0,0,0.12);
+    --highlight-color: #8DB1B5;
     --reverse-color: #121212;
     --reverse-font: rgba(255,255,255,0.87);
     --float-color: hsl(0,0%,100%);
+    --random-front-color-0: #7CB5D2;
+    --random-back-color-0: #ffffff;
+    --random-front-color-1: #B99FC9;
+    --random-back-color-1: #ffffff;
+    --random-front-color-2: #828AAD;
+    --random-back-color-2: #ffffff;
+    --random-front-color-3: #E1A080;
+    --random-back-color-3: #ffffff;
+    --random-front-color-4: #6D9384;
+    --random-back-color-4: #ffffff;
+    --random-front-color-5: #F0C4C1;
+    --random-back-color-5: #ffffff;
+    --random-front-color-6: #B3BBA5;
+    --random-back-color-6: #ffffff;
+    --random-front-color-7: #9DA9C4;
+    --random-back-color-7: #ffffff;
     
 }
 //*/
@@ -44,7 +60,7 @@ body{
     --bsub-font: rgba(255,255,255,0.60);
     --sub-font: rgba(255,255,255,0.38);
     --border-color: rgba(255,255,255,0.12);
-    --highlight-color: #5c68c9;
+    --highlight-color: #889ECE;
     --reverse-color: #f7f7f7;
     --reverse-font: rgba(0,0,0,0.87);
     --float-color: #030d16; 

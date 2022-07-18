@@ -50,7 +50,7 @@
         select {
             border: none;
             color: var(--main-font);
-            background-color: var(--foreground-color);
+            background-color: var(--highlight-color);
             cursor: pointer;
             &:focus {
                 outline: none;
@@ -64,7 +64,7 @@
             margin: 0px 5px;
             border: none;
             color: var(--main-font);
-            background-color: var(--foreground-color);
+            background-color: var(--highlight-color);
             &:focus {
                 outline: none;
             }
@@ -75,7 +75,7 @@
         input[type="button"]{
             cursor: pointer;
             border: none;
-            background-color: var(--foreground-color);
+            background-color: var(--highlight-color);
             color: var(--main-font);
             &:hover {
                 background-color: var(--highlight-color); 
@@ -85,7 +85,7 @@
 }
 
 .inner {
-    border: 1px solid var(--main-font);
+    border: 1px solid var(--border-color);
     width: 100%;
     height: 100%;
 }

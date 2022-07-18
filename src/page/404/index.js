@@ -7,9 +7,9 @@ export const PNF = () => {
     return (
         <Layout>
             <div className="wrapper">
-                <h1>
-                    PAGE NOT FOUND : 404
-                </h1>
+                <span>
+                    404
+                </span>
             </div>
         </Layout>
            ) 

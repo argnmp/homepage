@@ -1,305 +1,98 @@
 @use '../styles/mixin' as *;
 @use '../styles/variables' as *;
 
-.panel-wrapper {
-    min-height: 100vh;
-    box-sizing: border-box;
-    display: grid;
-    justify-content: center;
-    @include smmd {
-        grid-template-columns: minmax(0,1fr);
-        .panel-menu-switch-off {
-            display: none;
-        }
-        .panel-menu-switch-on {
-            display: none;
-        }
-    } 
-    @include mdlg {
-    }
-    @include xl {
-        grid-template-columns: 250px minmax(0,1fr);
-        .panel-menu-switch-off {
-            display: none;
-        }
-        .panel-menu-switch-on {
-            display: none;
-        }
-    }
-}
-
-.category-on {
-    @include smmd {
-        grid-template-rows: 60px auto 1fr;
-    }
-}
-.category-off {
-    @include smmd {
-        grid-template-rows: 60px 1fr;
-    }
-}
-.panel-smmd-category-off {
-    display: none;
-}
-.panel-smmd-category-on {
-    display: none;
-    @include smmd {
-        display: block;
-    }
-}
-.panelMenu-on {
-    @include mdlg {
-        grid-template-columns: 250px minmax(0,1fr);
-    }
-}
-.panelMenu-off {
-    @include mdlg {
-        grid-template-columns: minmax(0,1fr);
-        .panel-content{
-            padding-left: 8px;
-        }
-    }
-}
-.panelMenu-mdlg-off{
-    @include mdlg {
-        display: none !important;
-    }
-}
-.panelMenu-mdlg-on{
-    @include mdlg {
-        display: grid;
-    }
-}
-
-.panel-menu-switch {
-    //transition: left 300ms ease-in-out;
-    position: fixed;
-    width: 28px;
-    height: 28px;
-    display: block;
-    cursor: pointer;
-    svg {
-        fill: var(--bbsub-font);
-    }
-}
-
-.panel-menu-switch-on{
-    top: 20px;
-    left: 265px;
-}
-
-.panel-menu-switch-off{
-    top: 20px;
-    left: 20px;
-}
-
-@mixin panel-common {
-    display: grid;
-    height: 100%;
-    border: 1px solid var(--border-color);
-    background: var(--foreground-color);
-    box-shadow: 0 20px 50px 0 rgb(1 1 1 / 15%);
-}
-
-
-.panel-menu {
-    box-sizing: border-box;
-    @include smmd {
-        padding: 8px;
-        padding-bottom: 4px;
-    }
-    @include lgxl {
-        padding: 8px;
-        padding-right: 4px;
-    }
-    .panel-menu-inner {
-        @include panel-common;
-        background-color: var(--background-color);
-        @include smmd {
-            grid-template-columns: 1fr 5fr 1fr;
-        }
-        @include lgxl {
-            grid-template-rows: 50px 1fr;
-        }
-        .a{
-            @include lgxl {
-                display: none;
-            }
-            .bg-btn{
-                width: 100%;
-                height: 100%;
-                position: relative;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                cursor: pointer;
-                transition: all .5s ease-in-out;
-            }
-            &:hover {
-                background-color: var(--highlight-color);
-        
-                @include smmd {
-                    //border-radius: 5px 0px 0px 5px;
-                }
-            }
-        }
-        .b{
-            height: 100%;
-        }
-        .c{
-            .category-wrapper {
-                @include smmd{
-                    display: none;
-                }
-            }
-            .upload-link-wrapper {
-                @include smmd {
-                    display: none;
-                }
-            }
-            .register-wrapper {
-                @include smmd {
-                    display: none;
-                }
-            }
-        }
-    }
-}
-
-
-//애니메이션은 따로 분리해서 써야 제대로 작동함. 중첩하면 꼬임
-.burger-btn{
-    width: 20px;
-    height: 4px;
-    background: var(--bsub-font);
-    transition: all .5s ease-in-out;
-} 
-.burger-btn::before,
-.burger-btn::after{
-    content: '';
-    position: absolute;
-    width: 20px;
-    height: 4px;
-    background: var(--bsub-font);
-    transition: all .5s ease-in-out;
-}
-.burger-btn::before{
-    transform: translateY(-8px);
-}
-.burger-btn::after{
-    transform: translateY(8px);
-}
-.bg-btn.btn-open .burger-btn{
-        transform: translateX(-50px);
-        background: transparent;
-        box-shadow: none;
-} 
-.bg-btn.btn-open .burger-btn::before{
-    transform: rotate(45deg) translate(35px, -35px);
-}
-.bg-btn.btn-open .burger-btn::after{
-    transform: rotate(-45deg) translate(35px, 35px);
-}
-
-.panel-smmd-category-on .panel-smmd-category-off {
-    transition: left .3s;
-}
-
-
-.panel-content {
-    box-sizing: border-box;
-    @include smmd {
-        padding: 8px;
-        padding-top: 4px;
-
-    }
-    @include lgxl {
-        padding: 8px;
-        padding-left: 4px;
-    }
-    >div{
-        @include panel-common;
-        display: block;
+@include smmd{
+    .side-on {
         width: 100%;
+        height: 100%;
+    }
+
+    .side-off {
+        width: 100%;
+        height: 0;
+        padding: 0 !important;
+    }
+}
+@include mdlg{
+    .side-on {
+        width: 0;
+        height: 0;
+        padding: 0 !important;
+    }
+
+    .side-off {
+        width: 0;
+        height: 0;
+        padding: 0 !important;
+    }
+
+}
+@include lgxl{
+    .side-on {
+        width: 0;
+        height: 0;
+        padding: 0 !important;
+    }
+
+    .side-off {
+        width: 0;
+        height: 0;
+        padding: 0 !important;
     }
 }
 
-.user-wrapper{
+.top{
+}
+.smmd-side {
+    z-index: 999;
+    position: fixed;
+    overflow: hidden;
+    text-overflow: hidden;
+    transition: all 0.3s ease 0s;
     display: flex;
-    color: var(--main-font);
-    @include smmd{
-        justify-content: center;
-        line-height: 46px;
-        height: 100%;
-        font-size: 14px;
-        .greeting {
-            display: none;
-        }
+    flex-direction: column;
+    padding: 15px 40px;
+    margin-top: 50px;
+    background-color: var(--foreground-color);
+    .welcome{
+        text-align: right;
+        color: var(--main-font);
+        font-size: 1rem;
     }
-    @include lgxl{
-        padding: 0 20px;
-        line-height: 46px;
-        font-size: 14px;
-        justify-content: space-between; 
-        .greeting{
-            > i{
-                margin-left: 5px;
-                font-size: 12px;
+    .smmd-side-item{
+        text-align: right;
+        padding-top: 5px;
+        a {
+            display: inline-block;
+            color: var(--main-font);
+            position: relative;
+            &::after {
+                position: relative;
+                display: block;
+                content: "";
+                top: 0;
+                left: 0;
+                width: 0;
+                height: 1px;
+                background-color: var(--main-font);
+                transform: translateY(4px);
+                transition: all 0.3s ease 0s;
+            }
+        
+            &:hover::after {
+                width: 100%;
             }
         }
     }
-    .logout-wrapper {
-        @include smmd{
-            font-size: 12px;
-        }
-        a {
-            color: var(--main-font);
-        }
-    }
-    a {
-        @include smmd{
-            font-size: 12px;
-        }
+    .smmd-side-title{
         color: var(--main-font);
-        &:hover{
-            text-decoration: underline;
-        }
+        padding-top: 25px;
+        font-weight: 700;
     }
 }
-
-.upload-link-wrapper{
-    display: flex;
+.content {
     width: 100%;
-    a {
-        color: var(--main-font);
-        &:hover{
-            text-decoration: underline;
-        } 
-    }
-    @include smmd{
-        justify-content: center;
-        line-height: 45px;
-        height: 45px;
-        font-size: 14px;
-    }
-    @include lgxl{
-        padding: 0px 20px;
-        justify-content: left;
-        line-height: 46px;
-        font-size: 14px;
-    }
-    
 }
-
-.register-wrapper {
-    display: flex;
-    justify-content: center;
-    line-height: 46px;
-    a {
-        color: var(--main-font);
-    }
-}
-
 
 .top-button {
     position: fixed;
@@ -316,7 +109,6 @@
 }
 .top-button-visible {
     opacity: 1;
-
 }
 .dark-switch {
     position: fixed;
@@ -331,14 +123,6 @@
     transition: 0.3s ease 0s;
     svg {
         fill: var(--bbsub-font);
-    }
-}
-.lheader{
-    box-sizing: border-box;
-    padding: 0 8px;
-    padding-top: 8px;
-    >div{
-        @include panel-common;
     }
 }
 .lfooter{
