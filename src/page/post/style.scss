@@ -161,6 +161,8 @@
 
         }
         @include mdlg {
+            display: flex;
+            flex-direction: column-reverse;
             padding-left: 50px;
             padding-right: 50px;
             .tocwrapper{
@@ -173,6 +175,7 @@
             width: 100%;
             .postinnercontent{
                 flex: 0 0 1000px;
+                padding: 0 40px;
             }
             .tocwrapper{
                 padding-top: 15px;

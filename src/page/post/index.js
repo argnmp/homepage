@@ -67,13 +67,13 @@ export const Post = () => {
                     </div>
                 </div>
                 <div className="postcontent">
-                    <div className="tocwrapper">
-                        <Toc/>                        
-                    </div>
+                    <div className="dummywrapper"></div>
                     <div className="postinnercontent">
                         <div ref={postRef} className="markdown-body" dangerouslySetInnerHTML={{ __html: pageData.replace(/&amp;lt;/g, "<").replace(/&amp;gt;/g, ">") }}></div>
                     </div>
-                    <div className="dummywrapper"></div>
+                    <div className="tocwrapper">
+                        <Toc/>                        
+                    </div>
                 </div>
                 <Comment />
 

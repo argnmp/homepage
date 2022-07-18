@@ -46,6 +46,7 @@
     .item-wrapper {
         background-color: var(--foreground-color);
         transition: all 0.2s ease-in-out;
+        word-break: break-all;
         @include smmd{
             flex: 1 1 100%;
         }

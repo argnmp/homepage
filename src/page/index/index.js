@@ -34,7 +34,7 @@ export const Index = () => {
             <div className="indexwrapper">
                 <div className="innerwrapper">
                     <div>
-                        <span>{'main.rs'}</span>
+                        <div className='title'>{'main.rs'}</div>
                         <div className="codewrapper">
                             <pre className="dummycode" dangerouslySetInnerHTML={{ __html: targetCode }}>
                             </pre>
@@ -44,7 +44,7 @@ export const Index = () => {
                         </div>
                     </div>
                     <div>
-                        <span>{'$bash'}</span>
+                        <div className='title'>{'$bash'}</div>
                         <div className="codewrapper">
                             <pre className="dummycode" ref={outputRef}>
                             </pre>
