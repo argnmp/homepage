@@ -50,11 +50,11 @@ export const Header = ({sideToggle, onSideToggle}) => {
             let lowerLevelRef = useRef();
             let tempList = [];  
             for(let k in categoryList[i]){
-                tempList.push(<div className="lowerItem"><a href={getUrl(k, categoryList[i][k], i)}>{`${k} ${categoryCount[k]!==null ? '('+categoryCount[k]+')' : ""}`}</a></div>) 
+                tempList.push(<div className="lowerItem"><div><a href={getUrl(k, categoryList[i][k], i)}>{`${k} ${categoryCount[k]!==null ? '('+categoryCount[k]+')' : ""}`}</a></div></div>) 
             }
             lowerLevel.push(<div className="sub-header" 
                     onMouseEnter={() => {
-                        lowerLevelRef.current.style.height = "20px";
+                        lowerLevelRef.current.style.height = "40px";
                     }}
                     onMouseLeave={() => {
                         lowerLevelRef.current.style.height = "0px";
@@ -65,7 +65,7 @@ export const Header = ({sideToggle, onSideToggle}) => {
 
             upperLevel.push(<div className="upperItem" 
             onMouseEnter={(e) => {
-                lowerLevelRef.current.style.height = "20px";
+                lowerLevelRef.current.style.height = "40px";
             }}
             onMouseLeave={() => {
                 lowerLevelRef.current.style.height = "0px";
