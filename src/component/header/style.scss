@@ -7,6 +7,23 @@
         padding: 14px 0 !important;
         border-bottom: 1px solid var(--border-color);
     }
+    .main-header {
+        .burger-btn, .burger-btn::after, .burger-btn::before {
+            background-color: var(--highlight-font);
+        }
+        .logo-wrapper > a {
+            color: var(--highlight-font);
+            &::after{
+                background-color: var(--highlight-font);
+            }
+        }
+        .user-item > a {
+            color: var(--highlight-font) !important;
+            &::after{
+                background-color: var(--highlight-font) !important;
+            }
+        }
+    }
     .main-header-items {
         display: none !important;
     } 
@@ -25,7 +42,7 @@
             display: none;
         }
     }
-
+    
 }
 @include mdlg {
     .lheader {
