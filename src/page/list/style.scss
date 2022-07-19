@@ -51,31 +51,10 @@
             flex: 1 1 100%;
         }
         @include mdlg{
-            &:nth-child(3n) {
-                flex: 4 1 40%;
-            }
-        
-            &:nth-child(3n+1) {
-                flex: 1 1 40%;
-            }
-        
-            &:nth-child(3n+2) {
-                flex: 3 1 40%;
-            }
+            flex: 1 1 40%;
         }
         @include lgxl{
-            &:nth-child(3n) {
-                flex: 4 1 40%;
-            }
-        
-            &:nth-child(3n+1) {
-                flex: 1 1 40%;
-            }
-        
-            &:nth-child(3n+2) {
-                flex: 3 1 40%;
-            }
-
+            flex: 1 1 30%;
         }
         margin: 5px;
         padding: 15px;
@@ -87,11 +66,8 @@
             .title {
                 font-size: 1.3rem;
                 color: var(--main-font);
-                font-weight: 500;
-
-                &:hover {
-                    text-decoration: underline;
-                }
+                font-weight: 800;
+                transition: all 0.2s ease-in-out;
             }
         }
 
@@ -112,13 +88,20 @@
                 color: var(--sub-font);
                 font-size: 14px;
             }
+            .view{
+                float: right;
+            }
         }
         &:hover {
-            border-color: var(--border-color);
+            cursor: pointer;
         }
         @for $i from 1 through 20 {
             &:nth-child(#{$i}):hover {
                 border-color: var(--random-front-color-#{($i+3)%8});
+                .title {
+                    color: var(--random-front-color-#{($i+3)%8});
+                }
+                
             }
         }
     }

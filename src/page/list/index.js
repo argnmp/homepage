@@ -18,11 +18,11 @@ const Pagination = ({startPage, endPage, currentPage, currentUri}) => {
         </ul>
     )
 }
-const Item = ({uri,title, author, date, preview}) => {
+const Item = ({uri,title, author, date, preview, view}) => {
     return (
-        <div className="item-wrapper">
+        <div className="item-wrapper" onClick={()=>{location.href = `/post/${uri}`}}>
             <div className="title-wrapper">
-                <a href={`/post/${uri}`}><span className="title">{title}</span></a>
+                <span className="title">{title}</span>
             </div>
             <div className="preview-wrapper">
                 {preview}
@@ -31,6 +31,7 @@ const Item = ({uri,title, author, date, preview}) => {
                 <span className="author">{author}</span>
                 <span className="bar">|</span>
                 <span className="date">{date}</span>
+                <span className="view">{view} views</span>
             </div>
         </div>
     )
@@ -44,7 +45,7 @@ export const List = () => {
         let k = 0;
         
         for(let i of list){
-            result.push(<Item key={k} uri={i.uri} title={i.title} author={'author' in i  ? i.author.name : 'undefined'} date={moment(i.uploadDate).format('YYYY-MM-DD hh:mm:ss')} preview={i.preview.replace(/&lt;/g,"<").replace(/&gt;/g,">")}/>);
+            result.push(<Item key={k} view={i.view} uri={i.uri} title={i.title} author={'author' in i  ? i.author.name : 'undefined'} date={moment(i.uploadDate).format('YYYY-MM-DD hh:mm:ss')} preview={i.preview.replace(/&lt;/g,"<").replace(/&gt;/g,">")}/>);
             k++;
         }
         return result;
