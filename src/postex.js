@@ -50,23 +50,68 @@ public class Application {
 </blockquote>
 <h3 id="hid컨트롤러-작성">컨트롤러 작성</h3>
 <p><code>com.kimtahen.springboot.web</code> 하위의 HelloController Class</p>
-<pre><code class="language-java">package com.kimtahen.springboot.web;
-import com.kimtahen.springboot.web.dto.HelloResponseDto;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+<pre><code class="language-cpp">
+#include <bits/stdc++.h>
+using namespace std;
 
-@RestController
-public class HelloController {
-    @GetMapping(&quot;/hello&quot;)
-    public String hello(){
-        return &quot;hello&quot;;
-    }
+#define MAX 1001
 
-    @GetMapping(&quot;/hello/dto&quot;)
-    public HelloResponseDto helloDto(@RequestParam(&quot;name&quot;) String name, @RequestParam(&quot;amount&quot;) int amount){
-        return new HelloResponseDto(name, amount);
+int n, m, k;
+int board[MAX][MAX] = {0,};
+int visited[11][MAX][MAX] = {0,};
+int min_dist[MAX][MAX] = {0,};
+
+int dx[4] = {0,1,-1,0};
+int dy[4] = {1,0,0,-1};
+
+bool isIn(int x, int y){
+    return 1<=x && x<=n && 1<=y && y<=m;
+}
+
+void bfs(){
+    memset(min_dist, -1, sizeof(min_dist));
+    //{block,{x,y}}
+    queue<pair<int,pair<int,int>>> q; 
+    visited[0][1][1] = 1;
+    min_dist[1][1] = 0;
+    q.push({0,{1,1}});
+    while(!q.empty()){
+        int x = q.front().second.first;
+        int y = q.front().second.second;
+        int block = q.front().first;
+        q.pop();
+        if(x==n && y==m) break;
+        for(int i = 0; i<4; i++){
+            int nx = dx[i] + x;
+            int ny = dy[i] + y;
+            if(isIn(nx,ny)){
+                if((board[x][y]==1 && visited[block-1][nx][ny]==0 && visited[block][nx][ny]==0) || (board[x][y]==0 && visited[block][nx][ny]==0)){
+                    visited[block][nx][ny] = 1;
+                    if(board[nx][ny]==0){
+                        visited[block][nx][ny] = 1;
+                        q.push({block,{nx, ny}});
+                    }
+                    else if(board[nx][ny]==1 && block < k){
+                        visited[block+1][nx][ny] = 1;
+                        q.push({block +1, {nx, ny}});
+                    }
+                    min_dist[nx][ny] = min_dist[x][y] + 1;
+                }
+            }
+        }
     }
+}
+int main(){
+    scanf("%d %d %d",&n,&m,&k);
+    // {1,1} ~ {n,m}
+    for(int i = 1; i<=n; i++){
+        for(int j = 1; j<=m; j++){
+            scanf("%1d",&board[i][j]);
+        }
+    }
+    bfs();
+    if(min_dist[n][m]==-1) printf("-1");
+    else printf("%d",min_dist[n][m]+1);
 }
 </code></pre>
 <ul>
