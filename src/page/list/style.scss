@@ -22,7 +22,6 @@
 .index-wrapper{
     display: flex;
     justify-content: space-between;
-    padding-bottom: 5px;
     padding: 0px 5px;
     color: var(--main-font);
     .category{
@@ -44,6 +43,9 @@
     flex-wrap: wrap;
     box-sizing: border-box;
     .item-wrapper {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         background-color: var(--foreground-color);
         transition: all 0.2s ease-in-out;
         word-break: break-all;
@@ -117,6 +119,7 @@
     display: flex;
     justify-content: center;
     width: 100%;
+    padding-top: 10px;
     padding-bottom: 20px;
     a {
         color: var(--sub-font);

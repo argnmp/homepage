@@ -50,7 +50,7 @@ export const Header = ({sideToggle, onSideToggle}) => {
             let lowerLevelRef = useRef();
             let tempList = [];  
             for(let k in categoryList[i]){
-                tempList.push(<div className="lowerItem"><div><a href={getUrl(k, categoryList[i][k], i)}>{`${k} ${(categoryList[i][k] && (categoryCount[k]!==null)) ? '('+categoryCount[k]+')' : ""}`}</a></div></div>) 
+                tempList.push(<div className="lowerItem"><div><a href={getUrl(k, categoryList[i][k], i)}>{`${k}${(categoryList[i][k] && (categoryCount[k]!==null)) ? '('+categoryCount[k]+')' : ""}`}</a></div></div>) 
             }
             lowerLevel.push(<div className="sub-header" 
                     onMouseEnter={() => {
@@ -71,10 +71,10 @@ export const Header = ({sideToggle, onSideToggle}) => {
                 lowerLevelRef.current.style.height = "0px";
             }} 
             
-            ><div><a href={getUrl(i, categoryList[i], null)}>{`${i} ${categoryCount[i]!==null ? '('+categoryCount[i]+')' : ""}`}</a></div></div>);
+            ><div><a href={getUrl(i, categoryList[i], null)}>{`${i}${categoryCount[i]!==null ? '('+categoryCount[i]+')' : ""}`}</a></div></div>);
         }
         else {
-            upperLevel.push(<div className="upperItem"><div><a href={getUrl(i, categoryList[i], null)}>{i} {(categoryList[i] && (categoryCount[i]!==null)) ? '('+categoryCount[i]+')' : ""}</a></div></div>);
+            upperLevel.push(<div className="upperItem"><div><a href={getUrl(i, categoryList[i], null)}>{i}{(categoryList[i] && (categoryCount[i]!==null)) ? '('+categoryCount[i]+')' : ""}</a></div></div>);
 
         }
     }

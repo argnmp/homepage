@@ -3,7 +3,7 @@
 @include smmd {
     .lheader {
         position: fixed;
-        backdrop-filter: blur(10px);
+        background-color: var(--highlight-color);
         padding: 14px 0 !important;
         border-bottom: 1px solid var(--border-color);
     }

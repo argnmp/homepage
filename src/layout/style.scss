@@ -41,8 +41,6 @@
     }
 }
 
-.top{
-}
 .smmd-side {
     z-index: 999;
     position: fixed;
@@ -53,7 +51,7 @@
     flex-direction: column;
     padding: 15px 40px;
     margin-top: 50px;
-    background-color: var(--foreground-color);
+    background-color: var(--highlight-sub-color);
     .welcome{
         text-align: right;
         color: var(--main-font);
@@ -129,7 +127,11 @@
     box-sizing: border-box;
     padding: 0 8px;
     padding-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     >div{
+        width: 100%;
         display: flex;
         justify-content: center;
         font-size: 14px;
