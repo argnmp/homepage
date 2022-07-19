@@ -51,7 +51,7 @@ export const Index = () => {
                         </div>
                     </div>
                     <div ref={embRef} style={{ display: "none" }} >
-                        <span>{'target'}</span>
+                        <span className='title'>{'target'}</span>
                         <div className='codewrapper'>
                             <div dangerouslySetInnerHTML={{ __html: pageMetadata.emb }}></div>
                         </div>

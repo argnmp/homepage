@@ -55,11 +55,17 @@
         }
         @include lgxl{
             flex: 1 1 30%;
+            &:nth-child(5n-1){
+                flex: 1 1 40%;
+            }
+            &:nth-child(5n){
+                flex: 1 1 40%;
+            }
         }
         margin: 5px;
         padding: 15px;
         border-radius: 5px; 
-        border: 2px solid transparent;
+        border: 1px solid transparent;
         .title-wrapper {
             padding-bottom: 10px;
 

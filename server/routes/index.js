@@ -104,7 +104,7 @@ router.get('/', wrapAsync(async (req,res)=>{
             )
         res.send(result);
 
-    }catch{
+    }catch (e){
         let err = new Error('Internal Server Error');
         err.status = 500;
         throw err;
