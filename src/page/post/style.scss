@@ -149,6 +149,9 @@
         @include smmd {
             padding-left: 20px;
             padding-right: 20px;
+            .postinnercontent {
+                padding-top: 20px;
+            }
             .tocwrapper{
                 display: none;
             }
@@ -157,10 +160,27 @@
         @include mdlg {
             display: flex;
             flex-direction: column-reverse;
-            padding-left: 50px;
-            padding-right: 50px;
-            .tocwrapper{
+            justify-content: center;
+            .postinnercontent{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                padding: 0 16px;
                 padding-top: 20px;
+                > div {
+                    width: 100%;
+                    max-width: 768px;
+                }
+            }
+            .tocwrapper{
+                padding: 0 16px;
+                padding-top: 20px;
+                display: flex;
+                justify-content: center;
+                .tocinnerwrapper{
+                    width: 100%;
+                    max-width: 800px;
+                }
             }
         }
         @include lgxl{
@@ -171,13 +191,17 @@
             .postinnercontent{
                 flex: 0 0 800px;
                 min-width: 800px;
-                padding: 0 40px;
+                padding: 0 16px;
+                padding-top: 20px;
             }
             .tocwrapper{
                 padding-top: 15px;
                 padding-left: 20px;
-                width: 300px;
+                width: 200px;
                 flex: 0 0 200px;
+                .tocinnerwrapper{
+                    height: 100%;
+                }
             }
             .dummywrapper{
                 flex: 0 1 200px;

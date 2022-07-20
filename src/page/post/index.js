@@ -72,7 +72,9 @@ export const Post = () => {
                         <div ref={postRef} className="markdown-body" dangerouslySetInnerHTML={{ __html: pageData.replace(/&amp;lt;/g, "<").replace(/&amp;gt;/g, ">") }}></div>
                     </div>
                     <div className="tocwrapper">
-                        <Toc/>                        
+                        <div className='tocinnerwrapper'>
+                            <Toc/>                        
+                        </div>
                     </div>
                 </div>
                 <Comment />
