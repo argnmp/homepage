@@ -52,7 +52,7 @@ export const Header = ({sideToggle, onSideToggle}) => {
             for(let k in categoryList[i]){
                 tempList.push(<div className="lowerItem"><div><a href={getUrl(k, categoryList[i][k], i)}>{`${k}${(categoryList[i][k] && (categoryCount[k]!==null)) ? '('+categoryCount[k]+')' : ""}`}</a></div></div>) 
             }
-            lowerLevel.push(<div className="sub-header-wrapper"><div className="sub-header" 
+            lowerLevel.push(<div className="sub-header" 
                     onMouseEnter={() => {
                         lowerLevelRef.current.style.height = "40px";
                     }}
@@ -61,7 +61,7 @@ export const Header = ({sideToggle, onSideToggle}) => {
                     }} 
                     ref={lowerLevelRef}
             >
-                <div className="lowerItems">{tempList}</div></div></div>);
+                <div className="lowerItems">{tempList}</div></div>);
 
             upperLevel.push(<div className="upperItem" 
             onMouseEnter={(e) => {
