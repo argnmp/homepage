@@ -3,9 +3,7 @@
    License: none (public domain)
 */
 @use './variables' as *; 
-@import url('https://rsms.me/inter/inter.css');
-//@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css);
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.5/dist/web/static/pretendard.css");
 
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
@@ -20,11 +18,11 @@ article, aside, canvas, details, embed,
 figure, figcaption, footer, header, hgroup, 
 menu, nav, output, ruby, section, summary,
 time, mark, audio, video {
-    //font-family: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif";
-    //font-family: 'Noto Sans KR', sans-serif;
-    font-family: '-apple-system', 'BlinkMacSystemFont', 'Apple SD Gothic Neo','Inter', 'Noto Sans KR', 'Segoe UI', Sans-Serif,'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-    //font-family: 'Poppins', 'Helvetica', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
-    //font-family: "Inter", "Source Sans Pro","Helvetica Neue", Arial, sans-serif;
+    font-family: 'ui-sans-serif','-apple-system','BlinkMacSystemFont',"Apple SD Gothic Neo",'Pretendard','system-ui','-system-ui',sans-serif,"Apple Color Emoji";
+    -webkit-font-smoothing: antialiased !important;    
+    text-rendering: optimizeLegibility !important;
+    text-size-adjust: 100% !important;
+    font-feature-settings: "calt";
 	margin: 0;
 	padding: 0;
 	border: 0;

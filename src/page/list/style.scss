@@ -49,6 +49,7 @@
         background-color: var(--foreground-color);
         transition: all 0.2s ease-in-out;
         word-break: break-all;
+        line-height: 1.6;
         @include smmd{
             flex: 1 1 100%;
         }
@@ -80,7 +81,7 @@
         }
 
         .preview-wrapper {
-            color: var(--bsub-font);
+            color: var(--bbsub-font);
             font-size: 14px;
             display: -webkit-box;
             -webkit-box-orient: vertical;
@@ -93,7 +94,7 @@
 
             span {
                 margin-right: 5px;
-                color: var(--sub-font);
+                color: var(--bsub-font);
                 font-size: 14px;
             }
             .view{
