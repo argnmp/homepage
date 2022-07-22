@@ -28,10 +28,12 @@ const Item = ({uri,title, author, date, preview, view}) => {
                 {preview}
             </div>
             <div className="info-wrapper">
-                <span className="author">{author}</span>
-                <span className="bar">|</span>
-                <span className="date">{date}</span>
-                <span className="view">{view} views</span>
+                <div>
+                    <span className="author">{author}</span>
+                    <span className="bar">|</span>
+                    <span className="date">{date}</span>
+                </div>
+                <div className="view">{view} views</div>
             </div>
         </div>
     )

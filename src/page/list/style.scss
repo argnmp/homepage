@@ -21,17 +21,35 @@
 }
 .index-wrapper{
     display: flex;
-    justify-content: space-between;
     padding: 0px 5px;
     color: var(--main-font);
+    @include smmd {
+        justify-content: space-between;
+        .post{
+            margin-bottom: 2px;
+        }
+    }
+    @include mdlg {
+        .post{
+            margin-bottom: 7px;
+        }
+    }
+    @include lgxl {
+        .post{
+            margin-bottom: 7px;
+        }
+
+    }
     .category{
         font-size: 2.5rem;
         font-weight: 800;
         @include smmd{
             font-size: 1.8rem;
         }
+        margin-right: 15px;
     }
     .post{
+        color: var(--bsub-font);
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
@@ -57,17 +75,21 @@
             flex: 1 1 40%;
         }
         @include lgxl{
-            flex: 1 1 30%;
+            flex: 0 1 320px;
+            .title {
+                white-space: nowrap;
+            }
+            /*
             &:nth-child(5n-1){
                 flex: 1 1 40%;
             }
             &:nth-child(5n){
                 flex: 1 1 40%;
             }
+            */
         }
         margin: 5px;
-        padding: 15px;
-        border-radius: 5px; 
+        padding: 10px 20px;
         border: 1px solid transparent;
         .title-wrapper {
             padding-bottom: 10px;
@@ -91,8 +113,10 @@
 
         .info-wrapper {
             padding-top: 10px;
-
-            span {
+            display: flex;
+            justify-content: space-between;
+            span, div{
+                display: inline-block;
                 margin-right: 5px;
                 color: var(--bsub-font);
                 font-size: 14px;
