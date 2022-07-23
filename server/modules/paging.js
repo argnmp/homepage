@@ -1,5 +1,5 @@
 const paging = (page, totalPost) => {
-    const maxPost = 10;
+    const maxPost = 12;
     const maxPage = 10;
     let currentPage = page ? parseInt(page) : 1;
     const totalPage = Math.ceil(totalPost/maxPost);
