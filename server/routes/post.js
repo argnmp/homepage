@@ -137,16 +137,19 @@ router.post('/', wrapAsync(async(req,res)=>{
                 preview = preview.replace(/\r?\n|\r/g, " ");
                 preview = preview.substr(0,300);
 
+                let uploadDate = req.body.uploadDate;
+
                 imageStateChangeAndDelete(data);
 
                 const result = await Post.updateOne({uri: query.uri},{
-                    uri: uri,
-                    title: title,
-                    mdData: mdData,
-                    data: data,
-                    category: category,
-                    view: view,
-                    preview: preview,
+                    uri,
+                    title,
+                    mdData,
+                    data,
+                    category,
+                    view,
+                    preview,
+                    uploadDate,
                 });
                 await categoryCountUpdater(app);
                 res.status(201).json({
