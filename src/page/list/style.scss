@@ -65,6 +65,7 @@
         flex-direction: column;
         justify-content: space-between;
         background-color: var(--foreground-color);
+        border-radius: 2px;
         transition: all 0.2s ease-in-out;
         word-break: break-all;
         line-height: 1.6;
@@ -75,7 +76,8 @@
             flex: 1 1 40%;
         }
         @include lgxl{
-            flex: 0 1 320px;
+            flex: 1 1 40%;
+            //flex: 0 1 320px;
             .title {
                 white-space: nowrap;
             }
