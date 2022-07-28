@@ -12,7 +12,7 @@ const User = ()=>{
             {user.isLogined ?
                 [<div key={1} className="user-item user-name">{user.name}</div>,
                     <div key={2} className="user-item user-item-upload"><a href="/upload">upload</a></div>,
-                    <div key={2} className="user-item"><a href="/api/logout">logout</a></div>] :
+                    <div key={3} className="user-item"><a href="/api/logout">logout</a></div>] :
                 <div className='user-item'>
                     <a href="/api/login">login</a>
                 </div>

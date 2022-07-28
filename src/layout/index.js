@@ -81,7 +81,6 @@ export const Layout = ({children, isToc = false}) => {
 
     const [sideToggle, setSideToggle] = useState(false);
     let onSideToggle = () => {
-        console.log("clicked");
         setSideToggle(!sideToggle);
     };
 

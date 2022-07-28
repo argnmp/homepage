@@ -157,7 +157,7 @@
         justify-content: center;
         max-width: 600px;
         .upperItem {
-            margin: 0 5px;
+            margin: 0 2px;
             font-size: 1.3rem;
             font-weight: 800;
             overflow-x: hidden;
@@ -169,7 +169,6 @@
             >div{
                 position: relative;
                 border: 1px solid var(--main-font);
-                border-radius: 2px;
                 padding: 0px 5px;
                 a {
                     color: var(--main-font);
@@ -219,7 +218,7 @@
     flex-wrap: wrap;
     line-height: 20px;
     .lowerItem {
-        margin: 0 5px;
+        margin: 0 2px;
         font-size: 0.9rem;
         font-weight: 800;
         transition: all 0.25s ease-in-out;
