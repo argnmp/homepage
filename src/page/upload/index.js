@@ -150,7 +150,7 @@ export const Upload = () => {
             </div>
             <div className="input-panel">
                 <div className="inner">
-                    <textarea className="postInput" onChange={(e)=>{setPostData(e.target.value);  bottomAnchor(outputPanelRef, e); console.log(e.target.selectionStart, e.target.selectionEnd, e.target.value.length)}} ref={inputPanelRef} defaultValue={page.currentPageData.replace(/&lt;/g,"<").replace(/&gt;/g,">")} ></textarea>
+                    <textarea className="postInput" onChange={(e)=>{setPostData(e.target.value);  bottomAnchor(outputPanelRef, e);}} ref={inputPanelRef} defaultValue={page.currentPageData.replace(/&lt;/g,"<").replace(/&gt;/g,">")} ></textarea>
                 </div>
             </div>
             <div className="output-panel">

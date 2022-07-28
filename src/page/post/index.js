@@ -54,7 +54,7 @@ export const Post = () => {
                         </div>
                         <div className="payload">
                             <span>{pageMetadata.view} views</span>
-                            <span>{moment(pageMetadata.uploadDate).format('YYYY-MM-DD hh:mm:ss')}  </span>
+                            <span>{moment(pageMetadata.uploadDate).format('YYYY-MM-DD HH:mm:ss')}  </span>
                             <span><i>posted by </i>{pageMetadata.author}</span>
                         </div>
                         {user.isLogined && user.level == 0 &&

@@ -47,7 +47,7 @@ export const List = () => {
         let k = 0;
         
         for(let i of list){
-            result.push(<Item key={k} view={i.view} uri={i.uri} title={i.title} author={'author' in i  ? i.author.name : 'undefined'} date={moment(i.uploadDate).format('YYYY-MM-DD hh:mm:ss')} preview={i.preview.replace(/&lt;/g,"<").replace(/&gt;/g,">")}/>);
+            result.push(<Item key={k} view={i.view} uri={i.uri} title={i.title} author={'author' in i  ? i.author.name : 'undefined'} date={moment(i.uploadDate).format('YYYY-MM-DD HH:mm:ss')} preview={i.preview.replace(/&lt;/g,"<").replace(/&gt;/g,">")}/>);
             k++;
         }
         return result;

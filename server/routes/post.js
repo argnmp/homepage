@@ -78,6 +78,13 @@ router.post('/', wrapAsync(async(req,res)=>{
 
                 let category = req.body.category;
                 let view = 0;
+
+                let uploadDate;
+                if(req.body.uploadDate){
+                    uploadDate = req.body.uploadDate;
+                }else{
+                    uploadDate = new Date();
+                }
     
                 let payload = new Post({
                     uri,
@@ -88,7 +95,7 @@ router.post('/', wrapAsync(async(req,res)=>{
                     data,
                     view,
                     preview,
-                    uploadDate: new Date()
+                    uploadDate
                 })  
     
                 imageStateChangeAndDelete(data);

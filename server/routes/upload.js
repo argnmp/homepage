@@ -111,7 +111,8 @@ router.get('/:uri', wrapAsync(async (req,res)=>{
             preloadedState.page.currentPageMetadata = {
                 orgTitle: query.title,
                 orgCategory: query.category,
-                orgUri: query.uri
+                orgUri: query.uri,
+                orgUploadDate: query.uploadDate,
             }
             preloadedState.category.categoryData = JSON.parse(categoryData);
             if (!req.user) {
