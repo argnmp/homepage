@@ -23,6 +23,7 @@ export let uploadPost = (payload) => {
                 title: payload.title,
                 category: payload.category,
                 data: payload.data,
+                uploadDate: payload.uploadDate,
             }
         })
     

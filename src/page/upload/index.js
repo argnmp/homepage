@@ -2,6 +2,7 @@ import React, {useState, useEffect, useRef} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {imgUpload, postUpload} from '../../modules/upload';
 import { ToastContainer, toast } from 'react-toastify';
+import moment from 'moment';
 
 import {marked} from 'marked';
 marked.setOptions({
@@ -47,13 +48,15 @@ export const Upload = () => {
     const categoryData = useSelector(state => state.category.categoryData);
     const categoryRenderer = (categoryData)=>{
         let options = []; 
+        let idx = 1;
         const taker = (list) => {
             for(let i in list){
                 if(typeof(list[i])=='object'){
                     taker(list[i]);
                 }
                 else if(list[i]===true){
-                    options.push(<option key={i}>{i}</option>);
+                    options.push(<option key={idx}>{i}</option>);
+                    idx++;
                 }
             }
         }
@@ -96,14 +99,19 @@ export const Upload = () => {
     //final upload sequence
     let titleRef = useRef();
     let categoryRef = useRef();
+    let dateRef = useRef();
+    let timeRef = useRef();
     const uploadHander = (e)=>{
         e.preventDefault();
         setButtonTarget(1);
+
+        let uploadDate = new Date(`${dateRef.current.value} ${timeRef.current.value}`);
         let payload = {
             orgUri: page.currentPageMetadata.orgUri,
             title: titleRef.current.value,
             category: categoryRef.current.value,
-            data: inputPanelRef.current.value
+            data: inputPanelRef.current.value,
+            uploadDate,
         }
         if(payload.title===""){
             toast.warn("Title is required",{theme: 'colored'});
@@ -135,16 +143,16 @@ export const Upload = () => {
         }
     },[upload.isPending]);
 
-    
-    
     return (
         <div className="upload-wrapper">
             <div className="menu-panel">
-                <div className="inner">
+                <div className="menu-inner">
                     {categoryRenderer(categoryData)}
                     <input type="text" ref={titleRef} defaultValue={page.currentPageMetadata.orgTitle} /> 
                     <input type="button" value="img" onClick={()=>{hiddenImgInput.current.click()}}/>
                     <input type="file" ref={hiddenImgInput} name="image" multiple accept="image/*" onChange={(e)=>{imageHandler(e)}} />
+                    <input type="date" ref={dateRef} defaultValue={moment(page.currentPageMetadata.orgUploadDate).format('YYYY-MM-DD')}/>
+                    <input type="time" ref={timeRef} step='1' defaultValue={moment(page.currentPageMetadata.orgUploadDate).format('HH:mm:ss')}/>
                     <input type="button" value="upload" onClick={(e)=>{uploadHander(e)}}/>
                 </div>
             </div>
