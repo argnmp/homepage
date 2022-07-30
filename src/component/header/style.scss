@@ -59,7 +59,7 @@
         justify-content: flex-start !important;
     }
     .upperItem {
-        font-size: 1.1rem !important;
+        font-size: 1.2rem !important;
         justify-content: flex-start !important;
     }
     .bg-btn {display: none !important;}
@@ -157,8 +157,8 @@
         justify-content: center;
         max-width: 600px;
         .upperItem {
-            margin: 0 2px;
-            font-size: 1.3rem;
+            margin: 0 3px;
+            font-size: 1.4rem;
             font-weight: 800;
             overflow-x: hidden;
             cursor: pointer;
@@ -168,7 +168,6 @@
             justify-content: center;
             >div{
                 position: relative;
-                border: 1px solid var(--main-font);
                 padding: 0px 5px;
                 a {
                     color: var(--main-font);
@@ -218,7 +217,7 @@
     flex-wrap: wrap;
     line-height: 20px;
     .lowerItem {
-        margin: 0 2px;
+        margin: 0 3px;
         font-size: 0.9rem;
         font-weight: 800;
         transition: all 0.25s ease-in-out;

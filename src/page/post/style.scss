@@ -24,7 +24,6 @@ $shadow: #533d4a;
         display: flex;
         justify-content: center;
         width: 100%;
-        padding-bottom: 10px;
         a {
             color: var(--highlight-font);
         }
@@ -55,6 +54,7 @@ $shadow: #533d4a;
                     font-size: 14px;
                     font-weight: 800;
                     flex-direction: column;
+                    text-shadow: $shadow 1px 1px, $shadow 2px 2px, $shadow 3px 3px, $shadow 4px 4px;
                 }
             
                 .options {
@@ -65,6 +65,7 @@ $shadow: #533d4a;
                     span {
                         margin-right: 5px;
                         cursor: pointer;
+                        text-shadow: $shadow 1px 1px, $shadow 2px 2px, $shadow 3px 3px, $shadow 4px 4px;
                         a {
                             color: var(--highlight-sub-font);
                         }
@@ -74,11 +75,11 @@ $shadow: #533d4a;
             }
         }
         @include mdlg{
-            height: 300px;
             .index-down {
+                display: flex;
+                flex-direction: column;
                 width: 100%;
-                padding: 0 30px;
-                margin: auto 0;
+                padding: 30px 30px;
                 .index-category{
                     text-align: right;
                     font-size: 1.2rem;
@@ -100,6 +101,9 @@ $shadow: #533d4a;
                     font-size: 1rem;
                     font-weight: 800;
                     flex-direction: column;
+                    span {
+                        text-shadow: $shadow 1px 1px, $shadow 2px 2px, $shadow 3px 3px, $shadow 4px 4px;
+                    }
                 }
                 .options{
                     text-align: left;
@@ -109,6 +113,7 @@ $shadow: #533d4a;
                     span {
                         padding-right: 5px;
                         cursor: pointer;
+                        text-shadow: $shadow 1px 1px, $shadow 2px 2px, $shadow 3px 3px, $shadow 4px 4px;
                         a {
                             color: var(--highlight-sub-font);
                         }
@@ -164,6 +169,7 @@ $shadow: #533d4a;
                     span {
                         padding-right: 11px;
                         transform: skew(-10deg);
+                        text-shadow: $shadow 1px 1px, $shadow 2px 2px, $shadow 3px 3px, $shadow 4px 4px;
                     }
                 }
                 .options{
@@ -182,6 +188,7 @@ $shadow: #533d4a;
                     span {
                         transform: skew(-10deg);
                         padding-left: 5px;
+                        text-shadow: $shadow 1px 1px, $shadow 2px 2px, $shadow 3px 3px, $shadow 4px 4px;
                         a {
                             color: var(--highlight-sub-font);
                         }
