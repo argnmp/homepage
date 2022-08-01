@@ -43,7 +43,9 @@
 .comment-item-wrapper {
     transition: all 0.3s ease 0s;
     color: var(--main-font);
-    padding: 15px 0;
+    margin: 15px 0;
+    border-left: 3px solid var(--highlight-color);
+    padding-left: 5px;
     span {
         font-size: 14px;
         display: block;

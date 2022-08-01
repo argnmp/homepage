@@ -1,9 +1,11 @@
 @use '../../styles/mixin' as *;
+
 .logo-wrapper{
     display: flex;
     width: 200px;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
     > a {
         position: absolute;
         text-decoration: none;
@@ -29,4 +31,29 @@
     
 }
 
+@include smmd {
+    .notsmmd {
+        display: none;
+    }
+    .smmd{
+        display: inline;
+    }
+}
+@include mdlg {
+    .notsmmd {
+        display: inline;
+    }
+    .smmd{
+        display: none;
+    }
 
+}
+@include lgxl {
+    .notsmmd {
+        display: inline;
+    }
+    .smmd{
+        display: none;
+    }
+
+}

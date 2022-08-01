@@ -103,7 +103,7 @@ const CommentRequest = ({ depth, parentCommentId, author}) => {
 const Item = ({commentId, index, data, author, uploadDate, editDate, depth}) => {
     const user = useSelector(state => state.user);
     return (
-        <div key={index} className="comment-item-wrapper" style={{paddingLeft: `${40*(depth-1)}px`}}>
+        <div key={index} className="comment-item-wrapper" style={{marginLeft: `${40*(depth-1)}px`}}>
             <div>
             <span className="author">{author.name}</span>
             <span className="uploadDate"><i>{uploadDate} {editDate==null ? '' : `| 수정: ${moment(editDate).format('YYYY-MM-DD hh:mm:ss')}`}</i></span>

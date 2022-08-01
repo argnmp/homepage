@@ -4,7 +4,8 @@ import './style.scss';
 export const Logo = () => {
     return (
         <div className="logo-wrapper">
-            <a href="/">[ kimtahendotcomputer ]</a>
+            <a className="notsmmd" href="/">[ kimtahendotcomputer ]</a>
+            <a className="smmd" href="/">[ kimtahen.com ]</a>
         </div>
            ) 
 }
