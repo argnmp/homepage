@@ -5,6 +5,7 @@ import {Comment} from '../../component/comment';
 import moment from 'moment';
 import { postDelete } from '../../modules/common';
 import { Toc } from '../../component/toc';
+import { Category } from '../../component/category';
 
 import './style.scss';
 

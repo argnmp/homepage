@@ -7,27 +7,42 @@
     margin: 5px 0;
     padding-left: 5px;
     position: sticky;
-    position: -webkit-sticky;
+    position: --webkit-sticky;
     top: 30px;
     font-size: 14px;
+    word-break: break-all;
     a{
-        color: var(--main-font);
+        padding: 3px 0px;
+        display: inline-block;
+        color: var(--sub-font);
+        margin-left: 1px;
+        border-left: 1px solid var(--sub-font);
+        
         &:hover {
-            color: var(--highlight-color);
+            color: var(--main-font);
         }
     }
     .active > a{
-        color: var(--highlight-color);
-        font-weight: 700;
+        margin-left: 0px;
+        color: var(--main-font);
+        border-left: 3px solid var(--main-font);
     }
 
     > ul{
-        >li > ul{
-            padding-left: 15px;
+        >li > a{
+            padding-left: 5px;
+        }
+        >li > ul {
+            >li > a {
+                padding-left: 20px;
+
+            }
             >li > ul{
-                padding-left: 15px;
+                >li > a{
+                    padding-left: 35px;
+
+                }
             }
         }
     }
-    border-left: 3px solid var(--highlight-color); 
 }

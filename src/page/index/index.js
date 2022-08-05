@@ -31,34 +31,60 @@ export const Index = () => {
     }
     return (
         <Layout>
-            <div className="indexwrapper">
-                <div className="innerwrapper">
-                    <div>
-                        <div className='title'>{'main.rs'}</div>
-                        <div className="codewrapper">
-                            <pre className="dummycode" dangerouslySetInnerHTML={{ __html: targetCode }}>
-                            </pre>
-                            <div>
-                                <input type="button" value="EXECUTE" onClick={onExecute} ref={buttonRef} />
+            <>
+                <div className="indexwrapper">
+                    <div className="innerwrapper">
+                        <div className='item'>
+                            <div className="item-header">
+                                <div className='title'>{'main.rs'}</div>
+                                <div className='icons'>
+                                    <div className='circle'></div>
+                                    <div className='circle'></div>
+                                    <div className='circle'></div>
+                                </div>
+                            </div>
+                            <div className="codewrapper">
+                                <pre className="dummycode" dangerouslySetInnerHTML={{ __html: targetCode }}>
+                                </pre>
+                                <div>
+                                    <input type="button" value="EXECUTE" onClick={onExecute} ref={buttonRef} />
+                                </div>
+                            </div>
+                        </div>
+                        <div className='dummydiv'></div>
+                        <div className='item'>
+                            <div className="item-header">
+                                <div className='title'>{'bash'}</div>
+                                <div className='icons'>
+                                    <div className='circle'></div>
+                                    <div className='circle'></div>
+                                    <div className='circle'></div>
+                                </div>
+                            </div>
+                            <div className="codewrapper">
+                                <pre className="dummycode" ref={outputRef}>
+                                </pre>
                             </div>
                         </div>
                     </div>
-                    <div>
-                        <div className='title'>{'$bash'}</div>
-                        <div className="codewrapper">
-                            <pre className="dummycode" ref={outputRef}>
-                            </pre>
+                    <div className="innerwrapper" ref={embRef} style={{ display: "none" }} >
+                        <div className='item'>
+                            <div className="item-header">
+                                <div className='title'>{'target'}</div>
+                                <div className='icons'>
+                                    <div className='circle'></div>
+                                    <div className='circle'></div>
+                                    <div className='circle'></div>
+                                </div>
+                            </div>
+                            <div className='codewrapper'>
+                                <div dangerouslySetInnerHTML={{ __html: pageMetadata.emb }}></div>
+                            </div>
                         </div>
-                    </div>
-                    <div ref={embRef} style={{ display: "none" }} >
-                        <span className='title'>{'target'}</span>
-                        <div className='codewrapper'>
-                            <div dangerouslySetInnerHTML={{ __html: pageMetadata.emb }}></div>
-                        </div>
-
                     </div>
                 </div>
-            </div>
+
+            </>
         </Layout>
-           ) 
+    )
 }

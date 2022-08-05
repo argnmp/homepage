@@ -95,10 +95,19 @@ export const Layout = ({children, isToc = false}) => {
             <div className={`smmd-side ${sideToggle ? "side-on" : "side-off"}`}>
                 {user.isLogined && <div className={`welcome`}><b>{user.name}</b>님 환영합니다.</div>}
                 {user.isLogined ? <div className={`smmd-side-item`}><a href='/upload'>upload</a></div> : <div className={`smmd-side-item`}><a href='/api/register'>register</a></div> }
-                <div className={`smmd-side-title`}>Category</div>
-                <Category/>
-                {isToc && <div className={`smmd-side-title`}>Table of Contents</div>}
-                {isToc ? <div><Toc/></div> : ''}
+                <div className='smmd-side-wrapper'>
+                    <div className='smmd-side-category-wrapper'>
+                        <div className={`smmd-side-title`}>Category</div>
+                        <Category />
+                    </div>
+                    {isToc && 
+                    <div className='smmd-side-toc-wrapper'>
+                        <div className={`smmd-side-title`}>Table of Contents</div>
+                        <div><Toc /></div>
+                    </div>
+                    }
+                    
+                </div>
             </div>
             <div className="content">
                 {children}

@@ -1,24 +1,36 @@
 @use '../../styles/variables' as * ;
 @use '../../styles/mixin' as *;
 
+//dependent
+//dependent end
 .indexwrapper {
     width: 100%;
     height: 100%;
+    padding: 10px;
+    padding-bottom: 0px;
     @include smmd {
-        padding-top: 80px;
-        padding-left: 20px;
-        padding-right: 20px;
+        padding-top: 60px;
+        padding-left: 10px;
+        padding-right: 10px;
+        .innerwrapper{
+            flex-direction: column;
+            .dummydiv{
+                display: none;
+            }
+        }
     }
     @include mdlg {
-        padding-left: 35px;
-        padding-right: 35px;
+        // padding-left: 35px;
+        // padding-right: 35px;
     }
     @include lgxl{
+        /*
         max-width: 1200px;
         padding-left: 35px;
         padding-right: 35px;
-        margin-left: auto;
-        margin-right: auto;
+        */
+        padding-left: 60px;
+        padding-right: 60px;
     }
     code {
         background: none;
@@ -26,27 +38,61 @@
 }
 .innerwrapper {
     display: flex;
-    width: 100%;
-    height:100%;
-    flex-direction: column;
-    >div{
-        .title{
-            float: left;
-            color: #00ff00;
-            font-weight: 700;
-            margin-bottom: 5px;
+    .item{
+        border: 1px solid var(--highlight-color);
+        margin-bottom: 10px;
+        flex: 1 1 100%;
+        .item-header{
+            display: flex;
+            height: 40px;
+            justify-content: space-between;
+                background-color: var(--foreground-color);
+            .title {
+                color: var(--highlight-color);
+                font-size: 16px;
+                font-weight: 700;
+                line-height: 40px;
+                margin-left: 10px;
+            }
+            .icons{
+                display: flex;
+                align-items: center;
+                margin-right: 10px;
+                .circle{
+                    &:nth-child(1){
+                        background-color: #FF605C;
+                    }
+                    &:nth-child(2){
+                        background-color: #FFBD44;
+                    }
+                    &:nth-child(3){
+                        background-color: #00CA4E;
+                    }
+                    display: inline-block;
+                    width: 16px;
+                    height: 16px;
+                    margin-left: 8px;
+                    border-radius: 8px;
+                }
+            }
+
         }
+    }
+    .dummydiv{
+        flex: 0 0 10px;
+        padding: 0px;
     }
 }
 .codewrapper {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px; 
-    padding: 10px;
-    border: 1px solid var(--border-color);
+    padding: 20px;
+    padding-top: 0px;
     width: 100%;
+    border-top: 1px solid var(--highlight-color);
     > div{
         >input {
+            margin-top: 5px;
             height: 20px;
             color: var(--main-font);
             background-color: var(--foreground-color);
@@ -68,10 +114,14 @@
             border: 1px solid var(--border-color);
             border-radius: 2px;
             background-color: var(--highlight-color);
+            color: var(--highlight-font);
         }
     } 
 }
 .dummycode{
+    border: 1px solid var(--highlight-color);
+    border-top: 0px;
+    padding: 20px;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     white-space: pre-wrap;
     display: inline-block;

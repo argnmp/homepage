@@ -5,13 +5,12 @@
     width: 200px;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     > a {
         position: absolute;
         text-decoration: none;
-        font-size: 1.1rem;
-        font-weight: 800;
-        color: var(--bbsub-font);
+        font-size: 16px;
+        color: var(--main-font);
         &::after{
             position: relative;
             display: block;
@@ -20,7 +19,7 @@
             left: 0;
             width: 0;
             height: 1px;
-            background-color: var(--bbsub-font);
+            background-color: var(--main-font);
             transform: translateY(4px);
             transition: all 0.3s ease 0s;
         }
@@ -32,6 +31,15 @@
 }
 
 @include smmd {
+    .logo-wrapper{
+        align-items: center;
+    }
+    .logo-wrapper > a {
+        color: var(--highlight-font);
+        &::after{
+            background-color: var(--highlight-font);
+        }
+    }
     .notsmmd {
         display: none;
     }

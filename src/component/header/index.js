@@ -54,7 +54,7 @@ export const Header = ({sideToggle, onSideToggle}) => {
             }
             lowerLevel.push(<div className="sub-header" 
                     onMouseEnter={() => {
-                        lowerLevelRef.current.style.height = "40px";
+                        lowerLevelRef.current.style.height = "46px";
                     }}
                     onMouseLeave={() => {
                         lowerLevelRef.current.style.height = "0px";
@@ -65,16 +65,16 @@ export const Header = ({sideToggle, onSideToggle}) => {
 
             upperLevel.push(<div className="upperItem" 
             onMouseEnter={(e) => {
-                lowerLevelRef.current.style.height = "40px";
+                lowerLevelRef.current.style.height = "46px";
             }}
             onMouseLeave={() => {
                 lowerLevelRef.current.style.height = "0px";
             }} 
             
-            ><div><a href={getUrl(i, categoryList[i], null)}>{`${i}${categoryCount[i]!==null ? '('+categoryCount[i]+')' : ""}`}</a></div></div>);
+            ><div><a href={getUrl(i, categoryList[i], null)}>{`${i.substring(0,1).toUpperCase()+i.substring(1,i.length)}${categoryCount[i]!==null ? '('+categoryCount[i]+')' : ""}`}</a></div></div>);
         }
         else {
-            upperLevel.push(<div className="upperItem"><div><a href={getUrl(i, categoryList[i], null)}>{i}{(categoryList[i] && (categoryCount[i]!==null)) ? '('+categoryCount[i]+')' : ""}</a></div></div>);
+            upperLevel.push(<div className="upperItem"><div><a href={getUrl(i, categoryList[i], null)}>{i.substring(0,1).toUpperCase()+i.substring(1,i.length)}{(categoryList[i] && (categoryCount[i]!==null)) ? '('+categoryCount[i]+')' : ""}</a></div></div>);
 
         }
     }

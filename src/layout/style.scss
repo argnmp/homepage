@@ -44,26 +44,27 @@
     z-index: 999;
     position: fixed;
     overflow: hidden;
-    text-overflow: hidden;
+    //overflow-y: auto;
     transition: all 0.3s ease 0s;
     display: flex;
     flex-direction: column;
-    padding: 15px 40px;
+    padding: 30px 20px;
     margin-top: 49px;
     background-color: var(--highlight-sub-color);
+    color: rgba(255,255,255,0.87) !important; 
+
     .welcome{
-        text-align: right;
+        text-align: center;
         color: var(--main-font);
         font-size: 1rem;
     }
     .smmd-side-item{
-        text-align: right;
+        text-align: center;
         padding-top: 5px;
         a {
             display: inline-block;
             color: var(--main-font);
             position: relative;
-            font-weight: 700;
             &::after {
                 position: relative;
                 display: block;
@@ -84,8 +85,34 @@
     }
     .smmd-side-title{
         color: var(--main-font);
-        padding-top: 25px;
+        padding-bottom: 15px;
         font-weight: 700;
+        text-decoration: underline;
+    }
+    .smmd-side-wrapper{
+        display: flex;
+        padding-top: 30px;
+        justify-content: center;
+        .smmd-side-category-wrapper{
+            display: flex;
+            padding: 10px 5px;
+            width: 50%;
+            flex-direction: column;
+            align-items: center;
+            border-top: 1px solid var(--header-color);
+            border-bottom: 1px solid var(--header-color);
+            margin-right: 5px;
+        }
+        .smmd-side-toc-wrapper{
+            display: flex;
+            padding: 10px 5px;
+            flex: 1 1 50%;
+            flex-direction: column;
+            align-items: center;
+            border-top: 1px solid var(--header-color);
+            border-bottom: 1px solid var(--header-color);
+            margin-left: 5px;
+        }
     }
 }
 .content {
@@ -125,8 +152,7 @@
 }
 .lfooter{
     box-sizing: border-box;
-    padding: 0 8px;
-    padding-bottom: 8px;
+    padding: 8px 8px;
     display: flex;
     flex-direction: column;
     justify-content: center;

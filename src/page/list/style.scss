@@ -92,8 +92,8 @@
         }
         margin: 5px 5px;
         padding: 25px 30px;
-        border: 1px solid var(--highlight-color);
-        border-left: 11px solid var(--highlight-color);
+        border: 1px solid var(--border-color);
+        border-left: 11px solid var(--border-color);
         padding-right: 40px;
         .title-wrapper {
             .title {
@@ -133,21 +133,16 @@
             cursor: pointer;
             border-left: 20px solid var(--highlight-color); 
             padding-right: 30px;
-            border-color: var(--highlight-sub-font);
-                
-                    .title {
-                        color: var(--highlight-sub-font);
-                    }
         }
-        // @for $i from 1 through 20 {
-        //     &:nth-child(#{$i}):hover {
-        //         border-color: var(--random-front-color-#{($i+3)%8});
-        //         .title {
-        //             color: var(--random-front-color-#{($i+3)%8});
-        //         }
+        @for $i from 1 through 20 {
+            &:nth-child(#{$i}):hover {
+                border-color: var(--random-front-color-#{($i+3)%8});
+                // .title {
+                //     color: var(--random-front-color-#{($i+3)%8});
+                // }
                 
-        //     }
-        // }
+            }
+        }
     }
 
 }

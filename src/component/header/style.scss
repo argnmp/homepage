@@ -3,19 +3,16 @@
 @include smmd {
     .lheader {
         position: fixed;
-        background-color: var(--highlight-color);
         padding: 14px 0 !important;
         border-bottom: 1px solid var(--border-color);
+        -webkit-backdrop-filter: saturate(180%) blur(15px);
+        backdrop-filter: saturate(180%) blur(15px);
+        background-color: var(--header-color);
+        //background-color: var(--highlight-opacity-color);
     }
     .main-header {
         .burger-btn, .burger-btn::after, .burger-btn::before {
             background-color: var(--highlight-font);
-        }
-        .logo-wrapper > a {
-            color: var(--highlight-font);
-            &::after{
-                background-color: var(--highlight-font);
-            }
         }
         .user-item > a {
             color: var(--highlight-font) !important;
@@ -57,10 +54,16 @@
     }
     .sub-header {
         justify-content: flex-start !important;
+        padding: 0px !important;
     }
     .upperItem {
-        font-size: 1.2rem !important;
         justify-content: flex-start !important;
+        margin: 0px !important;
+        margin-right: 10px !important;
+    }
+    .lowerItem {
+        margin: 0px !important;
+        margin-right: 10px !important;
     }
     .bg-btn {display: none !important;}
 }
@@ -92,8 +95,8 @@
 
         }
         @include mdlg {
-            padding-left: 35px;
-            padding-right: 35px;
+            padding-left: 30px;
+            padding-right: 30px;
         }
         @include lgxl{
             max-width: 1200px;
@@ -130,7 +133,8 @@
     .sub-header{
         display: flex;
         justify-content: center;
-        height: 0px;
+        height: 0;
+        padding: 0px 10%;
         transition: all 0.2s ease-in-out;
         overflow-y: hidden;
         @include smmd {
@@ -157,9 +161,8 @@
         justify-content: center;
         max-width: 600px;
         .upperItem {
-            margin: 0 2px;
-            font-size: 1.3rem;
-            font-weight: 800;
+            margin: 0 10px;
+            font-size: 16px;
             overflow-x: hidden;
             cursor: pointer;
             display: flex;
@@ -168,9 +171,9 @@
             justify-content: center;
             >div{
                 position: relative;
-                padding: 0px 5px;
                 a {
                     color: var(--main-font);
+                    font-weight: 700;
                     &::after {
                         content: "";
                         width: 100%;
@@ -194,7 +197,7 @@
             @for $i from 1 through 100 {
                 &:nth-child(#{$i}) {
                     >div{
-                        border: 1px solid var(--random-front-color-#{$i%8});
+                        //border: 1px solid var(--random-front-color-#{$i%8});
                         a {
                             color: var(--random-front-color-#{$i%8});
                         }
@@ -216,15 +219,17 @@
     display: flex;
     flex-wrap: wrap;
     line-height: 20px;
+    padding-top: 3px;
+    padding-bottom: 3px;
     .lowerItem {
-        margin: 0 3px;
-        font-size: 0.9rem;
-        font-weight: 800;
+        margin: 0 5px;
+        font-size: 14px;
         transition: all 0.25s ease-in-out;
         >div{
             position: relative;
         a {
             color: var(--bsub-font);
+            font-weight: 700;
                     &::after {
                         content: "";
                         width: 100%;
@@ -255,13 +260,11 @@
     align-items: center;
     .user-item {
         margin-left: 10px;
-        color: var(--bsub-font);
-        font-size: 1rem;
-        font-weight: 700;
+        color: var(--main-font);
+        font-size: 16px;
         >a{
-            color: var(--bsub-font);
+            color: var(--main-font);
             position: relative;
-            font-weight: 800;
             &::after {
                 position: relative;
                 display: block;
@@ -270,7 +273,7 @@
                 left: 0;
                 width: 0;
                 height: 1px;
-                background-color: var(--bsub-font);
+                background-color: var(--main-font);
                 transform: translateY(4px);
                 transition: all 0.3s ease 0s;
             }
@@ -292,7 +295,7 @@
 }
 .burger-btn{
     width: 20px;
-    height: 4px;
+    height: 1.5px;
     background: var(--bsub-font);
     transition: all .5s ease-in-out;
 } 
@@ -301,7 +304,7 @@
     content: '';
     position: absolute;
     width: 20px;
-    height: 4px;
+    height: 1.5px;
     background: var(--bsub-font);
     transition: all .5s ease-in-out;
 }
@@ -324,5 +327,5 @@
 }
 
 .panel-smmd-category-on .panel-smmd-category-off {
-    transition: left .3s;
+    transition: left .2s;
 }

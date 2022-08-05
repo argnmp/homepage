@@ -38,13 +38,53 @@ body{
     --bsub-font: rgba(0,0,0,0.60);
     --sub-font: rgba(0,0,0,0.38);
     --border-color: rgba(0,0,0,0.12);
-    --highlight-color: #32837E;
-    --highlight-sub-color: #F3EADA;
-    --highlight-font: rgba(255,255,255,0.87);
-    --highlight-sub-font: #FFA17A;
+    --highlight-color: #02343F;
+    --highlight-opacity-color: #02343f88;
+    --highlight-sub-color: #eeeeee;
+    --highlight-font: rgba(255,255,255,1);
+    --highlight-sub-font: #F0EDCC;
     --reverse-color: #121212;
     --reverse-font: rgba(255,255,255,0.87);
     --float-color: hsl(0,0%,100%);
+    --random-front-color-0: #990011;
+    --random-back-color-0: #ffffff;
+    --random-front-color-1: #12492f;
+    --random-back-color-1: #ffffff;
+    --random-front-color-2: #134e6f;
+    --random-back-color-2: #ffffff;
+    --random-front-color-3: #f7a325;
+    --random-back-color-3: #ffffff;
+    --random-front-color-4: #f56538;
+    --random-back-color-4: #ffffff;
+    --random-front-color-5: #1ac0c6;
+    --random-back-color-5: #ffffff;
+    --random-front-color-6: #8f3b76;
+    --random-back-color-6: #ffffff;
+    --random-front-color-7: #f5487f;
+    --random-back-color-7: #ffffff;
+    --shadow: rgb(12, 12, 12);
+    --header-color: rgba(0,0,0,0.38);
+    
+}
+//*/
+
+.dark-mode {
+    --background-color: #121212;
+    --foreground-color: #1e1e1e;
+    --main-font: rgba(255,255,255,0.87); 
+    --bbsub-font: rgba(255,255,255,0.70);
+    --bsub-font: rgba(255,255,255,0.60);
+    --sub-font: rgba(255,255,255,0.38);
+    --border-color: rgba(255,255,255,0.12);
+    --highlight-color: #317773;
+    --highlight-opacity-color: #31777388;
+    --highlight-sub-color: #317773;
+    //--highlight-sub-color: #275e5b;
+    --highlight-font : rgba(255,255,255,1);
+    --highlight-sub-font: #E2D0F9;
+    --reverse-color: #f7f7f7;
+    --reverse-font: rgba(0,0,0,0.87);
+    --float-color: #030d16; 
     --random-front-color-0: #88966a;
     --random-back-color-0: #ffffff;
     --random-front-color-1: #7296aa;
@@ -61,23 +101,6 @@ body{
     --random-back-color-6: #ffffff;
     --random-front-color-7: #a78d5b;
     --random-back-color-7: #ffffff;
-    
-}
-//*/
-
-.dark-mode {
-    --background-color: #121212;
-    --foreground-color: #1e1e1e;
-    --main-font: rgba(255,255,255,0.87); 
-    --bbsub-font: rgba(255,255,255,0.70);
-    --bsub-font: rgba(255,255,255,0.60);
-    --sub-font: rgba(255,255,255,0.38);
-    --border-color: rgba(255,255,255,0.12);
-    --highlight-color: #1B4983;
-    --highlight-sub-color: #002256;
-    --highlight-font : rgba(255,255,255,0.87);
-    --highlight-sub-font: #f1c83c;
-    --reverse-color: #f7f7f7;
-    --reverse-font: rgba(0,0,0,0.87);
-    --float-color: #030d16; 
+    --shadow: rgb(54, 54, 54);
+    --header-color: rgba(0,0,0,0.38);
 }
