@@ -5,7 +5,7 @@ let preloadedState = {
         categoryData: {
             categoryList: {
             "profile":false,
-            "tech documents": {
+            "documents": {
                 "cpp": true,
                 "javascript": true,
                 "nodejs": true,

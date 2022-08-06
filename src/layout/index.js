@@ -43,6 +43,7 @@ export const Layout = ({children, isToc = false}) => {
     //light == false, dark == true
     const colorState = useSelector(state => state.common.colorState);
     const darkSwitchRef = useRef();
+    const wrapRef = useRef();
 
     useEffect(()=>{
         const bgMode = window.localStorage.getItem('bgMode');
@@ -90,7 +91,7 @@ export const Layout = ({children, isToc = false}) => {
         setPanelMenuToggle(!panelMenuToggle);
     }
     return (
-        <div className="top">
+        <div className="wrap" ref={wrapRef}>
             <Header onSideToggle={onSideToggle} sideToggle={sideToggle}/>
             <div className={`smmd-side ${sideToggle ? "side-on" : "side-off"}`}>
                 {user.isLogined && <div className={`welcome`}><b>{user.name}</b>님 환영합니다.</div>}

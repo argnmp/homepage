@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {Layout} from '../../layout/index';
 import {Comment} from '../../component/comment';
@@ -67,6 +67,11 @@ export const Post = () => {
 
                     </div>
                 </div>
+                <div className="tocheader">
+                    <div className='tocheader-inner'>
+                        {common.tocheaderTitle}
+                    </div>
+                </div>
                 <div className="postcontent">
                     <div className="dummywrapper"></div>
                     <div className="postinnercontent">
@@ -74,7 +79,7 @@ export const Post = () => {
                     </div>
                     <div className="tocwrapper">
                         <div className='tocinnerwrapper'>
-                            <Toc/>                        
+                            <Toc />                        
                         </div>
                     </div>
                 </div>

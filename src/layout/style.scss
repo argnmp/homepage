@@ -1,6 +1,9 @@
 @use '../styles/mixin' as *;
 @use '../styles/variables' as *;
 
+.top {
+    height: 100%;
+}
 @include smmd{
     .side-on {
         width: 100%;
@@ -48,7 +51,7 @@
     transition: all 0.3s ease 0s;
     display: flex;
     flex-direction: column;
-    padding: 30px 20px;
+    padding: 20px 5px;
     margin-top: 49px;
     background-color: var(--highlight-sub-color);
     color: rgba(255,255,255,0.87) !important; 
@@ -91,7 +94,7 @@
     }
     .smmd-side-wrapper{
         display: flex;
-        padding-top: 30px;
+        padding-top: 10px;
         justify-content: center;
         .smmd-side-category-wrapper{
             display: flex;

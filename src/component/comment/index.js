@@ -103,10 +103,10 @@ const CommentRequest = ({ depth, parentCommentId, author}) => {
 const Item = ({commentId, index, data, author, uploadDate, editDate, depth}) => {
     const user = useSelector(state => state.user);
     return (
-        <div key={index} className="comment-item-wrapper" style={{marginLeft: `${40*(depth-1)}px`}}>
+        <div key={index} className="comment-item-wrapper" style={{marginLeft: `${30*(depth-1)}px`}}>
             <div>
             <span className="author">{author.name}</span>
-            <span className="uploadDate"><i>{uploadDate} {editDate==null ? '' : `| 수정: ${moment(editDate).format('YYYY-MM-DD hh:mm:ss')}`}</i></span>
+            <span className="uploadDate"><i>{uploadDate} {editDate==null ? '' : `| 수정: ${moment(editDate).format('YYYY-MM-DD HH:mm:ss')}`}</i></span>
             <div className="data">{data}</div>
             </div>
             {user.isLogined && depth < 5 && <CommentRequest depth={depth+1} parentCommentId={commentId} author={author} orgData={data}/>}

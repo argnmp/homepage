@@ -6,11 +6,14 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    vertical-align: middle;
     > a {
         position: absolute;
         text-decoration: none;
         font-size: 16px;
+        font-weight: 700;
         color: var(--main-font);
+        
         &::after{
             position: relative;
             display: block;
@@ -26,25 +29,23 @@
         &:hover::after{
             width: 100%;
         }
+        >svg {
+            fill: var(--main-font);
+        }
     }
     
 }
 
 @include smmd {
     .logo-wrapper{
-        align-items: center;
-    }
-    .logo-wrapper > a {
-        color: var(--highlight-font);
-        &::after{
-            background-color: var(--highlight-font);
-        }
+        width: 24px;
     }
     .notsmmd {
-        display: none;
+        display: none !important;
     }
     .smmd{
-        display: inline;
+        display: flex;
+        flex-direction: column;
     }
 }
 @include mdlg {
@@ -52,7 +53,7 @@
         display: inline;
     }
     .smmd{
-        display: none;
+        display: none !important;
     }
 
 }
@@ -61,7 +62,7 @@
         display: inline;
     }
     .smmd{
-        display: none;
+        display: none !important;
     }
 
 }

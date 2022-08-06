@@ -30,16 +30,23 @@ function* postDeleteSaga(action){
 const COLOR_SWITCH = 'COLOR_SWITCH';
 export const colorSwitch = (colorState) => ({type: COLOR_SWITCH, payload: colorState});
 
+// tocheader state
+const TOCHEADER_SET = 'TOCHEADER_SET';
+export const tocheaderSet = (title) => ({type: TOCHEADER_SET, payload: title});
+
+
 
 export function* commonSaga(){
     yield takeEvery(POST_DELETE, postDeleteSaga);
 }
+
 
 const initialState = {
     colorState: false,
     isPending: false,
     isLastPostDeletionSuccess: null,
     redirectUrl: '',
+    tocheaderTitle: '',
 }
 
 const commonReducer = (state = initialState, action) => {
@@ -67,6 +74,12 @@ const commonReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLastPostDeletionSuccess: false,
+            }
+        }
+        case TOCHEADER_SET: {
+            return {
+                ...state,
+                tocheaderTitle: action.payload,
             }
         }
         default: {

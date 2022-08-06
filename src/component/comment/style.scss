@@ -38,14 +38,31 @@
         font-weight: 700;
         padding-left: 10px;
     }
+    input[type="button"]{
+        cursor: pointer;
+        transition: all 0.3s ease 0s;
+        border: 1px solid var(--highlight-color);
+        margin-right: 5px;
+        color: var(--main-font);
+        outline: none;
+        background: none;
+        font-size: 12px;
+        &:focus{
+            outline: none;
+        }
+        &:hover{
+            background-color: var(--highlight-color);
+            color: var(--highlight-font);
+            outline: none;
+        }
+        display: inline-block;
+    }
 }
 
 .comment-item-wrapper {
     transition: all 0.3s ease 0s;
     color: var(--main-font);
     margin: 15px 0;
-    border-left: 3px solid var(--highlight-color);
-    padding-left: 5px;
     span {
         font-size: 14px;
         display: block;
@@ -61,26 +78,6 @@
 
 .commentRequest-wrapper {
     padding-top: 5px;
-    input[type="button"]{
-        cursor: pointer;
-        transition: all 0.3s ease 0s;
-        border: 1px solid var(--highlight-color);
-        border-radius: 5px;
-        margin-right: 5px;
-        color: var(--main-font);
-        outline: none;
-        background: none;
-        font-size: 12px;
-        &:focus{
-            outline: none;
-        }
-        &:hover{
-            background-color: var(--highlight-color);
-            color: var(--foreground-color);
-            outline: none;
-        }
-        display: inline-block;
-    }
     .menu {
         display: flex;
     }
@@ -107,14 +104,9 @@
         >div{
             display: flex;
             justify-content: right;
-            input[type="button"]{
-                cursor: pointer;
-                margin-right: 0;
-                color: var(--main-font);
-                display: inline-block;
-                font-size: 12px;
+            > input[type=button]{
+                margin-right: 0;   
             }
-
         }
     }
 }
