@@ -189,7 +189,7 @@ const useIntersectionObserver = (setActiveId) => {
         headingElements.forEach((element) => observer.observe(element));
 
         return () => {
-            window.addEventListener('resize', handleResize);
+            window.removeEventListener('resize', handleResize);
             return observer.disconnect();
         }
     },[])
