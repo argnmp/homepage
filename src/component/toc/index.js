@@ -195,6 +195,8 @@ const useIntersectionObserver = (setActiveId) => {
     },[])
 }
 export const Toc = () => {
+    if (typeof window === 'undefined') return (<></>);
+
     const [activeId, setActiveId] = useState();
     const {nestedHeadings} = useHeadingsData();
     useIntersectionObserver(setActiveId);
