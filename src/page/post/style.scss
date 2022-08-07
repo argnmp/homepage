@@ -208,6 +208,12 @@
             }
         }
         @include mdlg{
+            top: 0px;
+            .tocheader-inner{
+                width: 800px;
+                padding: 0px 20px;
+                text-align: right;
+            }
 
         }
         @include lgxl{
