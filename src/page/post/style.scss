@@ -194,9 +194,9 @@
         justify-content: center;
         width: 100%;
         line-height: 24px;
-        background-color: var(--highlight-opacity-color);
         -webkit-backdrop-filter: saturate(180%) blur(15px);
         backdrop-filter: saturate(180%) blur(15px);
+        background-color: var(--highlight-opacity-color);
         color: var(--highlight-font);
 
         @include smmd{

@@ -45,6 +45,7 @@ export const Header = ({sideToggle, onSideToggle}) => {
         return targetUrl;
     }
 
+    let idx = 2;
     for (let i in categoryList) {
         if(typeof(categoryList[i])=='object'){
             let lowerLevelRef = useRef();
@@ -53,6 +54,7 @@ export const Header = ({sideToggle, onSideToggle}) => {
                 tempList.push(<div className="lowerItem"><div><a href={getUrl(k, categoryList[i][k], i)}>{`${k}${(categoryList[i][k] && (categoryCount[k]!==null)) ? '('+categoryCount[k]+')' : ""}`}</a></div></div>) 
             }
             lowerLevel.push(<div className="sub-header" 
+                    style={{backgroundColor: `var(--random-front-color-${idx%8})`, color: `var(--random-front-color-${idx%8})`}}
                     onMouseEnter={() => {
                         lowerLevelRef.current.style.height = "46px";
                     }}
@@ -62,6 +64,7 @@ export const Header = ({sideToggle, onSideToggle}) => {
                     ref={lowerLevelRef}
             >
                 <div className="lowerItems">{tempList}</div></div>);
+            idx += 1;
 
             upperLevel.push(<div className="upperItem" 
             onMouseEnter={(e) => {
