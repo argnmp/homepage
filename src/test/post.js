@@ -61,7 +61,7 @@ let preloadedState = {
         currentPageMetadata: {
             _id: '62393b4fb03766e4b9dcd68d',
             uri: 'decode-ways',
-            title: "새로운 블로그를 제작하게 되었습니다",
+            title: "[spring boot] @Transactional readOnly cannot resolve",
             author: "kimtahen",
             uploadDate: '2022-03-04 14:53:55',
             views: 40,
