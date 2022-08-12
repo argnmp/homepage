@@ -91,6 +91,7 @@
         padding-bottom: 15px;
         font-weight: 700;
         text-decoration: underline;
+        text-align: center;
     }
     .smmd-side-wrapper{
         display: flex;
@@ -98,22 +99,24 @@
         justify-content: center;
         .smmd-side-category-wrapper{
             display: flex;
-            padding: 10px 5px;
+            padding: 10px 0px;
+            padding-left: 20px;
             width: 50%;
             flex-direction: column;
-            align-items: center;
-            border-top: 1px solid var(--header-color);
-            border-bottom: 1px solid var(--header-color);
+            align-items: left;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
             margin-right: 5px;
         }
         .smmd-side-toc-wrapper{
             display: flex;
-            padding: 10px 5px;
+            padding: 10px 0px;
+            padding-right: 20px;
             flex: 1 1 50%;
             flex-direction: column;
-            align-items: center;
-            border-top: 1px solid var(--header-color);
-            border-bottom: 1px solid var(--header-color);
+            align-items: left;
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
             margin-left: 5px;
         }
     }

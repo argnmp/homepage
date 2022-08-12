@@ -98,7 +98,7 @@ export const Layout = ({children, isToc = false}) => {
                 {user.isLogined ? <div className={`smmd-side-item`}><a href='/upload'>upload</a></div> : <div className={`smmd-side-item`}><a href='/api/register'>register</a></div> }
                 <div className='smmd-side-wrapper'>
                     <div className='smmd-side-category-wrapper'>
-                        <div className={`smmd-side-title`}>Category</div>
+                        <div className={`smmd-side-title`}><span>Category</span></div>
                         <Category />
                     </div>
                     {isToc && 

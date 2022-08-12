@@ -16,8 +16,10 @@
     .index{
         width: 100%;
         word-break: keep-all;
-        color: var(--highlight-sub-font);
-        background-color: var(--highlight-color);
+        color: var(--highlight-color);
+        background-color: var(--foreground-color);
+        border-top: 1px solid var(--highlight-color);
+        border-bottom: 1px solid var(--highlight-color);
         display: flex;
         justify-content: center;
         width: 100%;
@@ -25,31 +27,27 @@
             color: var(--highlight-font);
         }
         @include smmd{
-            height: 280px;
             padding-top: 50px;
             .index-down {
                 width: 100%;
-                padding: 0 20px;
-                margin: auto 0;
+                padding: 20px 20px;
                 .index-category{
                     font-size: 1rem;
-                    text-shadow: var(--shadow) 1px 1px, var(--shadow) 2px 2px, var(--shadow) 3px 3px, var(--shadow) 4px 4px;
+                    color: var(--bsub-font);
                 }
                 .title {
                     font-size: 30px;
                     line-height: 40px;
                     padding: 15px 0;
                     font-weight: 700;
-                    >span {
-                        text-shadow: var(--shadow) 1px 1px, var(--shadow) 2px 2px, var(--shadow) 3px 3px, var(--shadow) 4px 4px;
-                    }
+                    color: var(--main-font);
                 }
             
                 .payload {
                     display: flex;
                     font-size: 14px;
                     flex-direction: column;
-                    text-shadow: var(--shadow) 1px 1px, var(--shadow) 2px 2px, var(--shadow) 3px 3px, var(--shadow) 4px 4px;
+                    color: var(--bsub-font);
                 }
             
                 .options {
@@ -59,9 +57,9 @@
                     span {
                         margin-right: 5px;
                         cursor: pointer;
-                        text-shadow: var(--shadow) 1px 1px, var(--shadow) 2px 2px, var(--shadow) 3px 3px, var(--shadow) 4px 4px;
+                        color: var(--bsub-font);
                         a {
-                            color: var(--highlight-sub-font);
+                            color: var(--bsub-font);
                         }
                     }
                 }
@@ -74,28 +72,29 @@
                 flex-direction: column;
                 width: 100%;
                 max-width: 830px;
-                padding: 50px 30px;
+                padding: 30px 30px;
                 .index-category{
-                    text-align: right;
+                    text-align: left;
                     font-size: 1.2rem;
-                    text-shadow: var(--shadow) 1px 1px, var(--shadow) 2px 2px, var(--shadow) 3px 3px, var(--shadow) 4px 4px;
                 }
                 .title{
                     padding: 30px 0;
-                    text-align: center;
+                    text-align: left;
                     font-size: 40px;
                     font-weight: 700;
                     line-height: 2.5rem;
                     span {
-                        text-shadow: var(--shadow) 1px 1px, var(--shadow) 2px 2px, var(--shadow) 3px 3px, var(--shadow) 4px 4px;
+                        background-color: var(--highlight-color);
+                        color: var(--highlight-font);
                     }
                 }
                 .payload{
                     display: flex;
+                    flex-direction: column;
                     font-size: 1rem;
                     span {
                         padding-right: 20px;
-                        text-shadow: var(--shadow) 1px 1px, var(--shadow) 2px 2px, var(--shadow) 3px 3px, var(--shadow) 4px 4px;
+                        color: var(--bsub-font);
                     }
                 }
                 .options{
@@ -105,9 +104,9 @@
                     span {
                         padding-right: 5px;
                         cursor: pointer;
-                        text-shadow: var(--shadow) 1px 1px, var(--shadow) 2px 2px, var(--shadow) 3px 3px, var(--shadow) 4px 4px;
+                        color: var(--bsub-font);
                         a {
-                            color: var(--highlight-sub-font);
+                            color: var(--bsub-font);
                         }
                     }
                 }
@@ -130,23 +129,25 @@
                         width: 100%;
                         float: left;
                         transform: skew(-10deg);
-                        text-shadow: var(--shadow) 1px 1px, var(--shadow) 2px 2px, var(--shadow) 3px 3px, var(--shadow) 4px 4px;
+                        color: var(--bbsub-font);
                     }
                 }
                 .title{
                     padding: 40px 0;
                     font-size: 3.2rem;
-                    line-height: 3.2rem;
+                    line-height: 3.6rem;
                     font-weight: 700;
                     text-align: center;
                     display: flex;
+                    justify-content: center;
                     transform: rotate(-10deg);
             
                     span {
-                        width: 100%;
+                        width: 500px;
                         float: left;
                         transform: skew(-10deg);
-                        text-shadow: var(--shadow) 1px 1px, var(--shadow) 2px 2px, var(--shadow) 3px 3px, var(--shadow) 4px 4px;
+                        background-color: var(--highlight-color);
+                        color: var(--highlight-font);
                     }
                 }
                 .payload{
@@ -159,7 +160,7 @@
                     span {
                         padding-right: 11px;
                         transform: skew(-10deg);
-                        text-shadow: var(--shadow) 1px 1px, var(--shadow) 2px 2px, var(--shadow) 3px 3px, var(--shadow) 4px 4px;
+                        color: var(--bsub-font);
                     }
                 }
                 .options{
@@ -174,12 +175,12 @@
                     display: flex;
                     transform: rotate(-10deg);
                     justify-content: flex-end;
+                    color: var(--bsub-font);
                     span {
                         transform: skew(-10deg);
                         padding-left: 5px;
-                        text-shadow: var(--shadow) 1px 1px, var(--shadow) 2px 2px, var(--shadow) 3px 3px, var(--shadow) 4px 4px;
                         a {
-                            color: var(--highlight-sub-font);
+                            color: var(--bsub-font);
                         }
                     }
                 }
@@ -194,9 +195,8 @@
         justify-content: center;
         width: 100%;
         line-height: 24px;
-        background-color: var(--highlight-opacity-color);
+        background-color: var(--highlight-color);
         color: var(--highlight-font);
-        font-weight: 700;
 
         @include smmd{
             padding: 0px 20px;
@@ -210,17 +210,18 @@
             top: 0px;
             .tocheader-inner{
                 width: 768px;
-                text-align: rigth;
+                text-align: right;
             }
 
         }
         @include lgxl{
-            top: 0px;
-            .tocheader-inner{
-                width: 800px;
-                padding: 0px 20px;
-                text-align: right;
-            }
+            display: none;
+            // top: 0px;
+            // .tocheader-inner{
+            //     width: 800px;
+            //     padding: 0px 20px;
+            //     text-align: right;
+            // }
 
                 
         }
