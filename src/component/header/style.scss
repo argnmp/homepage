@@ -51,8 +51,8 @@
     }
     .upperItem {
         justify-content: flex-start !important;
-        margin: 0px !important;
-        margin-right: 6px !important;
+        padding: 0px !important;
+        padding-right: 6px !important;
     }
     .lowerItem {
         margin: 0px !important;
@@ -154,7 +154,7 @@
         justify-content: center;
         max-width: 600px;
         .upperItem {
-            margin: 0 6px;
+            padding: 0 6px;
             font-size: 16px;
             overflow-x: hidden;
             cursor: pointer;
@@ -192,13 +192,13 @@
                     >div{
                         //border: 1px solid var(--random-front-color-#{$i%8});
                         a {
-                            color: var(--random-front-color-#{$i%8});
+                            color: var(--random-front-color-#{($i+2)%8});
                         }
                         a::after {
-                            background-color: var(--random-front-color-#{$i%8});
+                            background-color: var(--random-front-color-#{($i+2)%8});
                         }
                         a:hover {
-                            color: var(--random-back-color-#{$i%8});
+                            color: var(--random-back-color-#{($i+2)%8});
                         }
                     }                     
                 }
@@ -222,7 +222,7 @@
         >div{
             position: relative;
         a {
-            color: var(--highlight-font);
+            color: var(--header-font);
             font-weight: 700;
                     &::after {
                     z-index: -1;
@@ -232,7 +232,7 @@
                         bottom: 0;
                         left: 0;
                         position: absolute;
-                        background-color: var(--highlight-font);
+                        background-color: var(--header-font);
                         z-index: -1;
                         transition: all 0.2s ease-in-out;
                     }

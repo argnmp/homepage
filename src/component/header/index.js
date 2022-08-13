@@ -54,7 +54,7 @@ export const Header = ({sideToggle, onSideToggle}) => {
                 tempList.push(<div className="lowerItem"><div><a href={getUrl(k, categoryList[i][k], i)}>{`${k}${(categoryList[i][k] && (categoryCount[k]!==null)) ? '('+categoryCount[k]+')' : ""}`}</a></div></div>) 
             }
             lowerLevel.push(<div className="sub-header" 
-                    style={{backgroundColor: `var(--random-front-color-${idx%8})`, color: `var(--random-front-color-${idx%8})`}}
+                    style={{backgroundColor: `var(--random-front-color-${(idx+2)%8})`, color: `var(--random-front-color-${(idx+2)%8})`}}
                     onMouseEnter={() => {
                         lowerLevelRef.current.style.height = "46px";
                     }}

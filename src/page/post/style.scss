@@ -33,11 +33,11 @@
                 padding: 20px 20px;
                 .index-category{
                     font-size: 1rem;
-                    color: var(--bsub-font);
+                    color: var(--bbsub-font);
                 }
                 .title {
                     font-size: 30px;
-                    line-height: 40px;
+                    line-height: 30px;
                     padding: 15px 0;
                     font-weight: 700;
                     color: var(--bbsub-font);
@@ -76,16 +76,18 @@
                 .index-category{
                     text-align: left;
                     font-size: 1.2rem;
+                    span {
+                        color: var(--bbsub-font);
+                    }
                 }
                 .title{
                     padding: 30px 0;
                     text-align: left;
                     font-size: 2.5rem;
                     font-weight: 700;
-                    line-height: 3rem;
+                    line-height: 2.5rem;
                     span {
-                        background-color: var(--highlight-opacity-color);
-                        color: var(--highlight-font);
+                        color: var(--bbsub-font);
                     }
                 }
                 .payload{
@@ -145,8 +147,7 @@
                     span {
                         width: 800px;
                         transform: skew(-10deg);
-                        background-color: var(--highlight-opacity-color);
-                        color: var(--highlight-font);
+                        color: var(--bbsub-font);
                     }
                 }
                 .payload{
