@@ -139,7 +139,7 @@
             padding-right: 30px;
         }
         @include lgxl{
-            max-width: 1130px;
+            max-width: 1000px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -155,7 +155,7 @@
         max-width: 600px;
         .upperItem {
             padding: 0 6px;
-            font-size: 16px;
+            font-size: 15px;
             overflow-x: hidden;
             cursor: pointer;
             display: flex;
@@ -217,12 +217,12 @@
     z-index: 0;
     .lowerItem {
         margin: 0 3px;
-        font-size: 14px;
+        font-size: 13px;
         transition: all 0.25s ease-in-out;
         >div{
             position: relative;
         a {
-            color: var(--header-font);
+            color: var(--bbsub-font);
             font-weight: 700;
                     &::after {
                     z-index: -1;
@@ -232,13 +232,13 @@
                         bottom: 0;
                         left: 0;
                         position: absolute;
-                        background-color: var(--header-font);
+                        background-color: var(--bbsub-font);
                         z-index: -1;
                         transition: all 0.2s ease-in-out;
                     }
             
                     &:hover {
-                        color: inherit;
+                        color: var(--background-color);
                     }
                     &:hover::after{
                         height: 100%;
