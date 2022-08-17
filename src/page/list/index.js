@@ -44,13 +44,36 @@ export const List = () => {
 
     const listRenderer = (list) => {
         let result = [];
-        let k = 0;
+        let odd_result = [];
+        let even_result = [];
         
-        for(let i of list){
-            result.push(<Item key={k} view={i.view} uri={i.uri} title={i.title} author={'author' in i  ? i.author.name : 'undefined'} date={moment(i.uploadDate).format('YYYY-MM-DD HH:mm:ss')} preview={i.preview.replace(/&lt;/g,"<").replace(/&gt;/g,">")}/>);
-            k++;
-        }
-        return result;
+        list.forEach((i, idx) => {
+            result.push(<Item key={idx} view={i.view} uri={i.uri} title={i.title} author={'author' in i  ? i.author.name : 'undefined'} date={moment(i.uploadDate).format('YYYY-MM-DD HH:mm:ss')} preview={i.preview.replace(/&lt;/g,"<").replace(/&gt;/g,">")}/>);
+            if(idx%2==0){
+                odd_result.push(<Item key={idx} view={i.view} uri={i.uri} title={i.title} author={'author' in i  ? i.author.name : 'undefined'} date={moment(i.uploadDate).format('YYYY-MM-DD HH:mm:ss')} preview={i.preview.replace(/&lt;/g,"<").replace(/&gt;/g,">")}/>);
+            } 
+            else {
+                even_result.push(<Item key={idx} view={i.view} uri={i.uri} title={i.title} author={'author' in i  ? i.author.name : 'undefined'} date={moment(i.uploadDate).format('YYYY-MM-DD HH:mm:ss')} preview={i.preview.replace(/&lt;/g,"<").replace(/&gt;/g,">")}/>);
+
+            }
+        });
+        return (
+            <>
+            <div className='list-wrapper'>
+                <div className='list-column-wrapper'>
+                    {odd_result}
+                </div>
+                <div className='list-column-wrapper'>
+                    {even_result}
+                </div>
+            </div>
+            <div className='list-wrapper-smmd'>
+                <div className='list-column-wrapper'>
+                    {result}
+                </div>
+            </div>
+            </>
+            );
     }
     return (
         <Layout>
@@ -59,9 +82,7 @@ export const List = () => {
                     <span className="category">{currentCategory}</span>
                     <span className="post">{totalPost} posts</span>
                 </div>
-                <div className="list-wrapper">
-                    {listRenderer(list)} 
-                </div>
+                {listRenderer(list)} 
                 <div className="pn-wrapper">
                     <Pagination startPage={startPage} endPage={endPage} currentPage={currentPage} currentUri={currentUri}/>
                 </div>
