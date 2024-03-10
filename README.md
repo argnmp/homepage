@@ -1,5 +1,5 @@
 ## Introduction
-express.js + mongoDB + react.js(server-side-rendering) 을 활용한 개인 블로그 입니다.
+express.js + mongoDB + react.js(server-side-rendering) 을 이용해서 제작한 개인 블로그
 
 ## How to start
 
